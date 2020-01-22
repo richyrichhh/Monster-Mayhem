@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { fetchTeam, updateTeam } from 'not-made-yet';
-
-import Game from './game';
+import { fetchMonsters } from 'not-made-yet';
+import EditTeam from './edit_team';
 
 const mapStateToProps = state => ({
   loggedIn: state.session.isAuthenticated,
@@ -12,7 +12,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   updateTeam: (id) => dispatch(updateTeam(id)),
-  fetchTeam: (user_id) => dispatch(fetchTeam(user_id))
+  fetchTeam: (user_id) => dispatch(fetchTeam(user_id)),
+  fetchMonsters: () => dispatch(fetchMonsters())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Game);
+export default connect(mapStateToProps, mapDispatchToProps)(EditTeam);

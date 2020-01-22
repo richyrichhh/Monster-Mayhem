@@ -16,6 +16,7 @@ export default class EditTeam extends React.Component {
 
   componentDidMount() {
     if(_.isEmpty(this.state.team)) this.props.fetchTeam(currentUser.id).then(payload => this.setState({team: payload.team}));
+    if(_.isEmpty(this.state.monsters)) this.props.fetchMonsters().then(payload => this.setState({monsters: payload.monsters}));
   }
 
   handleSubmit() {
