@@ -26,7 +26,7 @@ export default class EditTeam extends React.Component {
 
   handleUpdate(i, prop, val) {
     let newState = Object.assign({}, this.state);
-    Object.assign(newState.team[i], {[prop]: val})
+    Object.assign(newState.team[i], {[prop]: val});
     this.setState(newState);
   }
 
@@ -35,11 +35,11 @@ export default class EditTeam extends React.Component {
     const { monsters } = this.state;
     return (
       <div id="edit-team-div">
-        {team.map(monster => {(
+        {team.map((monster, i) => {( 
           <form>
             <label>
               Monster:
-              <select className="select-monster">
+              <select id={`select-monster-${i}`} className="select-monster">
                 {monsters.map( mon => {(
                   <option value={mon.name}>{mon.name}</option>
                 )})}
@@ -48,7 +48,7 @@ export default class EditTeam extends React.Component {
 
             <label>
               Move 1:
-              <select className="pick-move-1">
+              <select id={`pick-move-1-${i}`}className="pick-move">
                 {monster.moves.map( move => {(
                   <option value={move.name}>{move.name}</option>
                 )})}
@@ -56,7 +56,7 @@ export default class EditTeam extends React.Component {
             </label>
             <label>
               Move 2:
-              <select className="pick-move-2">
+              <select id={`pick-move-2-${i}`}>
                 {monster.moves.map( move => {(
                   <option value={move.name}>{move.name}</option>
                 )})}
@@ -64,7 +64,7 @@ export default class EditTeam extends React.Component {
             </label>
             <label>
               Move 3:
-              <select className="pick-move-3">
+              <select id={`pick-move-3-${i}`}>
                 {monster.moves.map( move => {(
                   <option value={move.name}>{move.name}</option>
                 )})}
@@ -72,14 +72,14 @@ export default class EditTeam extends React.Component {
             </label>
             <label>
               Move 4:
-              <select className="pick-move-4">
+              <select id={`pick-move-3-${i}`}>
                 {monster.moves.map( move => {(
                   <option value={move.name}>{move.name}</option>
                 )})}
               </select>
             </label>
 
-            <input type="submit" value="Update Team"/>
+            <input id="edit-team-form-submit" type="submit" value="Update Team" />
           </form>
         )})}  
       </div>
