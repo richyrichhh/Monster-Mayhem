@@ -2,28 +2,18 @@ const express = require("express");
 const router = express.Router();
 const User = require("../../models/User");
 const bcrypt = require("bcryptjs");
-const keys = require("../../config/keys_dev");
-const jwt = require("jsonwebtoken");
-const passport = require("passport");
+const keys = require("../../config/keys");
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
+const validateRegisterInput = require('../../validation/register');
+const validateLoginInput = require('../../validation/login');
 
-const validateRegisterInput = require("../../validation/register");
-const validateLoginInput = require("../../validation/login");
-
-
-router.get("/test", (req, res) => {
-  res.json({ msg: "This is the user route" });
-});
-
-router.get(
-  "/current",
-  passport.authenticate('jwt', { session: false }),
-  (req, res) => {
-    res.json({
-      id: req.user.id,
-      username: req.user.username
-    });
-  }
-);
+router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+  res.json({
+    id: req.user.id,
+    username: req.user.username
+  });
+})
 
 router.post("/register", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
@@ -32,14 +22,15 @@ router.post("/register", (req, res) => {
     return res.status(400).json(errors);
   }
 
-  User.findOne({ username: req.body.username }).then(user => {
+  // Check to make sure nobody has already registered with a duplicate username
+  User.findOne({ username: req.body.username })
+  .then(user => {
     if (user) {
-      return res
-        .status(400)
-        .json({ username: "A user is already registered with that username" });
+      // Throw a 400 error if the username address already exists
+      return res.status(400).json({ username: "A user has already registered with this username" })
     } else {
+      // Otherwise create a new user
       const newUser = new User({
-        name: req.body.name,
         username: req.body.username,
         password: req.body.password
       })
@@ -50,14 +41,14 @@ router.post("/register", (req, res) => {
           newUser.password = hash;
           newUser.save()
             .then(user => res.json(user))
-            .catch(err => console.log(err))
+            .catch(err => console.log(err));
         })
       })
     }
   })
 })
 
-router.post("/login", (req, res) => {
+router.post('/login', (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
   if (!isValid) {
@@ -67,35 +58,35 @@ router.post("/login", (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
-  User.findOne({ username }).then(user => {
+  User.findOne({ username })
+  .then(user => {
     if (!user) {
-      // Use the validations to send the error
-      errors.username = "User not found";
-      return res.status(404).json({ username: "This user does not exist" });
+      return res.status(404).json({ username: 'This user does not exist' });
     }
 
-    bcrypt.compare(password, user.password).then(isMatch => {
+    bcrypt.compare(password, user.password)
+    .then(isMatch => {
       if (isMatch) {
-        const payload = {
-          id: user.id,
-          username: user.username
-        };
+        const payload = { id: user.id, username: user.username };
+
         jwt.sign(
           payload,
           keys.secretOrKey,
+          // Tell the key to expire in one hour
           { expiresIn: 3600 },
           (err, token) => {
             res.json({
               success: true,
-              token: "Bearer " + token
+              token: 'Bearer ' + token
             });
-          }
-        )
+          });
       } else {
-        return res.status(400).json({ password: "Incorrect password" });
+        return res.status(400).json({ password: 'Incorrect password' });
       }
-    });
-  });
-});
+    })
+  })
+})
+
+
 
 module.exports = router;

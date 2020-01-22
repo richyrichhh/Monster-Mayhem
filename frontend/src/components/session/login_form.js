@@ -1,13 +1,13 @@
-import React from "react";
-import { withRouter } from "react-router-dom";
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 class LoginForm extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      username: "",
-      password: "",
+      username: '',
+      password: '',
       errors: {}
     };
 
@@ -18,19 +18,18 @@ class LoginForm extends React.Component {
   // Once the user has been authenticated, redirect to the Tweets page
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentUser === true) {
-      this.props.history.push("/tweets");
+      this.props.history.push('/tweets');
     }
 
     // Set or clear errors
-    this.setState({ errors: nextProps.errors });
+    this.setState({ errors: nextProps.errors })
   }
 
   // Handle field updates (called in the render method)
   update(field) {
-    return e =>
-      this.setState({
-        [field]: e.currentTarget.value
-      });
+    return e => this.setState({
+      [field]: e.currentTarget.value
+    });
   }
 
   // Handle form submission
@@ -50,7 +49,9 @@ class LoginForm extends React.Component {
     return (
       <ul>
         {Object.keys(this.state.errors).map((error, i) => (
-          <li key={`error-${i}`}>{this.state.errors[error]}</li>
+          <li key={`error-${i}`}>
+            {this.state.errors[error]}
+          </li>
         ))}
       </ul>
     );
@@ -61,17 +62,15 @@ class LoginForm extends React.Component {
       <div>
         <form onSubmit={this.handleSubmit}>
           <div>
-            <input
-              type="text"
+            <input type="text"
               value={this.state.username}
-              onChange={this.update("username")}
+              onChange={this.update('username')}
               placeholder="Username"
             />
             <br />
-            <input
-              type="password"
+            <input type="password"
               value={this.state.password}
-              onChange={this.update("password")}
+              onChange={this.update('password')}
               placeholder="Password"
             />
             <br />
