@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { fetchTeam, updateTeam } from 'not-made-yet';
-import { fetchMonsters } from 'not-made-yet';
+import { fetchTeam, updateTeam } from '../../../actions/team';
+import { fetchMonsters } from '../../../actions/monsters';
 import EditTeam from './edit_team';
 
 const mapStateToProps = state => ({

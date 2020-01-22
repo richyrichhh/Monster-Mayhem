@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { fetchMonster, fetchMonsters, fetchTeam } from 'not-made-yet';
+import { fetchMonster, fetchMonsters } from '../../../actions/monsters';
+import { fetchTeam } from '../../../actions/team';
 
 import Game from './game';
 

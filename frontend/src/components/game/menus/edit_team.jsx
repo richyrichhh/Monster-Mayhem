@@ -35,8 +35,8 @@ export default class EditTeam extends React.Component {
   }
 
   render() {
-    const { team } = this.state;
-    const { monsters } = this.state;
+    const { team, monsters } = this.state;
+    // const { monsters } = this.state;
     return (
       <div id="edit-team-div">
         {team.map((monster, i) => {( 
