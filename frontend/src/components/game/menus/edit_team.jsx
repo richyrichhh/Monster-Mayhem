@@ -20,8 +20,12 @@ export default class EditTeam extends React.Component {
   }
 
   handleSubmit() {
-    const team = this.state.team;
-    this.props.updateTeam(team);
+    let newTeam = Object.assign({}, this.state.team);
+    for (var i of [0, 1]) {
+      newTeam[i].monster = document.getElementById(`select-monster-${i}`);
+      newTeam[i].monster.moves = [document.getElementById(`pick-move-1-${i}`), document.getElementById(`pick-move-2-${i}`), document.getElementById(`pick-move-3-${i}`), document.getElementById(`pick-move-4-${i}`)];
+    }
+    this.props.updateTeam(newTeam);
   }
 
   handleUpdate(i, prop, val) {
