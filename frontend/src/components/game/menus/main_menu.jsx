@@ -6,7 +6,7 @@ export default () => {
     <div id="main-menu-div">
       <ul id="main-menu-options">
         <li><Link to="/game/play">Fight</Link></li>
-        <li><Link to="/game/menu/team">Edit Team</Link></li>
+        <li><Link to="/game/team">Edit Team</Link></li>
       </ul>
     </div>
   )

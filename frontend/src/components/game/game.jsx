@@ -21,7 +21,7 @@ export default class Game extends React.Component {
   render() {
     return (
       <div id="game-div" height={GAME_PROPS.GAME_HEIGHT} width={GAME_PROPS.GAME_WIDTH}>
-        <Route exact path="/game/menu" component={MainMenu} />
+        <Route exact path="/game" component={MainMenu} />
         <Route path="/game/play" component={GamePlay} />
       </div>
     )
