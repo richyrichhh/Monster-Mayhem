@@ -3,12 +3,12 @@ import { getMonsters, getMonster } from '../util/monster_api_util';
 export const RECEIVE_MONSTERS = "RECEIVE_MONSTERS";
 export const RECEIVE_MONSTER = "RECEIVE_MONSTER";
 
-export const receiveMonsters = Monsters => ({
+export const receiveMonsters = monsters => ({
   type: RECEIVE_MONSTERS,
   monsters
 });
 
-export const receiveUserMonsters = Monster => ({
+export const receiveMonster = monster => ({
   type: RECEIVE_MONSTER,
   monster
 });
