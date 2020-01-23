@@ -34,6 +34,8 @@ app.use("/api/users", users)
 app.use("/api/monsters", monsters);
 app.use("/api/teams", teams);
 
+app.use(express.static(__dirname + '/public'));
+
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {console.log(`Listening on port ${port} successfully`)});

@@ -1,0 +1,74 @@
+
+
+#navbar-div {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 30vh;
+  width: 100vw;
+  background-color: white;
+  border-bottom: 1px solid #c3c3c3;
+  box-shadow: 0px 1px 2px;
+}
+
+#page-main-div {
+  margin-top: 10vh;
+  display: flex;
+}
+
+
+.slashed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-shadow: 3px 3px 3px rgba(black, 0.5);
+  
+  
+}
+
+.slashed > .top, .bot {
+  text-align: center;
+  font: 62px/100px arial;
+  text-transform: uppercase;
+  text-align: center;
+  overflow: hidden;
+  color: white;
+}
+
+.slashed > .top:before, .bot:before {
+  content: attr(title);
+  transform: rotate(5deg);
+}
+
+.slashed > .top {
+  position: absolute;
+  top: 0; 
+  left: 5px; 
+  right: 0; 
+  bottom: 50%;
+}
+
+.slashed > .top:before {
+    position: absolute; 
+    bottom: -50px;
+    left: 0; 
+    right: 0;
+  }
+
+.slashed > .bot {
+  position: absolute;
+  top: 50%; 
+  left: 0; 
+  right: 5px;
+  bottom: 0;
+}
+
+.slashed > .bot:before {
+    position: absolute;
+    top: -50px; 
+    left: 0; 
+    right: 0;
+  }
