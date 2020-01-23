@@ -53,3 +53,9 @@
   font-size: 12px;
   letter-spacing: 1px;
 }
+
+#navbar-div-inner > a:hover {
+  background-color: white;
+  border: 1px solid #c3c3c3;
+  color: #333;
+}

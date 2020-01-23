@@ -2,6 +2,7 @@
 
 
 .navbar-title {
+  cursor: default;
 	font-family: 'proxima-nova', sans-serif;
 	text-align: center;
 	color: #FFF;
@@ -21,8 +22,8 @@
 
 #navbar-h1 {
 	background-image: url(https://media.giphy.com/media/5JKfAnR6v52G4/giphy.gif);
-  background-size: 100%;
-  background-position: 25px;
+  background-size: 40%;
+  background-position: 10px -37px;
 	color: transparent;
 	-moz-background-clip: text;
 	-webkit-background-clip: text;
