@@ -7,7 +7,7 @@ const Team = require('../../models/Team');
 
 
 router.get('/user/:user_id', (req, res) => {
-    Team.findById({ move: req.params.id })
+    Team.findById(req.params.userId)
         .then(move => res.json(move))
 });
 
@@ -21,7 +21,7 @@ router.post('/',
     (req, res) => {
 
         const newTeam = new Team({
-            text: req.body.monsters,
+            team: req.body.monsters,
             user: req.user.id
         });
 
@@ -40,7 +40,6 @@ router.patch('/user/:user_id', (req, res, next) => {
         });
     }
 );
-
 
 
 module.exports = router; 
