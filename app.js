@@ -6,6 +6,8 @@ const users = require("./routes/api/users");
 const User = require("./models/User");
 const bodyParser = require('body-parser') //postman testing
 const passport = require('passport');
+const monsters = require('./routes/api/monsters');
+const teams = require('./routes/api/teams');
 
 mongoose
   .connect(db, { useNewUrlParser: true, useUnifiedTopology: true})
@@ -29,6 +31,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/users", users);
+app.use("/api/monsters", monsters);
+app.use("/api/teams", teams);
 
 const port = process.env.PORT || 5000;
 
