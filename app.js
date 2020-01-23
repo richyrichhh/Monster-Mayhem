@@ -7,6 +7,8 @@ const User = require("./models/User");
 const bodyParser = require("body-parser");
 const passport = require('passport');
 const path = require('path');
+const monsters = require('./routes/api/monsters');
+const teams = require('./routes/api/teams');
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
@@ -29,6 +31,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use("/api/users", users)
+app.use("/api/monsters", monsters);
+app.use("/api/teams", teams);
+
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => {console.log(`Listening on port ${port} successfully`)});
