@@ -33,14 +33,9 @@ class NavBar extends React.Component {
   render() {
     return (
       <div id="navbar-div">
-        <h1 id="navbar-heading" className="slashed">
-          <span className="top">
-            Monster Mayhem
-          </span>
-          <span className="bot">
-            Monster Mayhem
-          </span>
-        </h1>
+        <div class="navbar-title">
+          <h1 id="navbar-h1">Monster<br />Mayhem</h1>
+        </div>
         {this.getLinks()}
       </div>
     );
