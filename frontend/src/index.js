@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { getMonsters } from './util/monster_api_util';
 
 // We will create this component shortly
 import Root from './components/root';
@@ -48,5 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Render our root component and pass in the store as a prop
   const root = document.getElementById('root');
 
+  window.getMonsters = getMonsters;
   ReactDOM.render(<Root store={store} />, root);
 });
