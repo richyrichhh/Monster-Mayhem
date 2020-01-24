@@ -32,6 +32,7 @@ export default class Game extends React.Component {
         monsters.map(monster => {
           return(<li>
             {monster.name}
+            <img src={monster.imageUrl} style={{backgroundColor: 'black'}}/>
           </li>)
         })
         }

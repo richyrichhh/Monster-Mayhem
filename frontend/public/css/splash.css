@@ -9,8 +9,7 @@
 
 #splash-img-div > img {
   background-color: rgba(0, 0, 0, .9);
-  filter: blur(1px);
-  filter: brightness(0.4);
+  filter: brightness(0.8);
   box-sizing: border-box;
   height: 100%;
 }
