@@ -75,7 +75,9 @@ class LoginForm extends React.Component {
           </div>
           <div className="session-form-bot">
             <input type="submit" value="Submit" />
-            {this.renderErrors()}
+            <span className="session-form-errors">
+              {this.renderErrors()}
+            </span>
           </div>
         </form>
       </div>
