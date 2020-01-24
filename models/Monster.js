@@ -50,7 +50,12 @@ const MonsterSchema = new Schema({
         max: 100,
         required: true
     },
+    imageUrl: {
+        type: String,
+        required: true
+    },
     movespool: [MoveSchema]
+
 })
 
 module.exports = Monster = mongoose.model('monster', MonsterSchema);

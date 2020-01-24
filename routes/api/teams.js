@@ -8,7 +8,7 @@ const Team = require('../../models/Team');
 
 router.get('/user/:user_id', (req, res) => {
     Team.findById(req.params.userId)
-        .then(move => res.json(move))
+        .then(team => res.json(team))
 });
 
 // router.get('/user/:user_id', (req, res) => {
