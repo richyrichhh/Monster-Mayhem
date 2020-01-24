@@ -34,7 +34,7 @@ class NavBar extends React.Component {
     return (
       <div id="navbar-div">
         <div class="navbar-title">
-          <h1 id="navbar-h1">Monster<br />Mayhem</h1>
+          <Link to="/"><h1 id="navbar-h1">Monster<br />Mayhem</h1></Link>
         </div>
         {this.getLinks()}
       </div>
