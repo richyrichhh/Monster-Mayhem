@@ -9,6 +9,8 @@ const passport = require('passport');
 const path = require('path');
 const monsters = require('./routes/api/monsters');
 const teams = require('./routes/api/teams');
+const socket = require("socket.io");
+
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('frontend/build'));
@@ -30,11 +32,26 @@ require('./config/passport')(passport);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+const port = process.env.PORT || 5000;
+app.listen(port, () => {console.log(`Listening on port ${port} successfully`)});
+
+//Routes
 app.use("/api/users", users)
 app.use("/api/monsters", monsters);
 app.use("/api/teams", teams);
 
+// websocket initialization
+// const port = 8000;
+// const server = app.listen(port, function() {
+//   console.log("Listening at http://localhost: " + port);
+// });
 
-const port = process.env.PORT || 5000;
-app.listen(port, () => {console.log(`Listening on port ${port} successfully`)});
+// app.use(express.static("public"));
+
+// const sock = socket(server);
+
+// sock.on("connection", function(socket) {
+//   console.log("Made connection with socket " + socket.id);
+// })
+
 
