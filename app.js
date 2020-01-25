@@ -9,7 +9,7 @@ const passport = require('passport');
 const path = require('path');
 const monsters = require('./routes/api/monsters');
 const teams = require('./routes/api/teams');
-const socket = require("socket.io");
+
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -40,18 +40,7 @@ app.use("/api/users", users)
 app.use("/api/monsters", monsters);
 app.use("/api/teams", teams);
 
-// websocket initialization
-// const port = 8000;
-// const server = app.listen(port, function() {
-//   console.log("Listening at http://localhost: " + port);
-// });
+app.use(express.static(__dirname + '/public'));
 
-// app.use(express.static("public"));
-
-// const sock = socket(server);
-
-// sock.on("connection", function(socket) {
-//   console.log("Made connection with socket " + socket.id);
-// })
 
 

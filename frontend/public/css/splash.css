@@ -1,0 +1,36 @@
+#splash-div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#splash-img-div > img {
+  background-color: rgba(0, 0, 0, .9);
+  filter: brightness(0.8);
+  box-sizing: border-box;
+  height: 100%;
+}
+
+#splash-img-div {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+#splash-div > footer {
+  background-color: #000;
+  width: 100%;
+  height: 15vh;
+  font-family: 'proxima-nova', sans-serif;
+  letter-spacing: 1px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #444;
+}
