@@ -1,0 +1,45 @@
+
+
+
+.navbar-title {
+  cursor: default;
+	font-family: 'proxima-nova', sans-serif;
+	text-align: center;
+	color: #FFF;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+  justify-content: left;
+  letter-spacing: 1px;
+  box-sizing: border-box;
+  width: 50%;
+}
+.navbar-title > a {
+  text-decoration: none;
+  width: 100%;
+  height: 100%;
+    -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: crimson;
+}
+
+.navbar-h1 {
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: left;
+}
+
+#navbar-h1 {
+	background-image: url(https://media.giphy.com/media/5JKfAnR6v52G4/giphy.gif);
+  background-size: 40%;
+  background-position: 10px -37px;
+	color: transparent;
+	-moz-background-clip: text;
+	-webkit-background-clip: text;
+	text-transform: uppercase;
+  box-sizing: border-box;
+	font-size: 66px;
+	line-height: .75;
+  margin: 10px 0;
+  font-weight: bolder;
+}
+/* styling my button */

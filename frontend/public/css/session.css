@@ -1,0 +1,57 @@
+.session-form-div {
+  background-color: #111;
+  color: white;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10vh;
+}
+
+.session-form-div > form {
+  border: 1px solid black;
+
+  width: 15vw;
+  height: 25vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5px;
+  box-sizing: border-box;
+}
+
+.session-form-bot > input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #222;
+  height: 100%;
+
+  background-color: #222;
+  color: white;
+}
+.session-form-top > input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #333;
+  height: 25%;
+  margin-bottom: 5px;
+
+  background-color: #333;
+  color: white;
+}
+
+.session-form-top {
+  height: 80%;
+  width: 100%;
+}
+
+.session-form-bot {
+  height: 20%;
+  width: 100%;
+}
+
+.session-form-errors {
+  display: flex;
+  flex-direction: row;
+}
