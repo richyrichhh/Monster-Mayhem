@@ -1,0 +1,67 @@
+#game-page-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%
+}
+
+#game-page-background {
+    position: absolute;
+    z-index: -1;
+    background-color: rgba(0, 0, 0, .9);
+    filter: brightness(0.8);
+    box-sizing: border-box;
+    height: 100%;
+    background-position: center;
+}
+
+#game-div > h2 {
+    text-align: center;
+    color: white;
+    font-family: 'Montserrat';
+    z-index: 1;
+    margin-top: 5%;
+    font-size: x-large;
+}
+
+.monster-icon-div {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    list-style: none;
+    height: 70%;
+    width: 70%;
+    margin: auto;
+
+}
+
+.monster-element {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: black solid 2px; */
+    overflow: hidden;
+    /* height: 40%; */
+    width: 40%;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, .7);
+}
+
+.monster-element:hover {
+    background-color: rgba(99, 0, 0, .4);
+    cursor: pointer;
+}
+
+.monster-icon {
+    height: 75%;
+    width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /* background-color: red; */
+
+}
+
+
+
