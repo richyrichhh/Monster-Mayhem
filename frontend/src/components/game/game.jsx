@@ -26,6 +26,7 @@ export default class Game extends React.Component {
     return (
       <div style={{marginTop: '30vh'}}id="game-div" height='600px' width='800px'>
         <Route exact path="/game" component={MainMenu} />
+        {/* <Route exact path="/game/play" component={} /> */}
         {/* <Route path="/game/play" component={GamePlay} /> */}
         {/* <Route exact path="/edit" component={EditTeamContainer} /> */}
         {
