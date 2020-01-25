@@ -9,6 +9,8 @@ const passport = require('passport');
 const path = require('path');
 const monsters = require('./routes/api/monsters');
 const teams = require('./routes/api/teams');
+const socket = require("socket.io");
+// const server = require('http').server(app);
 
 
 
@@ -33,7 +35,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const port = process.env.PORT || 5000;
-app.listen(port, () => {console.log(`Listening on port ${port} successfully`)});
+const server = app.listen(port, () => {console.log(`Listening on port ${port} successfully`)});
 
 //Routes
 app.use("/api/users", users)
@@ -41,6 +43,19 @@ app.use("/api/monsters", monsters);
 app.use("/api/teams", teams);
 
 app.use(express.static(__dirname + '/public'));
+
+
+//websockt setup
+
+const io = socket(server);
+
+io.on("connection", function(socket) {
+  console.log('made socket connection', socket.id)
+});
+
+
+
+
 
 
 
