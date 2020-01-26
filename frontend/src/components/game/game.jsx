@@ -24,19 +24,24 @@ export default class Game extends React.Component {
     if (!monsters) return null;
 
     return (
-      <div style={{marginTop: '30vh'}}id="game-div" height='600px' width='800px'>
-        <Route exact path="/game" component={MainMenu} />
+      <div id='game-div'>
+        <div>
+          <img id='game-page-background' src="https://wallpaperaccess.com/full/235857.jpg" />
+          <Route exact path="/game" component={MainMenu} />
+        </div>
         {/* <Route path="/game/play" component={GamePlay} /> */}
         {/* <Route exact path="/edit" component={EditTeamContainer} /> */}
-        {
-        monsters.map(monster => {
-          return(<li>
-            {monster.name}
-            <img src={monster.imageUrl} style={{backgroundColor: 'black'}}/>
-          </li>)
-        })
-        }
-        {/* <img src="https://www.deviantart.com/itzeldrag108/art/Freddy-Krueger-765711829" alt="monsters"/> */}
+
+        <h2>Please choose your team:</h2>
+        <div className='monster-icon-div'>
+          {
+            monsters.map(monster => 
+              <div className='monster-element'>
+                {/* {monster.name} */}
+                <img className='monster-icon' src={monster.imageUrl} />
+              </div>)
+          }
+        </div>
       </div>
     )
   }

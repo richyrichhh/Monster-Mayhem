@@ -17,7 +17,7 @@ router.get('/user/:user_id', (req, res) => {
 // })
 
 router.post('/',
-    passport.authenticate('jwt', { session: false }),
+    // passport.authenticate('jwt', { session: false }),
     (req, res) => {
 
         const newTeam = new Team({

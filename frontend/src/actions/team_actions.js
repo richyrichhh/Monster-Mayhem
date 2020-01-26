@@ -1,4 +1,4 @@
-import { getUserTeam, createTeam, updateTeam } from '../util/monster_api_util';
+import { getUserTeam, createTeam, updateTeam } from '../util/team_api_util';
 
 export const RECEIVE_USER_TEAM = 'RECEIVE_USER_TEAM';
 export const RECEIVE_NEW_TEAM = 'RECEIVE_NEW_TEAM';

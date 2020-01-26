@@ -9,6 +9,7 @@ const passport = require('passport');
 const path = require('path');
 const monsters = require('./routes/api/monsters');
 const teams = require('./routes/api/teams');
+const games = require('./routes/api/teams');
 const socket = require("socket.io");
 // const server = require('http').server(app);
 
@@ -41,6 +42,7 @@ const server = app.listen(port, () => {console.log(`Listening on port ${port} su
 app.use("/api/users", users)
 app.use("/api/monsters", monsters);
 app.use("/api/teams", teams);
+app.use("/api/games", games);
 
 app.use(express.static(__dirname + '/public'));
 
