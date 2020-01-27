@@ -5,7 +5,8 @@ var path = require('path');
 var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 var port = process.env.PORT || 8000;
-var fs = require('fs');  
+var fs = require('fs');
+const axios = require('axios').default;
 
 server.listen(port, () => {
   fs.writeFileSync(__dirname + '/start.log', 'started'); 
@@ -14,6 +15,9 @@ server.listen(port, () => {
 
 // Routing
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
 var gameCollection = new function () {
 
   this.totalGameCount = 0,
@@ -96,6 +100,18 @@ function gameSeeker(socket) {
 
       console.log(socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
       console.dir(gameCollection.gameList);
+      axios.post('http://localhost:5000/game', {
+        user1: gameCollection.gameList[rndPick]['gameObject']['playerOne'],
+        user2: gameCollection.gameList[rndPick]['gameObject']['playerTwo'],
+        winner: null,
+        loser: null
+      })
+        .then(function (response) {
+          console.log(response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
     }
     else {
       gameSeeker(socket);
