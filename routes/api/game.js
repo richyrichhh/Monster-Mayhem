@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const passport = require("passport");
 const Game = require('../../models/Game');
 
-router.post("/game", (req, res) => {
+router.post("/", (req, res) => {
     const newGame = new Game({
       user1: req.body.user1,
       user2: req.body.user2,
@@ -16,5 +16,9 @@ router.post("/game", (req, res) => {
     newGame.save().then(game => res.json(game));
   }
 );
+
+router.get("/", (req, res) => {
+  Game.find().then(games => res.json(games));
+});
 
 module.exports = router;

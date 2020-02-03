@@ -100,7 +100,7 @@ function gameSeeker(socket) {
 
       console.log(socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
       console.dir(gameCollection.gameList);
-      axios.post('http://localhost:5000/game', {
+      axios.post('/api/game', {
         user1: gameCollection.gameList[rndPick]['gameObject']['playerOne'],
         user2: gameCollection.gameList[rndPick]['gameObject']['playerTwo'],
         winner: null,
@@ -183,6 +183,7 @@ io.on('connection', (socket) => {
     var alreadyInGame = false;
 
     for (var i = 0; i < gameCollection.totalGameCount; i++) {
+      console.dir(gameCollection);
       var plyr1Tmp = gameCollection.gameList[i]['gameObject']['playerOne'];
       var plyr2Tmp = gameCollection.gameList[i]['gameObject']['playerTwo'];
       if (plyr1Tmp == socket.username || plyr2Tmp == socket.username) {
