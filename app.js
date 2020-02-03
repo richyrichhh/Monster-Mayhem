@@ -47,16 +47,6 @@ app.use("/api/game", game);
 app.use(express.static(__dirname + '/public'));
 
 
-//websockt setup
-
-const io = socket(server);
-
-io.on("connection", function(socket) {
-  console.log('made socket connection', socket.id)
-});
-
-
-
 
 
 
