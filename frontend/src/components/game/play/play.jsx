@@ -5,9 +5,11 @@ export default class Play extends React.Component {
     super(props);
     this.state = {
       playerNum: 1,
-      playerChar: (this.props.playerNum === 1 ? this.props.characters[0][0] : characters[1][0]),
-      playerSwitch: 0,
-      oppChar: (this.props.playerNum === 1 ? this.props.characters[1][0] : characters[0][0])
+      p1: this.props.players[0],
+      p2: this.props.players[1],
+      p1Char: this.props.characters[0][0],
+      p2Char: this.props.characters[1][0],
+      monsters: this.props.monsters
     }
   }
 
@@ -16,19 +18,23 @@ export default class Play extends React.Component {
       <div id="gameplay-div">
         <span id="game-stage">
           <span>
-            <span id="pc-side">
-              <img src={this.state.playerChar.imgUrl}/>
+            <span id="p1-side">
+              <img src={this.state.p1Char.imgUrl}/>
               <span id="pc-hp"></span>
             </span>
-            <span id="ec-side">
-              <img src={this.state.oppChar.imgUrl}/>
+            <span id="p2-side">
+              <img src={this.state.p2Char.imgUrl}/>
               <span id="ec-hp"></span>
             </span>
           </span>
         </span>
         <div id="game-moves">
-          <div id="character-moves"></div>
-          <span id="switch-character"></span>
+          <div id="character-moves">
+            <ul id="character-moves-list">
+              {this.state[`p${this.state.playerNum}Char`].moves.map(move => <li><button>{move.name}</button></li>)}
+            </ul>
+          </div>
+          <span id="switch-character"><button>Switch</button></span>
         </div>
       </div>
     )
