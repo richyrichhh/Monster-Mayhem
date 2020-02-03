@@ -7,10 +7,13 @@ export default class Play extends React.Component {
       playerNum: 1,
       p1: this.props.players[0],
       p2: this.props.players[1],
-      p1Char: this.props.characters[0][0],
-      p2Char: this.props.characters[1][0],
+      p1Char: Object.assign({}, this.props.characters[0][0]),
+      p1Backup: Object.assign({}, this.props.characters[0][1]),
+      p2Char: Object.assign({}, this.props.characters[1][0]),
+      p2Backup: Object.assign({}, this.props.characters[1][1]),
       monsters: this.props.monsters,
-      turn: 1
+      turn: 1,
+      gameOver: false
     }
   }
 
@@ -25,6 +28,7 @@ export default class Play extends React.Component {
       movesDiv.addClass('not-your-turn');
       movesDiv.removeClass('your-turn');
     } 
+    this.lightUpChars();
   }
 
   lightUpChars() {
@@ -39,6 +43,37 @@ export default class Play extends React.Component {
     }
   }
 
+  handleMove(move) {
+    // do stuff
+    this.animate(move);
+    sendState(this.state, move);
+    this.switchTurn();
+  }
+
+  switchCharacter() {
+    if (this.playerNum === 1) {
+      [p1Char, p1Backup] = [p1Backup, p1Char];
+    } else {
+      [p2Char, p2Backup] = [p2Backup, p2Char];
+    }
+    this.animate('switch');
+    sendState(this.state, 'switch')
+    this.switchTurn();
+  }
+
+  receiveState(state, move) {
+    this.state = Object.assign({}, state);
+    this.animate(move)
+    this.switchTurn();
+  }
+
+  sendState(state, move) {
+
+  }
+
+  animate(move) {
+    // do stuff
+  }
 
   render() {
     return (
