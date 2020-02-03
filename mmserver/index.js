@@ -100,11 +100,11 @@ function gameSeeker(socket) {
 
       console.log(socket.username + " has been added to: " + gameCollection.gameList[rndPick]['gameObject']['id']);
       console.dir(gameCollection.gameList);
-      axios.post('/api/game', {
+      axios.post('http://localhost:5000/api/game/', {
         user1: gameCollection.gameList[rndPick]['gameObject']['playerOne'],
         user2: gameCollection.gameList[rndPick]['gameObject']['playerTwo'],
-        winner: null,
-        loser: null
+        winner: 'noone',
+        loser: 'noone'
       })
         .then(function (response) {
           console.log(response);
