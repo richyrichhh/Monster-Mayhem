@@ -8,6 +8,7 @@ import MainPage from './main/main_page';
 import LoginFormContainer from './session/login_form_container';
 import SignupFormContainer from './session/signup_form_container';
 import GameContainer from './game/game_container';
+import PlayContainer from './play/play_container';
 
 const App = () => (
   <div>
@@ -17,7 +18,8 @@ const App = () => (
         <Route exact path="/" component={MainPage} />
         <AuthRoute exact path="/login" component={LoginFormContainer} />
         <AuthRoute exact path="/signup" component={SignupFormContainer} />
-        <ProtectedRoute exact path="/game" component={GameContainer} />
+        <Route exact path="/game" component={GameContainer} />
+        <Route exact path="/game/play" component={PlayContainer} />
       </Switch>
     </div>
   </div>

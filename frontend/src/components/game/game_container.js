@@ -1,20 +1,22 @@
 import { connect } from 'react-redux';
 import { fetchMonster, fetchMonsters } from '../../../src/actions/monster_actions';
-// import { fetchTeam } from '../../../actions/team';
+import { fetchUserTeam, createNewTeam, updateUserTeam } from '../../actions/team_actions';
 
 import Game from './game';
 
 const mapStateToProps = state => ({
   loggedIn: state.session.isAuthenticated,
-  users: state.users,
+  user: state.session.user,
   monsters: Object.values(state.monsters),
-  // teams: state.teams
+  team: Object.values(state.team),
 });
 
 const mapDispatchToProps = dispatch => ({
   fetchMonsters: () => dispatch(fetchMonsters()),
   fetchMonster: (id) => dispatch(fetchMonster(id)),
-  // fetchTeam: (user_id) => dispatch(fetchTeam(user_id))
+  fetchTeam: (userId) => dispatch(fetchUserTeam(userId)), 
+  createNewTeam: team => dispatch(createNewTeam(team)),
+  updateUserTeam: (userId, team) => dispatch(updateUserTeam(userId, team))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
