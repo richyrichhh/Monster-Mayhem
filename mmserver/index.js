@@ -106,7 +106,7 @@ function gameSeeker(socket) {
         winner: 'noone',
         loser: 'noone'
       };
-      axios.post('/api/game/', data)
+      axios.post('http://localhost:5000/api/game', data)
         .then(function (response) {
           console.log(response);
         })
