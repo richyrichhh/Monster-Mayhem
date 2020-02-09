@@ -17,7 +17,7 @@ class SignupForm extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.signedIn === true) {
-      this.props.history.push('/login');
+      this.props.history.push('/game');
     }
 
     this.setState({ errors: nextProps.errors })
@@ -57,6 +57,7 @@ class SignupForm extends React.Component {
       <div className="signup-form-container session-form-div">
         <form onSubmit={this.handleSubmit}>
           <div className="session-form-top">
+            <h3>Sign Up</h3>
             <input type="text"
               value={this.state.username}
               onChange={this.update('username')}

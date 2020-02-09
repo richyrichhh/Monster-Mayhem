@@ -35,11 +35,12 @@
   align-items: flex-end;
   box-sizing: border-box;
   margin-bottom: 10px;
+  padding-right: 50px;
 }
 
 #navbar-div-inner > a {
-  width: 60px;
-  height: 30px;
+  width: 100px;
+  height: 40px;
   padding: 5px;
   margin-left: 5px;
   margin-right: 5px;
@@ -54,6 +55,7 @@
   font-family: 'Montserrat';
   font-size: 12px;
   letter-spacing: 1px;
+  border-radius: 10px;
 }
 
 #navbar-div-inner > a:hover {

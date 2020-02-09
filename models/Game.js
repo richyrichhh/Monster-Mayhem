@@ -1,14 +1,18 @@
 const mongoose = require("mongoose");
-const schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
 const GameSchema = new Schema({
     user1: {
-        type: Schema.Types.ObjectId, 
-        ref: "user"
+        // type: Schema.Types.ObjectId, 
+        // ref: "user"
+        type: String,
+        required: true
     },
     user2: {
-        type: Schema.Types.ObjectId,
-        ref: "user"
+        // type: Schema.Types.ObjectId,
+        // ref: "user"
+        type: String,
+        required: true
     },
     winner: {
         type: String,
@@ -22,4 +26,3 @@ const GameSchema = new Schema({
 
 const Game = mongoose.model('game', GameSchema);
 module.exports = Game;
-

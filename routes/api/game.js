@@ -17,4 +17,8 @@ router.post("/", (req, res) => {
   }
 );
 
+router.get("/", (req, res) => {
+  Game.find().then(games => res.json(games));
+});
+
 module.exports = router;

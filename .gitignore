@@ -1,2 +1,4 @@
 /node_modules
+/mmserver/node_modules
+/frontend/node_modules
 keys.js

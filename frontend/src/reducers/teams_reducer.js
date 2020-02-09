@@ -1,6 +1,6 @@
 import { RECEIVE_USER_TEAM, RECEIVE_NEW_TEAM, RECEIVE_UPDATED_TEAM } from '../actions/team_actions';
   
-  const TeamsReducer = (state = { team: {}, user: {}, new: undefined, update: undefined }, action) => {
+  const TeamsReducer = (state = {}, action) => {
     Object.freeze(state);
     let newState = Object.assign({}, state);
     switch(action.type) {

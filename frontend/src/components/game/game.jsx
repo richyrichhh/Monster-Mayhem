@@ -12,19 +12,56 @@ const CURRENT_USER_ID = 0;
 export default class Game extends React.Component {
   constructor(props) {
     super(props);
-  }
+    this.state = {
+      userTeam: [],
+    }
+    this.addToTeam = this.addToTeam.bind(this);
+    this.team = [];
+  };
 
   componentDidMount() {
     this.props.fetchMonsters();
-    // if (_.isEmpty(this.props,teams)) this.props.fetchTeam(CURRENT_USER_ID);
-  }
+    this.props.fetchTeam();
+    this.props.createNewTeam(this.team);
+  };
+
+  addToTeam(e) {
+    e.preventDefault();
+    this.team.push(e.target.alt);
+    this.setState({
+      userTeam: this.team,
+    })
+    if (this.team.length === 2) {
+      this.props.updateUserTeam(this.props.user.id, { team: this.team, user:this.props.user.id });
+    };
+  };
 
   render() {
     let monsters = this.props.monsters[0];
     if (!monsters) return null;
 
+    if (!this.props.team) {
+      return null;
+    }
+
+    let userTeam = []
+    monsters.forEach(monster => {
+      if(this.team.includes(monster.id)){
+        userTeam.push(monster);
+      }
+    })
+
+    console.log(userTeam)
+
+
     return (
       <div id='game-div'>
+        {
+          userTeam.map(monster => 
+            <h2 className='test'>
+              {monster.name}
+            </h2>)
+        }
         <div>
           <img id='game-page-background' src="https://wallpaperaccess.com/full/235857.jpg" />
           <Route exact path="/game" component={MainMenu} />
@@ -36,9 +73,9 @@ export default class Game extends React.Component {
         <div className='monster-icon-div'>
           {
             monsters.map(monster => 
-              <div className='monster-element'>
+              <div onClick={this.addToTeam} className='monster-element'>
                 {/* {monster.name} */}
-                <img className='monster-icon' src={monster.imageUrl} />
+                <img className='monster-icon' src={monster.imageUrl} alt={monster._id}/>
               </div>)
           }
         </div>

@@ -22,7 +22,7 @@ export const receiveUpdatedTeam = team => ({
 
 export const fetchUserTeam = (userId) => dispatch => (
   getUserTeam(userId)
-    .then(Team => dispatch(receiveUserTeam(Team)))
+    .then(team => dispatch(receiveUserTeam(team)))
     .catch(err => console.log(err))
 );
 

@@ -5,6 +5,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
 }
 
 #splash-img-div > img {
@@ -12,21 +13,23 @@
   filter: brightness(0.8);
   box-sizing: border-box;
   height: 100%;
+  width: auto;
 }
 
 #splash-img-div {
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  background-size: cover;
 }
 
 #splash-div > footer {
   background-color: #000;
   width: 100%;
-  height: 15vh;
+  height: 20%;
   font-family: 'proxima-nova', sans-serif;
   letter-spacing: 1px;
   display: flex;
