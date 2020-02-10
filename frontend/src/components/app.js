@@ -9,6 +9,7 @@ import MainPage from './main/main_page';
 // import LoginFormContainer from './session/login_form_container';
 // import SignupFormContainer from './session/signup_form_container';
 import GameContainer from './game/game_container';
+import SearchContainer from './game/search/search_container';
 import PlayContainer from './play/play_container';
 
 const App = () => (
@@ -21,6 +22,7 @@ const App = () => (
         {/* <AuthRoute exact path="/login" component={LoginFormContainer} />
         <AuthRoute exact path="/signup" component={SignupFormContainer} /> */}
         <ProtectedRoute exact path="/game" component={GameContainer} />
+        <ProtectedRoute exact path="/game/search" component={SearchContainer} />
         <ProtectedRoute exact path="/game/play" component={PlayContainer} />
         <Redirect to="/game" />
       </Switch>
