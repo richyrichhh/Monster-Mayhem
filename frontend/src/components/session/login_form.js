@@ -12,21 +12,26 @@ class LoginForm extends React.Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.renderErrors = this.renderErrors.bind(this);
+    // this.renderErrors = this.renderErrors.bind(this);
     this.handleDemo = this.handleDemo.bind(this);
   }
 
   // Once the user has been authenticated, redirect to the Tweets page
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentUser === true) {
-      this.props.history.push("/game");
-    }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.currentUser === true) {
+  //     this.props.history.push("/game");
+  //   }
 
-    // Set or clear errors
-    this.setState({ errors: nextProps.errors });
-  }
+  //   // Set or clear errors
+  //   this.setState({ errors: nextProps.errors });
+  // }
 
   // Handle field updates (called in the render method)
+
+  componentDidMount() {
+
+  }
+
   update(field) {
     return e =>
       this.setState({
@@ -43,19 +48,24 @@ class LoginForm extends React.Component {
       password: this.state.password
     };
 
-    this.props.login(user);
+    this.props.login(user)
+      .then(res => {
+      if (!res.errors) {
+        this.props.closeModal();
+      }
+    });
   }
 
   // Render the session errors if there are any
-  renderErrors() {
-    return (
-      <ul>
-        {Object.keys(this.state.errors).map((error, i) => (
-          <li key={`error-${i}`}>{this.state.errors[error]}</li>
-        ))}
-      </ul>
-    );
-  }
+  // renderErrors() {
+  //   return (
+  //     <ul>
+  //       {Object.keys(this.state.errors).map((error, i) => (
+  //         <li key={`error-${i}`}>{this.state.errors[error]}</li>
+  //       ))}
+  //     </ul>
+  //   );
+  // }
 
   demo(user) {
     const intervalSpeed = 50;
@@ -67,7 +77,7 @@ class LoginForm extends React.Component {
     this.demoUsername(username, intervalSpeed);
     setTimeout(() => this.demoPassword(password, intervalSpeed), demoUsernameTime);
     setTimeout(() => this.props.login(user), totalDemoTime);
-    // setTimeout(() => this.props.closeModal(), totalDemoTime + buffer);
+    setTimeout(() => this.props.closeModal(), totalDemoTime + buffer);
   }
 
   demoUsername(username, intervalSpeed) {
@@ -117,12 +127,15 @@ class LoginForm extends React.Component {
               onChange={this.update("username")}
               placeholder="Username"
             />
+            <div className="login-errors">{this.props.errors.username}</div>
+            <br />
             <input
               type="password"
               value={this.state.password}
               onChange={this.update("password")}
               placeholder="Password"
             />
+            <div className="login-errors">{this.props.errors.password}</div>
           </div>
           <div className="demo">
             <button
@@ -134,7 +147,7 @@ class LoginForm extends React.Component {
           </div>
           <div className="session-form-bot">
             <input type="submit" value="Submit" />
-            <span className="session-form-errors">{this.renderErrors()}</span>
+            {/* <span className="session-form-errors">{this.renderErrors()}</span> */}
           </div>
         </form>
       </div>

@@ -8,7 +8,7 @@ const Auth = ({ component: Component, path, loggedIn, exact }) => (
     !loggedIn ? (
       <Component {...props} />
     ) : (
-        // Redirect to the tweets page if the user is authenticated
+        // Redirect to the game page if the user is authenticated
         <Redirect to="/game" />
       )
   )} />
@@ -22,7 +22,7 @@ const Protected = ({ component: Component, loggedIn, ...rest }) => (
         <Component {...props} />
       ) : (
           // Redirect to the login page if the user is already authenticated
-          <Redirect to="/login" />
+          <Redirect to="/" />
         )
     }
   />

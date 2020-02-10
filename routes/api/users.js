@@ -15,9 +15,9 @@ router.get('/current', passport.authenticate('jwt', { session: false }), (req, r
   });
 })
 
-router.get("/", (req, res) => {
-  User.find().then(users => res.json(users));
-});
+// router.get("/", (req, res) => {
+//   User.find().then(users => res.json(users));
+// });
 
 router.post("/register", (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
@@ -31,7 +31,8 @@ router.post("/register", (req, res) => {
   .then(user => {
     if (user) {
       // Throw a 400 error if the username address already exists
-      return res.status(400).json({ username: "A user has already registered with this username" })
+      errors.username = "A user has already registered with this username";
+      return res.status(400).json(errors)
     } else {
       // Otherwise create a new user
       const newUser = new User({
@@ -43,8 +44,17 @@ router.post("/register", (req, res) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
           newUser.password = hash;
-          newUser.save()
-            .then(user => res.json(user))
+          newUser
+            .save()
+            .then(user => {
+              const payload = { id: user.id, username: user.username };
+              jwt.sign(payload, keys.secretOrKey, (err, token) => {
+                res.json({
+                  success: true,
+                  token: "Bearer " + token
+                });
+              });
+            })
             .catch(err => console.log(err));
         })
       })
@@ -65,7 +75,8 @@ router.post('/login', (req, res) => {
   User.findOne({ username })
   .then(user => {
     if (!user) {
-      return res.status(404).json({ username: 'This user does not exist' });
+      errors.username = "This user does not exist";
+      return res.status(404).json(errors);
     }
 
     bcrypt.compare(password, user.password)
@@ -74,18 +85,15 @@ router.post('/login', (req, res) => {
         const payload = { id: user.id, username: user.username };
 
         jwt.sign(
-          payload,
-          keys.secretOrKey,
-          // Tell the key to expire in one hour
-          { expiresIn: 3600 },
-          (err, token) => {
+          payload, keys.secretOrKey, (err, token) => {
             res.json({
               success: true,
               token: 'Bearer ' + token
             });
           });
       } else {
-        return res.status(400).json({ password: 'Incorrect password' });
+        errors.password = "Incorrect Password";
+        return res.status(400).json(errors);
       }
     })
   })

@@ -6,6 +6,7 @@
 #navbar-div {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   position: absolute;
   align-items: center;
   top: 0;
@@ -36,16 +37,18 @@
   box-sizing: border-box;
   margin-bottom: 10px;
   padding-right: 50px;
-}
+} 
 
-#navbar-div-inner > a {
-  width: 100px;
+
+#navbar-div-inner > button {
+  width: 125px;
   height: 40px;
   padding: 5px;
   margin-left: 5px;
   margin-right: 5px;
   margin-bottom: 1px;
   background-color: #111;
+  border-color: #111;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -53,14 +56,63 @@
   text-decoration: none;
   color: white;
   font-family: 'Montserrat';
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 1px;
   border-radius: 10px;
 }
 
-#navbar-div-inner > a:hover {
+#navbar-div-inner > button:hover {
   background-color: white;
   color: #333;
+  cursor: pointer;
+}
+
+.navbar-loggedin {
+  display: flex;
+  flex-direction: row;
+  padding-right: 50px;
+  width: 100%;
+  justify-content: flex-end;
+  align-content: center;
+}
+
+.nav-bar-greeting {
+  padding-right: 25px;
+  font-family: 'Montserrat';
+  font-size: 28px;
+  align-self: center;
+}
+
+.navbar-div-logout {
+  padding-left: 50px;
+}
+
+.logout-button {
+  width: 125px;
+  height: 40px;
+  padding: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 1px;
+  background-color: #111;
+  border-color: #111;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: white;
+  font-family: 'Montserrat';
+  font-size: 14px;
+  letter-spacing: 1px;
+  border-radius: 10px;
+}
+
+.logout-button:hover {
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+}
 }
 
 

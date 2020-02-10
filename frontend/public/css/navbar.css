@@ -43,4 +43,11 @@
   margin: 10px 0;
   font-weight: 1000;
 }
+
+.navbar-loggedin {
+  font-size: 20px;
+  color: white;
+}
 /* styling my button */
+
+

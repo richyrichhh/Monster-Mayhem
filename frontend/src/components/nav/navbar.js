@@ -15,16 +15,30 @@ class NavBar extends React.Component {
 
   getLinks() {
     if (this.props.loggedIn) {
+      const currentUsername = this.props.currentUser.username
       return (
-        <div id="navbar-div-inner">
-          <a href="#" onClick={this.logoutUser}>Logout</a>
+        <div className="navbar-loggedin">
+          <div className="nav-bar-greeting">
+            Welcome {currentUsername}!
+          </div>
+
+          <div id="navbar-div-logout">
+            <a className="logout-button" href="#" onClick={this.logoutUser}>Logout</a>
+          </div>
         </div>
       );
     } else {
       return (
         <div id="navbar-div-inner">
-          <Link to={'/signup'}>Sign Up</Link>
-          <Link to={'/login'}>Login</Link>
+          {/* <Link to={'/signup'}>Sign Up</Link>
+          <Link to={'/login'}>Login</Link> */}
+          <button onClick={() => (this.props.openModal('signup'))}>
+            Sign Up
+          </button>
+          <button  onClick={() => (this.props.openModal('login'))}>
+            Login
+          </button>
+
         </div>
       );
     }
