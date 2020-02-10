@@ -1,18 +1,16 @@
 import { connect } from "react-redux";
-import Play from "./play";
-import { fetchGame, exitGame } from '../../../actions/game_actions'
+import Search from "./search";
 import { fetchMonsters } from '../../../actions/monster_actions';
-import { fetchUserTeam } from '../../actions/team_actions';
-
-
+import { fetchUserTeam } from '../../../actions/team_actions';
+import { fetchGame, createGame, exitGame } from '../../../actions/game_actions'
 
 const mapStateToProps = state => {
-  return {
-    loggedIn: state.session.isAuthenticated,
-    user: state.session.user,
-    monsters: Object.values(state.monsters),
-    team: Object.values(state.team)
-  }
+	return {
+		loggedIn: state.session.isAuthenticated,
+		currentUser: state.session,
+		currentUserID: state.session.user.id,
+		characters: Object.values(state.characters)
+	};
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -23,4 +21,4 @@ const mapDispatchToProps = dispatch => ({
   fetchGame: (gameId) => dispatch(fetchGame(gameId))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Play);
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
