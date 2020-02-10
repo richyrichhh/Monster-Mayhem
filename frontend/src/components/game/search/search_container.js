@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import Search from "./search";
 import { fetchMonsters } from '../../../actions/monster_actions';
 import { fetchUserTeam } from '../../../actions/team_actions';
-import { fetchGame, createGame, exitGame } from '../../../actions/game_actions'
+import { fetchGame, createNewGame, exitGame } from '../../../actions/game_actions'
 
 const mapStateToProps = state => {
 	return {
@@ -16,7 +16,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   fetchMonsters: () => dispatch(fetchMonsters()),
   fetchTeam: (userId) => dispatch(fetchUserTeam(userId)),
-  createNewGame: (game) => dispatch(createGame(game)),
+  createNewGame: (game) => dispatch(createNewGame(game)),
   exitGame: (gameId) => dispatch(exitGame(gameId)),
   fetchGame: (gameId) => dispatch(fetchGame(gameId))
 });
