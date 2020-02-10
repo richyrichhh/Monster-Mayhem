@@ -48,12 +48,9 @@ class Play extends React.Component {
     });
 
     this.socket.on("renderChars", (data) => {
-      let newState = Object.assign({}, this.state.currentChar);
-
-      this.setState({
-        currentChar: newState,
-        refresh: true
-      });
+      let newState = Object.assign({}, this.state);
+      newState.refresh = true;
+      this.setState(newState);
     })
   }
 
