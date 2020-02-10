@@ -92,8 +92,7 @@
 }
 
 .demobutton:hover, .session-form-bot > input:hover {
-  background-color: white;
-  color: black;
+  background-color: crimson;
   cursor: pointer;
 }
 

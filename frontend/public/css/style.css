@@ -62,8 +62,7 @@
 }
 
 #navbar-div-inner > button:hover {
-  background-color: white;
-  color: #333;
+  background-color: crimson;
   cursor: pointer;
 }
 
@@ -109,8 +108,7 @@
 }
 
 .logout-button:hover {
-  background-color: white;
-  color: #333;
+  background-color: crimson;
   cursor: pointer;
 }
 }
