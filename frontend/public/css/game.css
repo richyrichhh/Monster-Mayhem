@@ -14,8 +14,9 @@
     filter: brightness(0.8);
     box-sizing: border-box;
     height: 100vh;
+    min-height: 800px;
     width: 100vw;
-    background-position: center;
+    background-size: cover;
 }
 
 #game-div > h2 {

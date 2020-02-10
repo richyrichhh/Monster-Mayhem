@@ -12,8 +12,10 @@
   background-color: rgba(0, 0, 0, .9);
   filter: brightness(0.8);
   box-sizing: border-box;
-  height: 100%;
-  width: auto;
+  height: 100vh;
+  min-height: 800px;
+  width: 100vw;
+  background-size: cover;
 }
 
 #splash-img-div {
