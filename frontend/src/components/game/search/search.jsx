@@ -29,7 +29,8 @@ class Search extends React.Component {
     e.preventDefault();
     const gameId = document.getElementById('search-game-id').value
     this.props.fetchGame(gameId).then(res => {
-      this.props.history.push(`/game/play/${res.game._id}`);
+      console.dir(res);
+      // .this.props.history.push(`/game/play/${res.game._id}`);
     });
   }
 

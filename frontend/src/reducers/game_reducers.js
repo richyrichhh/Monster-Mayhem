@@ -5,13 +5,13 @@ const GameReducer = (state = {}, action) => {
     let newState = Object.assign({}, state);
     switch(action.type) {
         case RECEIVE_GAME:
-            newState[action.game.id] = action.game;
+            newState[action.game.data._id] = action.game.data;
             return newState;
         case RECEIVE_NEW_GAME:
-            newState[action.game.id] = action.game;
+            newState[action.game.data._id] = action.game.data;
             return newState;
         case RECEIVE_UPDATED_GAME:
-            newState[action.game.id] = action.game;
+            newState[action.game.data._id] = action.game.data;
             return newState;
         case DELETE_GAME:
             delete newState.gameId;
