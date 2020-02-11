@@ -28,9 +28,10 @@ class Search extends React.Component {
   joinGame(e) {
     e.preventDefault();
     const gameId = document.getElementById('search-game-id').value
+    console.log(gameId);
     this.props.fetchGame(gameId).then(res => {
       console.dir(res);
-      this.props.history.push(`/game/play/${res.game._id}`);
+      // this.props.history.push(`/game/play/${res.game.data._id}`);
     });
   }
 
@@ -42,7 +43,7 @@ class Search extends React.Component {
     this.props.createGame(game)
       .then(res => {
         console.dir(res);
-      //  this.props.history.push(`/game/play/${res.game._id}`)
+        this.props.history.push(`/game/play/${res.game.data._id}`)
       });
   }
 
