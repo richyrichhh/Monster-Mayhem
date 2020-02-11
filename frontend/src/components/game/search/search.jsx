@@ -32,8 +32,12 @@ class Search extends React.Component {
   }
 
   createGame() {
+    console.dir(this.props.currentUser.user.id);
     const game = {
-      stuff: 'stuff'
+      user1: this.props.currentUser.user.id.to_s,
+      user2: '',
+      winner: '',
+      loser: ''
     }
     this.props
       .createGame(game)
@@ -49,7 +53,7 @@ class Search extends React.Component {
           <div id="game-lobby-title">Find a Game</div>
           <div id="game-lobby">
             <div id="game-search-create">
-              <button onClick={() => this.createGame()} className="create-game">Create Campaign</button>
+              <button onClick={() => this.createGame()} className="create-game">Create Game</button>
             </div>
             <div id="game-search-join">
               <input type="text" value={this.state.gameId} onChange={this.update("gameId")} id="search-game-id" placeholder="Game ID" />
