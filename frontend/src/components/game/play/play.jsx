@@ -133,7 +133,7 @@ class Play extends React.Component {
       );
     } else {
       return (<div className="loading-page">
-        
+        <img src='./images/loading.jpg' alt="loading"/>
       </div>)
     }
   }

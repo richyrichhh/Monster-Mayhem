@@ -1,6 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
+const splashImg = './images/bg.jpg'
+
 class Search extends React.Component {
   constructor(props) {
     super(props);
