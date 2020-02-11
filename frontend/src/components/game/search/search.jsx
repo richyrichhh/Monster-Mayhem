@@ -7,7 +7,9 @@ class Search extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      gameId: ""//,
+      gameId: "",
+      currentUserId: this.props.currentUser.user.id
+      //,
       // loaded: false
     };
   }
@@ -34,16 +36,15 @@ class Search extends React.Component {
   createGame() {
     console.dir(this.props.currentUser.user.id);
     const game = {
-      user1: this.props.currentUser.user.id.to_s,
-      user2: '',
-      winner: '',
-      loser: ''
+      user1: this.state.currentUserId,
+      user2: 'nobody',
+      winner: 'nobody',
+      loser: 'nobody'
     }
-    this.props
-      .createGame(game)
-      .then(res => {
-        this.props.history.push(`/game/play/${res.game._id}`)
-      });
+    this.props.createGame(game)
+      //.then(res => {
+      //  this.props.history.push(`/game/play/${res.game._id}`)
+      //});
   }
 
   render() {
