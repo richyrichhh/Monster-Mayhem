@@ -36,9 +36,9 @@ class Search extends React.Component {
       stuff: 'stuff'
     }
     this.props
-      .createCampaign(game)
+      .createGame(game)
       .then(res => {
-        this.props.history.push(`/campaigns/${res.game._id}`)
+        this.props.history.push(`/game/play/${res.game._id}`)
       });
   }
 

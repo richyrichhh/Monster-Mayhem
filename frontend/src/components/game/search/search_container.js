@@ -15,7 +15,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   fetchMonsters: () => dispatch(fetchMonsters()),
   fetchTeam: (userId) => dispatch(fetchUserTeam(userId)),
-  createNewGame: (game) => dispatch(createNewGame(game)),
+  createGame: (game) => dispatch(createNewGame(game)),
   exitGame: (gameId) => dispatch(exitGame(gameId)),
   fetchGame: (gameId) => dispatch(fetchGame(gameId))
 });
