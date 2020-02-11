@@ -3,7 +3,8 @@
   color: white;
   display: flex;
   justify-content: space-around;
-  min-height: 100px;
+  align-items: center;
+  min-height: 125px;
 }
 
 .dev-name {
@@ -17,12 +18,15 @@
   padding-top: 10px
 }
 
-.icons > i {
+.icons > a {
   padding: 0px 5px 0px 5px;
+  color: white;
 }
 
-.icons > i:hover {
+.icons > a:hover {
   /* background-color: red;
   border-radius: 3px; */
-  color: red;
+  color: crimson;
+  cursor: pointer;
+  transform: scale(1.5);
 }
