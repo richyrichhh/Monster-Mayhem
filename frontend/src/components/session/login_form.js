@@ -50,8 +50,11 @@ class LoginForm extends React.Component {
 
     this.props.login(user)
       .then(res => {
+  
       if (!res.errors) {
+    
         this.props.closeModal();
+  
       }
     });
   }

@@ -10,6 +10,8 @@ import MainPage from './main/main_page';
 // import SignupFormContainer from './session/signup_form_container';
 import GameContainer from './game/game_container';
 import PlayContainer from './play/play_container';
+import LearnContainer from './learn/learn';
+import FooterContainer from './footer/footer';
 
 const App = () => (
   <div>
@@ -20,11 +22,15 @@ const App = () => (
         <AuthRoute exact path="/" component={MainPage} />
         {/* <AuthRoute exact path="/login" component={LoginFormContainer} />
         <AuthRoute exact path="/signup" component={SignupFormContainer} /> */}
+        <ProtectedRoute exact path="/learn" component={LearnContainer} />
         <ProtectedRoute exact path="/game" component={GameContainer} />
         <ProtectedRoute exact path="/game/play" component={PlayContainer} />
         <Redirect to="/game" />
       </Switch>
     </div>
+    <footer>
+       <FooterContainer />
+    </footer>
   </div>
 );
 

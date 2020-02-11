@@ -1,0 +1,28 @@
+.footer {
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  min-height: 100px;
+}
+
+.dev-name {
+  font-size: 20px;
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+  padding-top: 10px
+}
+
+.icons > i {
+  padding: 0px 5px 0px 5px;
+}
+
+.icons > i:hover {
+  /* background-color: red;
+  border-radius: 3px; */
+  color: red;
+}
