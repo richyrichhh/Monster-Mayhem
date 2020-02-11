@@ -30,22 +30,20 @@ class Search extends React.Component {
     const gameId = document.getElementById('search-game-id').value
     this.props.fetchGame(gameId).then(res => {
       console.dir(res);
-      // .this.props.history.push(`/game/play/${res.game._id}`);
+      this.props.history.push(`/game/play/${res.game._id}`);
     });
   }
 
   createGame() {
     console.dir(this.props.currentUser.user.id);
     const game = {
-      user1: this.state.currentUserId,
-      user2: 'nobody',
-      winner: 'nobody',
-      loser: 'nobody'
+      host: this.state.currentUserId
     }
     this.props.createGame(game)
-      //.then(res => {
+      .then(res => {
+        console.dir(res);
       //  this.props.history.push(`/game/play/${res.game._id}`)
-      //});
+      });
   }
 
   render() {

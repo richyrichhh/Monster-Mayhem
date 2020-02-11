@@ -1,7 +1,11 @@
 import axios from 'axios';
 
-export const getGame = () => {
-    return axios.get('/api/game')
+export const getGame = (gameId) => {
+    return axios.get(`/api/game/${gameId}`)
+};
+
+export const getGames = () => {
+    return axios.get(`/api/game/`)
 };
 
 export const createGame = data => {
