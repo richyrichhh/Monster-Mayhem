@@ -2,6 +2,7 @@ import React from 'react';
 // import GAME_PROPS from './game_constants';
 import { Route } from 'react-router-dom';
 import MainMenu from './menus/main_menu';
+import GameMonsterItem from './game_monster_item';
 const _ = require('underscore');
 
 // import GamePlay from './play/play';
@@ -17,6 +18,8 @@ export default class Game extends React.Component {
     }
     this.addToTeam = this.addToTeam.bind(this);
     this.team = [];
+
+    this.removeFromTeam = this.removeFromTeam.bind(this);
   };
 
   componentDidMount() {
@@ -27,14 +30,34 @@ export default class Game extends React.Component {
 
   addToTeam(e) {
     e.preventDefault();
-    this.team.push(e.target.alt);
+
+    if (e.target.alt) {
+      this.team.push(e.target.alt);
+      console.log(e.target.alt)
+    } else {
+      this.team.push(e.target.title);
+      console.log(e.target.title);
+    }
+
     this.setState({
       userTeam: this.team,
     })
+
     if (this.team.length === 2) {
+      alert('click fight to begin');
       this.props.updateUserTeam(this.props.user.id, { team: this.team, user:this.props.user.id });
     };
   };
+
+  removeFromTeam(e) {
+    e.preventDefault();
+    if (this.state.selected) {
+      this.setState({
+        selected: false
+      })
+    }
+  }
+
 
   render() {
     let monsters = this.props.monsters[0];
@@ -44,24 +67,8 @@ export default class Game extends React.Component {
       return null;
     }
 
-    let userTeam = []
-    monsters.forEach(monster => {
-      if(this.team.includes(monster.id)){
-        userTeam.push(monster);
-      }
-    })
-
-    console.log(userTeam)
-
-
     return (
       <div id='game-div'>
-        {
-          userTeam.map(monster => 
-            <h2 className='test'>
-              {monster.name}
-            </h2>)
-        }
         <div>
           <img id='game-page-background' src="https://wallpaperaccess.com/full/235857.jpg" />
           <Route exact path="/game" component={MainMenu} />
@@ -69,14 +76,17 @@ export default class Game extends React.Component {
         {/* <Route path="/game/play" component={GamePlay} /> */}
         {/* <Route exact path="/edit" component={EditTeamContainer} /> */}
 
-        <h2>Please choose your team:</h2>
+        <h2>Please select two characters:</h2>
         <div className='monster-icon-div'>
           {
-            monsters.map(monster => 
-              <div onClick={this.addToTeam} className='monster-element'>
-                {/* {monster.name} */}
-                <img className='monster-icon' src={monster.imageUrl} alt={monster._id}/>
-              </div>)
+            monsters.map((monster, index) => 
+              <GameMonsterItem 
+                addToTeam = {this.addToTeam}
+                monster={monster}
+                addToTeam={this.addToTeam}
+                index={index}
+              />
+            )
           }
         </div>
       </div>
