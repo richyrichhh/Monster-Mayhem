@@ -5,6 +5,7 @@
   justify-content: space-around;
   align-items: center;
   min-height: 125px;
+  font-family: 'proxima-nova', sans-serif;
 }
 
 .dev-name {
@@ -28,5 +29,5 @@
   border-radius: 3px; */
   color: crimson;
   cursor: pointer;
-  transform: scale(1.5);
+  transform: scale(1.60);
 }
