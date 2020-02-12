@@ -56,10 +56,9 @@ io.on("connection", function (socket, data) {
   console.log("made connection with socket " + socket.id);
 
   socket.on("sendJoinRoomToBack", function (data) {
-    Game.findById(data.gameId).then(camp => {
-      socket.join(camp.campKey); //Join a room
-      io.to(camp.campKey).emit("renderChars")
-      console.log("Joined room: " + camp.campKey)
+    Game.findById(data.gameId).then(game => {
+      socket.join(game._id); //Join a room
+      console.log("Joined room: " + game._id)
     })
   })
 
@@ -67,7 +66,14 @@ io.on("connection", function (socket, data) {
     socket.join(id); //Join a room
     console.log("Joined game " + id)
     io.to(id).emit("receive-room", "made it")
+      io.to(game._id).emit("startGame", {p1: game.p1, p2: game.p2})
+
   });
+
+  socket.on("sendMoveToBack", function (data) {
+    console.log(data);
+    io.to(data.gameId).emit("makeMove", data);
+  })
 
   socket.on("leaveRoom", function (data) {
     // Campaign.findById(data.campId).then(camp => {

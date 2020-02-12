@@ -40,3 +40,32 @@
 }
 
 
+#game-moves {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 1;
+}
+
+#character-moves-list {
+    display: flex;
+    flex-direction: row;
+}
+
+#character-moves-list > li > button {
+    width: 200px;
+    height: 100px;
+    background-color: crimson;
+    border: 5px solid maroon;
+    border-style: outset;
+    box-sizing: border-box;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: Helvetica, sans-serif;
+    color: white;
+}
+
+#character-moves-list > li > button:active {
+    background-color: maroon;
+}

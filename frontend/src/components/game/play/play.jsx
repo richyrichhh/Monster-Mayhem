@@ -19,34 +19,48 @@ class Play extends React.Component {
   constructor(props) {
     super(props);
     this.gameId = this.props.match.params.gameId;
+    this.currentUserId = this.props.user.id;
+    // console.dir(this.props.user);
     this.socket = process.env.NODE_ENV === 'production' ? io() : io('http://localhost:5000')
     this.socket.emit("sendJoinRoomToBack", {
       gameId: this.gameId
     })
 
-    console.dir(this.props.user);
-
-    this.initializeGame = this.initializeGame.bind(this);
-
     this.state = {
       playerNum: 1,
+      p1: null,
+      p2: null,
       p1Team: p1TestTeam,
       p1Char: 0,
       p2Team: p2TestTeam,
       p2Char: 0,
+      p1Moved: false,
+      p1Move: null,
+      p2Moved: false,
+      p2Move: null,
       refresh: false,
       loaded: false
     }
 
-    console.log(this.state['p1Char']);
+    window.state = this.state;
+    window.currentUserId = this.currentUserId;
+    
+    this.initializeGame = this.initializeGame.bind(this);
+    this.makeMove = this.makeMove.bind(this);
   }
 
   componentDidMount() {
     const game = this.props.fetchGame(this.gameId)
       .then((game) => this.initializeGame(game));
     const sockets = this.initializeSocketListeners();
-    const teams = this.state.p1Team.length + this.state.p2Team.length === 4;
-    Promise.all([game, sockets]).then(() => teams ? this.setState({ loaded: true }) : "")
+    Promise.all([game, sockets]).then(() => {
+      let loaded = false;
+      if (game.data) {
+        if (game.data.host && game.data.p2) loaded = true;
+        this.setState({p1: game.data.host, p2: game.data.p2, loaded: loaded});
+      }
+      // teams && this.game ? this.setState({ loaded: true }) : "";
+    })
   }
 
   componentDidUpdate() {
@@ -61,26 +75,47 @@ class Play extends React.Component {
   }
 
   initializeSocketListeners() {
-    this.socket.on("renderChars", (data) => {
+    this.socket.on("startGame", (data) => {
       let newState = Object.assign({}, this.state);
+      console.dir(data);
       newState.refresh = true;
       this.setState(newState);
     });
 
-    this.socket.on("receiveMove", (data) => {
+    this.socket.on("makeMove", (data) => {
+      console.log('making move');
       let newState = Object.assign({}, this.state);
+      if (data.player === 1) {
+        newState.p1Move = data.move;
+        newState.p1Moved = true;
+      } else if (data.player === 2) {
+        newState.p2Move = data.move;
+        newState.p2Moved = true;
+      }
+      if (newState.p1Moved && newState.p2Moved) {
+        this.socket.emit('handleMoves', { p1Move: this.state.p1Move, p2Move: this.state.p2Move });
+      }
       newState.refresh = true;
-      // do move stuff
+      console.dir(newState);
       this.setState(newState);
     });
 
-    this.socket.on("receiveDamage", (data) => {
+    this.socket.on("handleMoves", (data) => {
       let newState = Object.assign({}, this.state);
-      newState.refresh = true;
       // do damage stuff
+      newState.p1Moved = false;
+      newState.p2Moved = false;
+      newState.p1Move = null;
+      newState.p2Move = null;
+      newState.refresh = true;
       this.setState(newState);
     });
-    
+  }
+
+  makeMove(move, player) {
+    console.log('clicked makemove');
+    console.log(`${move} ${player}`);
+    this.socket.emit('sendMoveToBack', { move: move, player: player, gameId: this.gameId });
   }
 
   charHealthBar(character) {
@@ -136,6 +171,27 @@ class Play extends React.Component {
     this.setState(newState)
   }
 
+  renderMoves() {
+    if ((this.state.playerNum === 1 && this.state.p1Moved === false) || (this.state.playerNum === 2 && this.state.p2Moved === false)) {
+      return (
+        <div id="game-moves">
+          <div id="character-moves">
+            <ul id="character-moves-list">
+              {this.state[`p${this.state.playerNum}Team`][this.state.playerNum === 1 ? this.state.p1Char : this.state.p2Char].moves.map((move, i) => <li key={`move-${i}`}><button onClick={(e) => this.makeMove(move, this.state.playerNum)}>{move.name}</button></li>)}
+            </ul>
+          </div>
+          <span id="switch-character"><button onClick={() => console.log('switch')}>Switch</button></span>
+        </div>
+      )
+    } else {
+      return (
+        <div id="game-moves">
+          Waiting...
+        </div>
+      )
+    }
+  }
+
   render() {
     if (this.state.loaded) {
       return (
@@ -152,14 +208,7 @@ class Play extends React.Component {
               </span>
             </span>
           </span>
-          <div id="game-moves" className="not-your-turn">
-            <div id="character-moves">
-              <ul id="character-moves-list">
-                {this.state[`p${this.state.playerNum}Team`][this.state.playerNum === 1 ? this.state.p1Char : this.state.p2Char].moves.map(move => <li><button>{move.name}</button></li>)}
-              </ul>
-            </div>
-            <span id="switch-character"><button>Switch</button></span>
-          </div>
+          {this.renderMoves()}
         </div>
       );
     } else {
