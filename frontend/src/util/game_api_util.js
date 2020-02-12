@@ -13,7 +13,7 @@ export const createGame = data => {
 };
 
 export const updateGame = (gameId, data) => {
-    return axios.post(`/api/game/${gameId}`, data)
+    return axios.patch(`/api/game/${gameId}`, data)
 };
 
 export const deleteGame = gameId => {

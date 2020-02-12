@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 
-const splashImg = './images/bg.jpg'
+const splashImg = './images/forest-bg.jpg'
 
 class Search extends React.Component {
   constructor(props) {
@@ -30,8 +30,19 @@ class Search extends React.Component {
     const gameId = document.getElementById('search-game-id').value
     console.log(gameId);
     this.props.fetchGame(gameId).then(res => {
-      console.dir(res);
-      // this.props.history.push(`/game/play/${res.game.data._id}`);
+      // console.dir(res);
+      if (!res) alert('Game not found!');
+      else if (res.game.data.active === false) alert('Game not found!');
+      else if (res.game.data.full === true) alert('Game started!');
+      else {
+        const updatedGame = {
+          host: res.game.data.host,
+          full: true,
+          active: res.game.data.active
+        }
+        this.props.updateGame(res.game.data._id, updatedGame).then(res => console.dir(res));
+        this.props.history.push(`/game/play/${res.game.data._id}`);
+      }
     });
   }
 

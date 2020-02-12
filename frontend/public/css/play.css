@@ -1,7 +1,42 @@
-#play-background {
-    height: 100%;
-    min-height: 1000px;
+#gameplay-div {
     width: 100vw;
+    height: 100vh;
+    min-height: 800px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: black;
+}
+
+#play-background {
+    height: 600px;
+    width: 100%;
+    display: flex;
+    background-image: url('../images/stage.jpg');
+    background-size: 100%;
+}
+
+#play-background > span {
+    display: flex;
+    position: relative;
+    top: 80px;
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.game-character-img {
+    height: 300px;
+}
+
+.game-left {
+    margin-left: 100px;
+}
+
+.game-right {
+    margin-right: 100px;
 }
 
 

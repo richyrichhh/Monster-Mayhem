@@ -39,7 +39,7 @@ export const createNewGame = data => dispatch => (
 
 export const updateCurrentGame = (gameId, data) => dispatch => (
     updateGame(gameId, data)
-        .then(gameId => dispatch(receiveUpdatedGame(gameId)))
+        .then(game => dispatch(receiveUpdatedGame(game)))
         .catch(err => console.log(err))
 );
 

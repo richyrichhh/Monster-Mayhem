@@ -5,6 +5,9 @@ const testMonster =
 {_id: 0,
   currentHp: 90,
   maxHp: 90,
+  strength: 100,
+  agility: 100,
+  defense: 100,
   moves: [{ name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }],
   imgUrl: 'https://cdn11.bigcommerce.com/s-7va6f0fjxr/images/stencil/1280x1280/products/49070/65309/Girl-Stick-Figure-43-Vinyl-Decal-Sticker__36104.1506201870.jpg'};
 
