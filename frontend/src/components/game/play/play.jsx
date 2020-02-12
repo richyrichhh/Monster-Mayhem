@@ -9,7 +9,7 @@ const testMonster =
   agility: 100,
   defense: 100,
   moves: [{ name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }],
-  imgUrl: 'https://cdn11.bigcommerce.com/s-7va6f0fjxr/images/stencil/1280x1280/products/49070/65309/Girl-Stick-Figure-43-Vinyl-Decal-Sticker__36104.1506201870.jpg'};
+  imgUrl: './images/test-char.png'};
 
 let p1TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster)]
 let p2TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster)]
@@ -61,19 +61,6 @@ class Play extends React.Component {
   }
 
   initializeSocketListeners() {
-    this.socket.on("sendHptoFront", function (newCharData) {
-      let charHp = document.getElementById(`charidhp-${newCharData._id}`).children[0];
-      charHp.innerText = `${newCharData.currentHp}`
-      let healthPct = newCharData.currentHp / newCharData.maxHp;
-
-      if (healthPct < 0.3) {
-        charHp.style.color = "red";
-      } else {
-        charHp.style.color = "green"
-      }
-
-    });
-
     this.socket.on("renderChars", (data) => {
       let newState = Object.assign({}, this.state);
       newState.refresh = true;

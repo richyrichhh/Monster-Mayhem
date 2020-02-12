@@ -4,13 +4,15 @@ const mongoose = require("mongoose");
 const db = require("./config/keys").mongoURI;
 const users = require("./routes/api/users");
 const User = require("./models/User");
+const Game = require("./models/Game");
 const bodyParser = require("body-parser");
 const passport = require('passport');
 const path = require('path');
 const monsters = require('./routes/api/monsters');
 const teams = require('./routes/api/teams');
 const game = require('./routes/api/game');
-const socket = require("socket.io");
+
+const socketio = require("socket.io");
 // const server = require('http').server(app);
 
 
@@ -46,6 +48,35 @@ app.use("/api/game", game);
 
 app.use(express.static(__dirname + '/public'));
 
+
+
+const io = socketio(server);
+
+io.on("connection", function (socket, data) {
+  console.log("made connection with socket " + socket.id);
+
+  socket.on("sendJoinRoomToBack", function (data) {
+    Game.findById(data.gameId).then(camp => {
+      socket.join(camp.campKey); //Join a room
+      io.to(camp.campKey).emit("renderChars")
+      console.log("Joined room: " + camp.campKey)
+    })
+  })
+
+  socket.on("joinGame", function (id) {
+    socket.join(id); //Join a room
+    console.log("Joined game " + id)
+    io.to(id).emit("receive-room", "made it")
+  });
+
+  socket.on("leaveRoom", function (data) {
+    // Campaign.findById(data.campId).then(camp => {
+    //         io.to(camp.campKey).emit("renderChars", camp.campKey)
+    // })
+    // io.to(data.campKey).emit("renderChars")
+  })
+
+});
 
 
 
