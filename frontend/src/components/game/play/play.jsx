@@ -26,6 +26,8 @@ class Play extends React.Component {
 
     console.dir(this.props.user);
 
+    this.initializeGame = this.initializeGame.bind(this);
+
     this.state = {
       playerNum: 1,
       p1Team: p1TestTeam,
@@ -40,8 +42,8 @@ class Play extends React.Component {
   }
 
   componentDidMount() {
-    const game = this.props.fetchGame(this.gameId);
-      // .then(() => this.getCurrentChar());
+    const game = this.props.fetchGame(this.gameId)
+      .then((game) => this.initializeGame(game));
     const sockets = this.initializeSocketListeners();
     const teams = this.state.p1Team.length + this.state.p2Team.length === 4;
     Promise.all([game, sockets]).then(() => teams ? this.setState({ loaded: true }) : "")
@@ -51,6 +53,11 @@ class Play extends React.Component {
     if (this.state.refresh) {
       this.refresh();
     }
+  }
+
+  initializeGame(data) {
+    this.game = data.game.data;
+    console.dir(this.game);
   }
 
   initializeSocketListeners() {

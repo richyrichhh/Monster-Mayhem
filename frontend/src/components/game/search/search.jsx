@@ -37,6 +37,7 @@ class Search extends React.Component {
       else {
         const updatedGame = {
           host: res.game.data.host,
+          p2: this.state.currentUserId,
           full: true,
           active: res.game.data.active
         }

@@ -6,6 +6,10 @@ const GameSchema = new Schema({
         type: String,
         required: true
     },
+    p2: {
+        type: String,
+        required: true
+    },
     active: {
         type: Boolean
     },

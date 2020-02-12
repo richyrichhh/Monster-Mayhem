@@ -7,6 +7,7 @@ const Game = require('../../models/Game');
 router.post("/", (req, res) => {
     const newGame = new Game({
       host: req.body.host,
+      p2: 'yo momma',
       active: true,
       full: false
     });
@@ -19,6 +20,7 @@ router.patch("/:id", (req, res) => {
   Game.findById(req.params.id).then(game => {
     game.active = req.body.active;
     game.full = req.body.full;
+    game.p2 = req.body.p2;
     game.save().then(game => res.json(game));
   });
 });
