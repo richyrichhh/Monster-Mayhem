@@ -19,7 +19,7 @@
     background-size: cover;
 }
 
-#game-div > h2 {
+#game-div > h2, h4, h5{
     text-align: center;
     color: white;
     font-family: 'Montserrat';
@@ -27,6 +27,8 @@
     margin-top: 5%;
     font-size: x-large;
 }
+
+
 
 .monster-icon-div {
     display: flex;
@@ -52,24 +54,105 @@
 }
 
 .monster-element:hover {
-    background-color: rgba(99, 0, 0, .4);
+    background-color: rgba(99, 0, 0, .7);
     cursor: pointer;
+    overflow: visible;
+    display: flex;
+    align-content: center;
+    justify-content: center;
 }
 
-.monster-icon {
+.monster-name {
+    font-size: xx-large;
+    font-weight: 900;
+    margin-bottom: 20px;
+    border: 2px white solid;
+}
+
+.not-hovered-icon {
     height: 75%;
     width: 50%;
     display: block;
     margin-left: auto;
     margin-right: auto;
     /* background-color: red; */
+}
 
+.hovered-icon {
+    height: 45%;
+    width: 32%;
+    display: block;
+}
+
+
+
+.selected {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* border: black solid 2px; */
+    overflow: hidden;
+    /* height: 40%; */
+    width: 40%;
+    box-sizing: border-box;
+    background-color: rgba(99, 0, 0, .8);
 }
 
 .test {
-    color: yellow;
+    border: yellow 5px solid;
     font-size: xx-large;
 }
+
+/* GameMonsterItem */
+
+.show-stats{
+    display: block;
+    color: white;
+    font-family: 'Montserrat';
+    width: 50%;
+    padding: 0px;
+    margin: 5px;
+}
+
+.hide-stats {
+    display: none;
+    color: white;
+    font-family: 'Montserrat';
+}
+
+.show-moves-right {
+    color: white;
+    font-family: 'Montserrat';
+    background-color: rgba(99, 0, 0, .7);
+    margin-right: -32%;
+    z-index: 2;
+    position: relative;
+    overflow: visible;
+}
+
+.hide-moves {
+    display: none;
+}
+
+.show-moves-left {
+    color: white;
+    font-family: 'Montserrat';
+    background-color: rgba(99, 0, 0, .7);
+    margin-left: -32%;
+    z-index: 2;
+    position: relative;
+    overflow: visible;
+}
+
+.move-list-item {
+    padding: 25px;
+    margin-top: 5px;
+}
+
+.icon-stats {
+    display: flex;
+}
+
 
 
 
