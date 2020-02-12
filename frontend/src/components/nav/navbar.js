@@ -22,6 +22,8 @@ class NavBar extends React.Component {
             Welcome {currentUsername}!
           </div>
 
+          <Link className="learn-to-link" to={'/learn'}>Learn To Play</Link>
+
           <div id="navbar-div-logout">
             <a className="logout-button" href="#" onClick={this.logoutUser}>Logout</a>
           </div>

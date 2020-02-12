@@ -1,0 +1,33 @@
+.footer {
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 125px;
+  font-family: 'proxima-nova', sans-serif;
+}
+
+.dev-name {
+  font-size: 20px;
+}
+
+.icons {
+  display: flex;
+  justify-content: center;
+  font-size: 24px;
+  padding-top: 10px
+}
+
+.icons > a {
+  padding: 0px 5px 0px 5px;
+  color: white;
+}
+
+.icons > a:hover {
+  /* background-color: red;
+  border-radius: 3px; */
+  color: crimson;
+  cursor: pointer;
+  transform: scale(1.60);
+}
