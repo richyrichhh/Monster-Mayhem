@@ -28,7 +28,6 @@ class Search extends React.Component {
   joinGame(e) {
     e.preventDefault();
     const gameId = document.getElementById('search-game-id').value
-    console.log(gameId);
     this.props.fetchGame(gameId).then(res => {
       // console.dir(res);
       if (!res) alert('Game not found!');
