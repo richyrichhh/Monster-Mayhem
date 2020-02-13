@@ -69,3 +69,30 @@
 #character-moves-list > li > button:active {
     background-color: maroon;
 }
+
+.warning-health {
+    color: yellow;
+}
+
+.safe-health {
+    color: green;
+}
+
+.healthbar {
+    letter-spacing: 2px;
+    font-weight: 1000;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    position: absolute;
+    margin-left: 5vw;
+}
+
+#p1-side {
+    display: flex;
+    flex-direction: column;
+    
+}
+#p2-side {
+    display: flex;
+    flex-direction: column;
+
+}

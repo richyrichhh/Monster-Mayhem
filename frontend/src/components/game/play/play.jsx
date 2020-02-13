@@ -5,7 +5,7 @@ const testMonster =
 {_id: 0,
   currentHp: 90,
   maxHp: 90,
-  strength: 100,
+  attack: 100,
   agility: 100,
   defense: 100,
   moves: [{ name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }],
@@ -97,10 +97,6 @@ class Play extends React.Component {
       if (newState.p1Moved && newState.p2Moved) {
         this.socket.emit('handleMovesToBack', { p1Move: this.state.p1Move, p2Move: this.state.p2Move, gameId: this.gameId });
       }
-      // } else {
-      //   newState.refresh = true;
-      //   this.setState(newState);
-      // }
     });
 
     this.socket.on("handleMoves", (data) => {
@@ -127,15 +123,17 @@ class Play extends React.Component {
     let bar = "";
 
 
-    for (var x = 0; x < Math.floor(character.currentHp / 10); x++) {
+    for (var x = 0; x < Math.floor(character.currentHp / 5); x++) {
       bar += "|"
     }
-    if (healthPct < 0.4) {
+    if (healthPct < 0.3) {
+        return <span className="healthbar danger-health">{bar}</span>;
+    } else if (healthPct < 0.5) {
       return (
-        <span className="warning-health">{bar}</span>
+        <span className="healthbar warning-health">{bar}</span>
       );
     } else {
-      return <span className="safe-health">{bar}</span>;
+      return <span className="healthbar safe-health">{bar}</span>;
     }
   }
 
@@ -164,14 +162,13 @@ class Play extends React.Component {
     this.props.fetchGame(this.gameId);
   }
 
-  switchChar(e, player) {
+  switchChar(player) {
     let newState = Object.assign({}, this.state);
     if (player === 1) {
       newState.p1Char === 0 ? newState.p1Char = 1 : newState.p1Char = 0;
     } else if (player === 2) {
       newState.p2Char === 0 ? newState.p2Char = 1 : newState.p2Char = 0;
     }
-
     this.setState(newState)
   }
 
@@ -204,11 +201,11 @@ class Play extends React.Component {
             <span>
               <span id="p1-side" className="lit-up">
                 <img src={this.state.p1Team[this.state.p1Char].imgUrl} className="game-character-img game-left" />
-                <span id="p1-hp"></span>
+                <span id="p1-hp">{this.charHealthBar(this.state.p1Team[this.state.p1Char])}</span>
               </span>
               <span id="p2-side">
                 <img src={this.state.p2Team[this.state.p2Char].imgUrl} className="game-character-img game-right" />
-                <span id="p2-hp"></span>
+                <span id="p2-hp">{this.charHealthBar(this.state.p2Team[this.state.p2Char])}</span>
               </span>
             </span>
           </span>
