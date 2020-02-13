@@ -5,7 +5,7 @@ const testMonster =
 {_id: 0,
   currentHp: 90,
   maxHp: 90,
-  strength: 100,
+  attack: 100,
   agility: 100,
   defense: 100,
   moves: [{ name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }],
