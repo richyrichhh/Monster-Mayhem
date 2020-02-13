@@ -8,6 +8,8 @@ class GameMonsterItem extends React.Component {
             hover: false,
         }
 
+        this.numSelectedChars = 0;
+
         this.selectMonster = this.selectMonster.bind(this);
         this.showStats = this.showStats.bind(this);
         this.hideStats = this.hideStats.bind(this);
@@ -49,10 +51,11 @@ class GameMonsterItem extends React.Component {
         const { monster, addToTeam } = this.props;
 
         let toggleClass;
-        if (this.state.selected) {
-          toggleClass = 'selected'
+        if (this.state.selected && this.numSelectedChars < 2) {
+          this.numSelectedChars += 1;
+          toggleClass = 'selected';
         } else {
-            toggleClass = ''
+            toggleClass = '';
         }
         
         let stats;

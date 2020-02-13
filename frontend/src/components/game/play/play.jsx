@@ -106,6 +106,18 @@ class Play extends React.Component {
     this.socket.on("handleMoves", (data) => {
       let newState = Object.assign({}, this.state);
       // do damage stuff
+
+      const p1Char = this.state.p1Team[this.state.p1Char];
+      const p2Char = this.state.p2Team[this.state.p2Char];
+
+      if (p1Char.speed > p2Char.speed){
+        p2Char.health -= (p1Char.attack / 10) * this.state.p1move;
+        console.log(p2Char.health);
+      } else {
+        p1Char.health -= (p2Char.attack / 10) * this.state.p2move;
+        console.log(p1Char.health);
+      }
+
       console.log('damage is dealt now');
       newState.p1Moved = false;
       newState.p2Moved = false;
