@@ -43,7 +43,7 @@ const footerBar = () => {
 
       <div className="dev-1">
         <div className="dev-name">
-          <h2>Ricahrd Lu</h2>
+          <h2>Richard Lu</h2>
         </div>
         <div className="icons">
           <a href="https://www.linkedin.com/in/richard-lu-7680271a1/" target="_blank">

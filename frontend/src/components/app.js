@@ -27,14 +27,12 @@ const App = () => (
         <ProtectedRoute exact path="/learn" component={LearnContainer} />
         <ProtectedRoute exact path="/game" component={GameContainer} />
         <ProtectedRoute exact path="/game/search" component={SearchContainer} />
-        <ProtectedRoute exact path="/game/play" component={PlayContainer} />
+        {/* <ProtectedRoute exact path="/game/play" component={PlayContainer} /> */}
         <ProtectedRoute exact path="/game/play/:gameId" component={RealPlayContainer} />
         <Redirect to="/game" />
       </Switch>
     </div>
-    <footer>
        <FooterContainer />
-    </footer>
   </div>
 );
 
