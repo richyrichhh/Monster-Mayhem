@@ -54,10 +54,8 @@ class Play extends React.Component {
       .then((game) => this.initializeGame(game));
     const sockets = this.initializeSocketListeners();
     Promise.all([game, sockets]).then(() => {
-      let loaded = false;
-      if (game.data) {
-        if (game.data.host && game.data.p2) loaded = true;
-        this.setState({p1: game.data.host, p2: game.data.p2, loaded: loaded});
+      if (this.state.p1 && this.state.p2) {
+        this.setState({loaded: true});
       }
       // teams && this.game ? this.setState({ loaded: true }) : "";
     })
@@ -71,7 +69,9 @@ class Play extends React.Component {
 
   initializeGame(data) {
     this.game = data.game.data;
-    console.dir(this.game);
+    this.state.p1 = this.game.host
+    this.state.p2 = this.game.p2
+    console.dir(this.state);
   }
 
   initializeSocketListeners() {
@@ -92,23 +92,27 @@ class Play extends React.Component {
         newState.p2Move = data.move;
         newState.p2Moved = true;
       }
-      if (newState.p1Moved && newState.p2Moved) {
-        this.socket.emit('handleMoves', { p1Move: this.state.p1Move, p2Move: this.state.p2Move });
-      }
       newState.refresh = true;
-      console.dir(newState);
       this.setState(newState);
+      if (newState.p1Moved && newState.p2Moved) {
+        this.socket.emit('handleMovesToBack', { p1Move: this.state.p1Move, p2Move: this.state.p2Move, gameId: this.gameId });
+      }
+      // } else {
+      //   newState.refresh = true;
+      //   this.setState(newState);
+      // }
     });
 
     this.socket.on("handleMoves", (data) => {
       let newState = Object.assign({}, this.state);
       // do damage stuff
+      console.log('damage is dealt now');
       newState.p1Moved = false;
       newState.p2Moved = false;
       newState.p1Move = null;
       newState.p2Move = null;
       newState.refresh = true;
-      this.setState(newState);
+      setTimeout(() => this.setState(newState), 3000);
     });
   }
 
@@ -172,12 +176,12 @@ class Play extends React.Component {
   }
 
   renderMoves() {
-    if ((this.state.playerNum === 1 && this.state.p1Moved === false) || (this.state.playerNum === 2 && this.state.p2Moved === false)) {
+    if ((this.state.p1 === this.currentUserId && this.state.p1Moved === false) || (this.state.p2 === this.currentUserId && this.state.p2Moved === false)) {
       return (
         <div id="game-moves">
           <div id="character-moves">
             <ul id="character-moves-list">
-              {this.state[`p${this.state.playerNum}Team`][this.state.playerNum === 1 ? this.state.p1Char : this.state.p2Char].moves.map((move, i) => <li key={`move-${i}`}><button onClick={(e) => this.makeMove(move, this.state.playerNum)}>{move.name}</button></li>)}
+              {this.state[`p${this.state.p1 === this.currentUserId ? '1' : '2'}Team`][this.state.p1 === this.currentUserId ? this.state.p1Char : this.state.p2Char].moves.map((move, i) => <li key={`move-${i}`}><button onClick={(e) => this.makeMove(move, this.state.p1 === this.currentUserId ? 1 : 2)}>{move.name}</button></li>)}
             </ul>
           </div>
           <span id="switch-character"><button onClick={() => console.log('switch')}>Switch</button></span>
