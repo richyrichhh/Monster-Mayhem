@@ -107,10 +107,10 @@ class Play extends React.Component {
       const p2Char = this.state.p2Team[this.state.p2Char];
 
       if (p1Char.speed > p2Char.speed){
-        p2Char.curentHp -= (p1Char.attack / 10) * this.state.p1move;
+        p2Char.currentHp -= (p1Char.attack / 10) * this.state.p1Move.power;
         console.log(p2Char.currentHp);
       } else {
-        p1Char.currentHp -= (p2Char.attack / 10) * this.state.p2move;
+        p1Char.currentHp -= (p2Char.attack / 10) * this.state.p2Move.power;
         console.log(p1Char.currentHp);
       }
 

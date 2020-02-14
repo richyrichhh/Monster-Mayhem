@@ -78,21 +78,30 @@
     color: green;
 }
 
+.danger-health {
+    color: red;
+}
+
 .healthbar {
+    display: flex;
     letter-spacing: 2px;
+    background-color: black;
     font-weight: 1000;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    position: absolute;
-    margin-left: 5vw;
+    position: relative;
+    text-align: center;
+    justify-content: center;
 }
 
 #p1-side {
     display: flex;
     flex-direction: column;
-    
+    justify-content: center;
+    align-items: center;
 }
 #p2-side {
     display: flex;
     flex-direction: column;
-
+    justify-content: center;
+    align-items: center;
 }
