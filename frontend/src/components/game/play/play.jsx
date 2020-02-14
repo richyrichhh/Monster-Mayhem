@@ -1,6 +1,10 @@
 import React from 'react';
 import io from 'socket.io-client';
-
+const switchMove = {
+  name: 'switch',
+  power: 0,
+  effects: ['switch']
+}
 const testMonster = 
 {_id: 0,
   currentHp: 90,
@@ -103,14 +107,14 @@ class Play extends React.Component {
       let newState = Object.assign({}, this.state);
       // do damage stuff
 
-      const p1Char = this.state.p1Team[this.state.p1Char];
-      const p2Char = this.state.p2Team[this.state.p2Char];
+      const p1Char = newState.p1Team[newState.p1Char];
+      const p2Char = newState.p2Team[newState.p2Char];
 
       if (p1Char.speed > p2Char.speed){
-        p2Char.currentHp -= (p1Char.attack / 10) * this.state.p1Move.power;
+        p2Char.currentHp -= (p1Char.attack / 10) * newState.p1Move.power;
         console.log(p2Char.currentHp);
       } else {
-        p1Char.currentHp -= (p2Char.attack / 10) * this.state.p2Move.power;
+        p1Char.currentHp -= (p2Char.attack / 10) * newState.p2Move.power;
         console.log(p1Char.currentHp);
       }
 
@@ -128,6 +132,11 @@ class Play extends React.Component {
     console.log('clicked makemove');
     console.log(`${move} ${player}`);
     this.socket.emit('sendMoveToBack', { move: move, player: player, gameId: this.gameId });
+  }
+
+  sendSwitch(player) {
+    console.log('clicked switch');
+    this.socket.emit('sendMoveToBack', { move: switchMove, player: player, gameId: this.gameId })
   }
 
   charHealthBar(character) {
@@ -199,7 +208,13 @@ class Play extends React.Component {
     } else {
       return (
         <div id="game-moves">
-          Waiting...
+          <div id="character-moves">
+            <ul id="character-moves-list">
+              <button>
+                Waiting...
+              </button>
+            </ul>
+          </div>
         </div>
       )
     }
