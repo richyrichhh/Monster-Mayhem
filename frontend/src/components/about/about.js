@@ -14,7 +14,7 @@ class About extends React.Component {
           <div className="left-dev">
             <div className="dev-container">
               <img className="dev-image" src="./images/darryl_nguyen.jpg" />
-              <p className="dev-description">
+              <div className="dev-description">
                 <h2>Darryl Nguyen</h2>
                 <br />
                 <h3>Fullstack Developer</h3>
@@ -33,15 +33,15 @@ class About extends React.Component {
                     <i className="fa fa-github"></i>
                   </a>
                   <a href="" target="_blank">
-                    <i class="fa fa-angellist"></i>
+                    <i className="fa fa-angellist"></i>
                   </a>
                 </div>
-              </p>
+              </div>
             </div>
 
             <div className="dev-container">
               <img className="dev-image" src="./images/chris_nguyen_2.jpg" />
-              <p className="dev-description">
+              <div className="dev-description">
                 <h2>Chris Nguyen</h2>
                 <br />
                 <h3>Fullstack Developer</h3>
@@ -60,17 +60,17 @@ class About extends React.Component {
                     <i className="fa fa-github"></i>
                   </a>
                   <a href="https://angel.co/chris-nguyen-27" target="_blank">
-                    <i class="fa fa-angellist"></i>
+                    <i className="fa fa-angellist"></i>
                   </a>
                 </div>
-              </p>
+              </div>
             </div>
           </div>
 
           <div className="right-dev">
             <div className="dev-container">
               <img className="dev-image" src="./images/richard_lu.jpg" />
-              <p className="dev-description">
+              <div className="dev-description">
                 <h2>Richard Lu</h2>
                 <br />
                 <h3>Fullstack Developer</h3>
@@ -89,15 +89,15 @@ class About extends React.Component {
                     <i className="fa fa-github"></i>
                   </a>
                   <a href="https://angel.co/richard-lu-6" target="_blank">
-                    <i class="fa fa-angellist"></i>
+                    <i className="fa fa-angellist"></i>
                   </a>
                 </div>
-              </p>
+              </div>
             </div>
 
             <div className="dev-container">
               <img className="dev-image" src="./images/justin_fernandez.jpg" />
-              <p className="dev-description">
+              <div className="dev-description">
                 <h2>Justin Fernandez</h2>
                 <br />
                 <h3>Fullstack Developer</h3>
@@ -116,10 +116,10 @@ class About extends React.Component {
                     <i className="fa fa-github"></i>
                   </a>
                   <a href="https://angel.co/justin-fernandez-3" target="_blank">
-                    <i class="fa fa-angellist"></i>
+                    <i className="fa fa-angellist"></i>
                   </a>
                 </div>
-              </p>
+              </div>
             </div>
           </div>
         </div>

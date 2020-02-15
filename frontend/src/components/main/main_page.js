@@ -7,8 +7,8 @@ class MainPage extends React.Component {
       <div id="splash-div">
         {/* <div id="splash-img-div"> */}
           <img className="splash-img" src="https://wallpaperaccess.com/full/235857.jpg" />
-          <div class="container">
-            <p class="about"> 
+          <div className="container">
+            <p className="about"> 
               A multiplayer game
               <br/>
               <br />
