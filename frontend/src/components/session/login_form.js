@@ -17,14 +17,14 @@ class LoginForm extends React.Component {
   }
 
   // Once the user has been authenticated, redirect to the Tweets page
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.currentUser === true) {
-  //     this.props.history.push("/game");
-  //   }
+  componentWillReceiveProps(nextProps) {
+    if (this.currentUser === true) {
+      this.props.history.push("/tweets");
+    }
 
-  //   // Set or clear errors
-  //   this.setState({ errors: nextProps.errors });
-  // }
+    // Set or clear errors
+    this.setState({ errors: nextProps.errors });
+  }
 
   // Handle field updates (called in the render method)
 
@@ -53,7 +53,7 @@ class LoginForm extends React.Component {
   
       if (!res.errors) {
     
-        this.props.closeModal();
+        this.props.closeModal().this.props.history.push('/game');
   
       }
     });

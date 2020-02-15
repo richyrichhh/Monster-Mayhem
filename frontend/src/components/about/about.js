@@ -13,52 +13,115 @@ class About extends React.Component {
         <div className="dev-info">
           <div className="left-dev">
             <div className="dev-container">
+              <img className="dev-image" src="./images/darryl_nguyen.jpg" />
               <p className="dev-description">
                 <h2>Darryl Nguyen</h2>
                 <br />
-                <h3>Team Lead</h3>
+                <h3>Fullstack Developer</h3>
                 <br />
-                oahfgaongouanoiuaznjoznvjealiaiuegoafuainviaoanfaozvhualfjafoiaj
+                oahfgaongouanoiuaznj
+                <br />
+                <br />
+                <div className="icons">
+                  <a
+                    href="https://www.linkedin.com/in/nguyendarryl/"
+                    target="_blank"
+                  >
+                    <i className="fa fa-linkedin-square"></i>
+                  </a>
+                  <a href="https://github.com/nguyendarryl" target="_blank">
+                    <i className="fa fa-github"></i>
+                  </a>
+                  <a href="" target="_blank">
+                    <i class="fa fa-angellist"></i>
+                  </a>
+                </div>
               </p>
-              <img className="dev-image-right" src="./images/darryl_nguyen.jpg" />
             </div>
 
             <div className="dev-container">
-              <img className="dev-image-left" src="./images/richard_lu.jpg" />
+              <img className="dev-image" src="./images/chris_nguyen_2.jpg" />
               <p className="dev-description">
-                <h2>Ricahrd Lu</h2>
+                <h2>Chris Nguyen</h2>
                 <br />
-                <h3>Frontend Developer/Flex</h3>
+                <h3>Fullstack Developer</h3>
                 <br />
-                oahfgaongouanoiuaznjoznvjealiaiuegoafuainviaoanfaozvhualfjafoiaj
+                oahfgaongouanoiua
+                <br />
+                <br />
+                <div className="icons">
+                  <a
+                    href="https://www.linkedin.com/in/chris-nguyen-84b0261a1/"
+                    target="_blank"
+                  >
+                    <i className="fa fa-linkedin-square"></i>
+                  </a>
+                  <a href="https://github.com/chrisdangnguyen" target=" _blank">
+                    <i className="fa fa-github"></i>
+                  </a>
+                  <a href="https://angel.co/chris-nguyen-27" target="_blank">
+                    <i class="fa fa-angellist"></i>
+                  </a>
+                </div>
               </p>
             </div>
           </div>
 
           <div className="right-dev">
             <div className="dev-container">
+              <img className="dev-image" src="./images/richard_lu.jpg" />
               <p className="dev-description">
-                <h2>Justin Fernandez</h2>
+                <h2>Richard Lu</h2>
                 <br />
-                <h3>Frontend Lead</h3>
+                <h3>Fullstack Developer</h3>
                 <br />
-                oahfgaongouanoiuaznjoznvjealiaiuegoafuainviaoanfaozvhualfjafoiaj
+                oahfgaongouanoiu
+                <br />
+                <br />
+                <div className="icons">
+                  <a
+                    href="https://www.linkedin.com/in/richard-lu-7680271a1/"
+                    target="_blank"
+                  >
+                    <i className="fa fa-linkedin-square"></i>
+                  </a>
+                  <a href="https://github.com/richyrichhh/" target="_blank">
+                    <i className="fa fa-github"></i>
+                  </a>
+                  <a href="https://angel.co/richard-lu-6" target="_blank">
+                    <i class="fa fa-angellist"></i>
+                  </a>
+                </div>
               </p>
-              <img className="dev-image-right" src="./images/justin_fernandez.jpg" />
             </div>
 
             <div className="dev-container">
-              <img className="dev-image-left" src="./images/chris_nguyen.jpg" />
+              <img className="dev-image" src="./images/justin_fernandez.jpg" />
               <p className="dev-description">
-                <h2>Chris Nguyen</h2>
+                <h2>Justin Fernandez</h2>
                 <br />
-                <h3>Backend Lead/Flex</h3>
+                <h3>Fullstack Developer</h3>
                 <br />
-                oahfgaongouanoiuaznjoznvjealiaiuegoafuainviaoanfaozvhualfjafoiaj
+                oahfgaongouanoiuaznjoznvje
+                <br />
+                <br />
+                <div className="icons">
+                  <a
+                    href="https://www.linkedin.com/in/justin-fernandez-7a4727122/"
+                    target="_blank"
+                  >
+                    <i className="fa fa-linkedin-square"></i>
+                  </a>
+                  <a href="https://github.com/Justinlf55" target="_blank">
+                    <i className="fa fa-github"></i>
+                  </a>
+                  <a href="https://angel.co/justin-fernandez-3" target="_blank">
+                    <i class="fa fa-angellist"></i>
+                  </a>
+                </div>
               </p>
             </div>
           </div>
-
         </div>
       </div>
     );

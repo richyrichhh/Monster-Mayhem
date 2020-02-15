@@ -59,7 +59,6 @@
 .dev-container {
   margin-top: 50px;
   margin-bottom: 50px;
-  background: rgba(0, 0, 0, .7);
   z-index: 1;
   text-align:center;
   width: 100%;
@@ -75,8 +74,6 @@
   box-shadow: 0px 0px 0px 10px rgba(37, 37, 37, 0.8);
   display: flex;
   flex-direction: row;
-
-
 }
 
 .dev-description {
@@ -87,22 +84,21 @@
   z-index: 1;
   height: 100%;
   width: 100%;
-  overflow: hidden;
-  padding: 5px;
+  overflow: scroll;
+  background: rgba(0, 0, 0, .7);
+  border-radius: 0px 5px 5px 0px;
+  border-color: transparent;
 }
 
-.dev-image-right {
+.dev-image {
   height: 100%;
   width: 30%;
-  border-radius: 5px;
-  padding-left: 10px;
-}
-
-.dev-image-left {
-  height: 100%;
-  width: 30%;
-  border-radius: 5px;
-  padding-right: 10px;
+  border-radius: 5px 0px 0px 5px;
+  min-width: 200px;
+  min-height: 206px;
+  /* box-shadow: 0px 0px 0px 10px rgba(37, 37, 37, 0.8); */
+  z-index: 1;
+  border-right: 10px solid rgba(37, 37, 37, 0.8);
 }
 
 .left-dev {
@@ -110,7 +106,6 @@
   height: 100%;
   width: 45%;
   min-width: 400px;
- 
 }
 
 .right-dev {
@@ -118,5 +113,4 @@
   height: 100%;
   width: 45%;
   min-width: 400px;
-
 }

@@ -120,12 +120,12 @@
   /* border-color: #111; */
 }
 
-.logout-button:hover, .learn-to-link:hover {
+.logout-button:hover, .learn-to-link:hover, .about-link:hover {
   background-color: crimson;
   cursor: pointer;
 }
 
-.learn-to-link {
+.learn-to-link, .about-link {
   text-align: center;
   min-width: 125px;
   height: 40px;

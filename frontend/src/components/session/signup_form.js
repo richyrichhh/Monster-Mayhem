@@ -15,13 +15,13 @@ class SignupForm extends React.Component {
     this.clearedErrors = false;
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.signedIn === true) {
-  //     this.props.history.push('/game');
-  //   }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.signedIn === true) {
+      this.props.history.push('/game');
+    }
 
-  //   this.setState({ errors: nextProps.errors })
-  // }
+    this.setState({ errors: nextProps.errors })
+  }
 
   update(field) {
     return e => this.setState({
@@ -40,7 +40,7 @@ class SignupForm extends React.Component {
     this.props.signup(user, this.props.history)
       .then(res => {
         if (!res.errors) {
-        this.props.closeModal();
+        this.props.closeModal().then(this.props.history.push('/game'));
       }
     });
   }

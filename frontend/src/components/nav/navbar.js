@@ -18,14 +18,20 @@ class NavBar extends React.Component {
       const currentUsername = this.props.currentUser.username
       return (
         <div className="navbar-loggedin">
-          <div className="nav-bar-greeting">
-            Ready up, {currentUsername}!
-          </div>
+          <div className="nav-bar-greeting">Ready up, {currentUsername}!</div>
 
-          <Link className="learn-to-link" to={'/learn'}>Learn To Play</Link>
+          <Link className="about-link" to={"/about"}>
+            Meet the Devs
+          </Link>
+
+          <Link className="learn-to-link" to={"/learn"}>
+            Learn To Play
+          </Link>
 
           <div id="navbar-div-logout">
-            <a className="logout-button" href="#" onClick={this.logoutUser}>Logout</a>
+            <a className="logout-button" href="#" onClick={this.logoutUser}>
+              Logout
+            </a>
           </div>
         </div>
       );
@@ -34,13 +40,13 @@ class NavBar extends React.Component {
         <div id="navbar-div-inner">
           {/* <Link to={'/signup'}>Sign Up</Link>
           <Link to={'/login'}>Login</Link> */}
-          <button onClick={() => (this.props.openModal('signup'))}>
+          <Link className="about-link" to={"/about"}>
+            Meet the Devs
+          </Link>
+          <button onClick={() => this.props.openModal("signup")}>
             Sign Up
           </button>
-          <button  onClick={() => (this.props.openModal('login'))}>
-            Login
-          </button>
-
+          <button onClick={() => this.props.openModal("login")}>Login</button>
         </div>
       );
     }
