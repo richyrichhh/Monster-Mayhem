@@ -91,11 +91,18 @@
   padding: 5px;
 }
 
-.dev-image {
+.dev-image-right {
   height: 100%;
   width: 30%;
   border-radius: 5px;
   padding-left: 10px;
+}
+
+.dev-image-left {
+  height: 100%;
+  width: 30%;
+  border-radius: 5px;
+  padding-right: 10px;
 }
 
 .left-dev {

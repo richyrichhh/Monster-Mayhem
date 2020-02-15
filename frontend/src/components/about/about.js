@@ -20,10 +20,11 @@ class About extends React.Component {
                 <br />
                 oahfgaongouanoiuaznjoznvjealiaiuegoafuainviaoanfaozvhualfjafoiaj
               </p>
-              <img className="dev-image" src="./images/chris_nguyen.jpg" />
+              <img className="dev-image-right" src="./images/darryl_nguyen.jpg" />
             </div>
 
             <div className="dev-container">
+              <img className="dev-image-left" src="./images/richard_lu.jpg" />
               <p className="dev-description">
                 <h2>Ricahrd Lu</h2>
                 <br />
@@ -31,7 +32,6 @@ class About extends React.Component {
                 <br />
                 oahfgaongouanoiuaznjoznvjealiaiuegoafuainviaoanfaozvhualfjafoiaj
               </p>
-              <img className="dev-image" src="./images/chris_nguyen.jpg" />
             </div>
           </div>
 
@@ -44,10 +44,11 @@ class About extends React.Component {
                 <br />
                 oahfgaongouanoiuaznjoznvjealiaiuegoafuainviaoanfaozvhualfjafoiaj
               </p>
-              <img className="dev-image" src="./images/chris_nguyen.jpg" />
+              <img className="dev-image-right" src="./images/justin_fernandez.jpg" />
             </div>
 
             <div className="dev-container">
+              <img className="dev-image-left" src="./images/chris_nguyen.jpg" />
               <p className="dev-description">
                 <h2>Chris Nguyen</h2>
                 <br />
@@ -55,7 +56,6 @@ class About extends React.Component {
                 <br />
                 oahfgaongouanoiuaznjoznvjealiaiuegoafuainviaoanfaozvhualfjafoiaj
               </p>
-              <img className="dev-image" src="./images/chris_nguyen.jpg" />
             </div>
           </div>
 
