@@ -6,7 +6,7 @@ import NavBarContainer from './nav/navbar_container';
 
 import Modal from './modal/modal';
 import MainPage from './main/main_page';
-// import AboutContainer from './about/about_container';
+import AboutContainer from './about/about';
 // import LoginFormContainer from './session/login_form_container';
 // import SignupFormContainer from './session/signup_form_container';
 import GameContainer from './game/game_container';
@@ -23,7 +23,7 @@ const App = () => (
     <div id="page-main-div">
       <Switch>
         <AuthRoute exact path="/" component={MainPage} />
-        {/* <Route exact path="/about" component={AboutContainer} /> */}
+        <Route exact path="/about" component={AboutContainer} />
         <ProtectedRoute exact path="/learn" component={LearnContainer} />
         <ProtectedRoute exact path="/game" component={GameContainer} />
         <ProtectedRoute exact path="/game/search" component={SearchContainer} />
