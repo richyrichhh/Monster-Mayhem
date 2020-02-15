@@ -19,7 +19,7 @@ class NavBar extends React.Component {
       return (
         <div className="navbar-loggedin">
           <div className="nav-bar-greeting">
-            Welcome {currentUsername}!
+            Ready up, {currentUsername}!
           </div>
 
           <Link className="learn-to-link" to={'/learn'}>Learn To Play</Link>

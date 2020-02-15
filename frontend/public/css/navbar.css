@@ -37,11 +37,12 @@
 	-webkit-background-clip: text;
 	text-transform: uppercase;
   box-sizing: border-box;
-	font-size: 50px;
+	font-size: 48px;
   line-height: 1;
   letter-spacing: 2px;
   /* margin: 10px 0; */
   font-weight: 1000;
+  padding-top: 8px;
 }
 
 .navbar-loggedin {
