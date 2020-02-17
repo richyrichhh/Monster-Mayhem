@@ -15,7 +15,7 @@ const footerBar = () => {
             <i className="fa fa-github"></i>
           </a>
           <a href="https://angel.co/justin-fernandez-3" target="_blank">
-            <i class="fa fa-angellist"></i>
+            <i className="fa fa-angellist"></i>
           </a>
         </div>
       </div>
@@ -32,7 +32,7 @@ const footerBar = () => {
             <i className="fa fa-github"></i> 
           </a>
         <a href="https://angel.co/chris-nguyen-27" target="_blank">
-            <i class="fa fa-angellist"></i>
+            <i className="fa fa-angellist"></i>
           </a>
         </div>
       </div>
@@ -43,7 +43,7 @@ const footerBar = () => {
 
       <div className="dev-1">
         <div className="dev-name">
-          <h2>Ricahrd Lu</h2>
+          <h2>Richard Lu</h2>
         </div>
         <div className="icons">
           <a href="https://www.linkedin.com/in/richard-lu-7680271a1/" target="_blank">
@@ -53,7 +53,7 @@ const footerBar = () => {
             <i className="fa fa-github"></i>
           </a>
           <a href="https://angel.co/richard-lu-6" target="_blank">
-            <i class="fa fa-angellist"></i>
+            <i className="fa fa-angellist"></i>
           </a>
         </div>
       </div>
@@ -70,7 +70,7 @@ const footerBar = () => {
             <i className="fa fa-github"></i>
           </a>
           <a href="" target="_blank">
-            <i class="fa fa-angellist"></i>
+            <i className="fa fa-angellist"></i>
           </a>
         </div>
       </div>
