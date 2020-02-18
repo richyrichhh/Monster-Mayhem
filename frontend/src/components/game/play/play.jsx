@@ -10,13 +10,23 @@ const testMonster =
   currentHp: 90,
   maxHp: 90,
   attack: 100,
-  agility: 100,
+  speed: 100,
   defense: 100,
-  moves: [{ name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }],
+  moves: [{ name: 'tackle', power: 10, effects: [], effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
   imgUrl: './images/test-char.png'};
 
-let p1TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster)]
-let p2TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster)]
+const testMonster2 = 
+{_id: 1,
+  currentHp: 90,
+  maxHp: 90,
+  attack: 100,
+  speed: 100,
+  defense: 100,
+  moves: [{ name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
+  imgUrl: './images/darryl_nguyen.jpg'};
+
+let p1TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
+let p2TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
 
 
 class Play extends React.Component {
@@ -99,24 +109,16 @@ class Play extends React.Component {
       newState.refresh = true;
       this.setState(newState);
       if (newState.p1Moved && newState.p2Moved) {
-        this.socket.emit('handleMovesToBack', { p1Move: this.state.p1Move, p2Move: this.state.p2Move, gameId: this.gameId });
+        this.socket.emit('sendMovesToBack', { p1Move: this.state.p1Move, p2Move: this.state.p2Move, gameId: this.gameId });
       }
     });
 
-    this.socket.on("handleMoves", (data) => {
+    this.socket.on("handleTurn", (data) => {
       let newState = Object.assign({}, this.state);
       // do damage stuff
-
-      const p1Char = newState.p1Team[newState.p1Char];
-      const p2Char = newState.p2Team[newState.p2Char];
-
-      if (p1Char.speed > p2Char.speed){
-        p2Char.currentHp -= (p1Char.attack / 10) * newState.p1Move.power;
-        console.log(p2Char.currentHp);
-      } else {
-        p1Char.currentHp -= (p2Char.attack / 10) * newState.p2Move.power;
-        console.log(p1Char.currentHp);
-      }
+      newState = this.handleSwitch(newState);
+      // newState = handleCombat
+      newState = this.handleDamage(newState);
 
       console.log('damage is dealt now');
       newState.p1Moved = false;
@@ -126,6 +128,31 @@ class Play extends React.Component {
       newState.refresh = true;
       setTimeout(() => this.setState(newState), 3000);
     });
+  }
+
+  handleSwitch(state) {
+    if (state.p1Move.effects.include('switch')) state.p1Char = state.p1Char === 0 ? 1 : 0;
+    if (state.p2Move.effects.include('switch')) state.p2Char = state.p2Char === 0 ? 1 : 0;
+    this.setState(state);
+    return state;
+  }
+
+  handleCombat(state) {
+    let effSpd1 = state.p1Char.speed;
+    let effSpd2 = state.p2Char.speed;
+    if (effSpd1 > effSpd2) {
+      state.p2Team[state.p2Char].currentHp -= ((state.p1Team[state.p1Char].attack - state.p2Team[state.p2Char].defense) / 10) + state.p1Move.power;
+      if (state.p2Team[state.p2Char].currentHp > 0) {
+        state.p1Team[state.p1Char].currentHp -= ((state.p2Team[state.p2Char].attack - state.p1Team[state.p1Char].defense) / 10) + state.p2Move.power;
+      }
+    } else {
+      state.p1Team[state.p1Char].currentHp -= ((state.p2Team[state.p2Char].attack - state.p1Team[state.p1Char].defense) / 10) + state.p2Move.power;
+      if (state.p1Team[state.p1Char].currentHp > 0) {
+        state.p2Team[state.p2Char].currentHp -= ((state.p1Team[state.p1Char].attack - state.p2Team[state.p2Char].defense) / 10) + state.p1Move.power;
+      }
+    }
+
+    return state;
   }
 
   makeMove(move, player) {
@@ -158,9 +185,16 @@ class Play extends React.Component {
     }
   }
 
-  handleDamage(amt) {
+  handleDamage(player, effects, damage) {
     let newState = Object.assign({}, this.state.team);
-    newState[this.state.currentChar].currentHp -= amt;
+    if (player === 1) {
+      damage = damage || ((newState.p1Char.attack - newState.p2Char.defense) / 10) + newState.p1Move.power;
+      newState.p2Char.currentHp -= damage;
+    } else if (player === 2) {
+      damage = damage || ((newState.p2Char.attack - newState.p1Char.defense) / 10) + newState.p2Move.power;
+      newState.p1Char.currentHp -= damage;
+    }
+    newState.p2Char.currentHp -= ((newState.p1Char.attack - newState.p2Char.defense) / 10) + newState.p1Move.power;
     this.setState({
       team: newState
     })
@@ -194,6 +228,7 @@ class Play extends React.Component {
   }
 
   renderMoves() {
+    const playerNum = (this.state.p1 === this.currentUserId ? 1 : this.state.p2 === this.currentUserId ? 2 : 0)
     if ((this.state.p1 === this.currentUserId && this.state.p1Moved === false) || (this.state.p2 === this.currentUserId && this.state.p2Moved === false)) {
       return (
         <div id="game-moves">
@@ -202,7 +237,7 @@ class Play extends React.Component {
               {this.state[`p${this.state.p1 === this.currentUserId ? '1' : '2'}Team`][this.state.p1 === this.currentUserId ? this.state.p1Char : this.state.p2Char].moves.map((move, i) => <li key={`move-${i}`}><button onClick={(e) => this.makeMove(move, this.state.p1 === this.currentUserId ? 1 : 2)}>{move.name}</button></li>)}
             </ul>
           </div>
-          <span id="switch-character"><button onClick={() => console.log('switch')}>Switch</button></span>
+          <span id="switch-character"><button onClick={() => this.sendSwitch(playerNum)}>Switch</button></span>
         </div>
       )
     } else {
