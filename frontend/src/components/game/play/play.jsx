@@ -15,6 +15,10 @@ const testMonster =
   moves: [{ name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }],
   imgUrl: './images/test-char.png'};
 
+const damageFormula = (monsterOne, monsterTwo) => (
+  monsterTwo.currentHp -= monsterOne.attack * monsterOne.move.power / monsterTwo.defense
+);
+
 let p1TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster)]
 let p2TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster)]
 
@@ -111,7 +115,7 @@ class Play extends React.Component {
       const p2Char = newState.p2Team[newState.p2Char];
 
       if (p1Char.speed > p2Char.speed){
-        p2Char.currentHp -= (p1Char.attack / 10) * newState.p1Move.power;
+        p2Char.currentHp -= (p1Char.attack  / 10) * newState.p1Move.power ;
         console.log(p2Char.currentHp);
       } else {
         p1Char.currentHp -= (p2Char.attack / 10) * newState.p2Move.power;
