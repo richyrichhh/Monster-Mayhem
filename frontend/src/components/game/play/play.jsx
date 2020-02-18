@@ -131,8 +131,8 @@ class Play extends React.Component {
   }
 
   handleSwitch(state) {
-    if (state.p1Move.effects.include('switch')) state.p1Char = state.p1Char === 0 ? 1 : 0;
-    if (state.p2Move.effects.include('switch')) state.p2Char = state.p2Char === 0 ? 1 : 0;
+    if (state.p1Move.effects.includes('switch')) state.p1Char = state.p1Char === 0 ? 1 : 0;
+    if (state.p2Move.effects.includes('switch')) state.p2Char = state.p2Char === 0 ? 1 : 0;
     this.setState(state);
     return state;
   }
