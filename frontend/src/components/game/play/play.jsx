@@ -59,6 +59,7 @@ class Play extends React.Component {
     window.state = this.state;
     window.currentUserId = this.currentUserId;
     
+    this.turn = false;
     this.initializeGame = this.initializeGame.bind(this);
     this.makeMove = this.makeMove.bind(this);
   }
@@ -114,29 +115,33 @@ class Play extends React.Component {
     });
 
     this.socket.on("handleTurn", (data) => {
-      let newState = Object.assign({}, this.state);
-      newState = Object.assign(newState, {p1Move: data.p1Move, p1Moved: true, p2Move: data.p2Move, p2Moved: true})
-      newState.p1Move = data.p1Move;
-      newState.p1Moved = true;
-      newState.p2Move = data.p2Move;
-      newState.p2Moved = true;
-      // do damage stuff
-
-      console.log('here');
-      console.dir(this.state);
-      console.log('here');
-      newState = this.handleSwitch(newState);
-      // newState = handleCombat
-      setTimeout(() => {
-        newState = this.handleCombat(newState);
-        console.log('damage is dealt now');
-        newState.p1Moved = false;
-        newState.p2Moved = false;
-        newState.p1Move = null;
-        newState.p2Move = null;
-        newState.refresh = true;
-        setTimeout(() => this.setState(newState), 3000);
-      }, 1000);
+      if (!this.turn) {
+        this.turn = true;
+        let newState = Object.assign({}, this.state);
+        newState = Object.assign(newState, {p1Move: data.p1Move, p1Moved: true, p2Move: data.p2Move, p2Moved: true})
+        newState.p1Move = data.p1Move;
+        newState.p1Moved = true;
+        newState.p2Move = data.p2Move;
+        newState.p2Moved = true;
+        // do damage stuff
+  
+        newState = this.handleSwitch(Object.assign({}, this.state));
+        console.log('here');
+        console.dir(newState);
+        console.log('here');
+        // newState = handleCombat
+        setTimeout(() => {
+          newState = this.handleCombat(newState);
+          console.log('damage is dealt now');
+          this.turn = false;
+          newState.p1Moved = false;
+          newState.p2Moved = false;
+          newState.p1Move = null;
+          newState.p2Move = null;
+          newState.refresh = true;
+          setTimeout(() => this.setState(newState), 3000);
+        }, 1000);
+      }
     });
   }
 
