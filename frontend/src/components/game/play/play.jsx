@@ -115,10 +115,16 @@ class Play extends React.Component {
 
     this.socket.on("handleTurn", (data) => {
       let newState = Object.assign({}, this.state);
-      console.dir(data);
+      newState = Object.assign(newState, {p1Move: data.p1Move, p1Moved: true, p2Move: data.p2Move, p2Moved: true})
       newState.p1Move = data.p1Move;
+      newState.p1Moved = true;
       newState.p2Move = data.p2Move;
+      newState.p2Moved = true;
       // do damage stuff
+
+      console.log('here');
+      console.dir(this.state);
+      console.log('here');
       newState = this.handleSwitch(newState);
       // newState = handleCombat
       setTimeout(() => {
