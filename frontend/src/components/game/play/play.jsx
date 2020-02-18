@@ -115,10 +115,13 @@ class Play extends React.Component {
 
     this.socket.on("handleTurn", (data) => {
       let newState = Object.assign({}, this.state);
+      console.dir(data);
+      newState.p1Move = data.p1Move;
+      newState.p2Move = data.p2Move;
       // do damage stuff
       newState = this.handleSwitch(newState);
       // newState = handleCombat
-      newState = this.handleDamage(newState);
+      newState = this.handleCombat(newState);
 
       console.log('damage is dealt now');
       newState.p1Moved = false;
@@ -134,6 +137,10 @@ class Play extends React.Component {
     if (state.p1Move.effects.includes('switch')) state.p1Char = state.p1Char === 0 ? 1 : 0;
     if (state.p2Move.effects.includes('switch')) state.p2Char = state.p2Char === 0 ? 1 : 0;
     this.setState(state);
+    console.log('here');
+    console.dir(state);
+    console.dir(this.state);
+    console.log('above');
     return state;
   }
 
