@@ -28,6 +28,9 @@ const testMonster2 =
 let p1TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
 let p2TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
 
+const damageFormula = (monsterOne, move, monsterTwo) => (
+  monsterTwo.currentHp -= monsterOne.attack * move.power / monsterTwo.defense
+);
 
 class Play extends React.Component {
   constructor(props) {
