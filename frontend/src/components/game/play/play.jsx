@@ -125,10 +125,7 @@ class Play extends React.Component {
         newState.p2Moved = true;
         // do damage stuff
   
-        newState = this.handleSwitch(Object.assign({}, this.state));
-        console.log('here');
-        console.dir(newState);
-        console.log('here');
+        newState = this.handleSwitch(newState);
         // newState = handleCombat
         setTimeout(() => {
           newState = this.handleCombat(newState);
@@ -149,10 +146,6 @@ class Play extends React.Component {
     if (state.p1Move.effects.includes('switch')) state.p1Char = state.p1Char === 0 ? 1 : 0;
     if (state.p2Move.effects.includes('switch')) state.p2Char = state.p2Char === 0 ? 1 : 0;
     this.setState(state);
-    console.log('here');
-    console.dir(state);
-    console.dir(this.state);
-    console.log('above');
     return state;
   }
 
