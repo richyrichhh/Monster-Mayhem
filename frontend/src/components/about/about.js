@@ -70,6 +70,7 @@ class About extends React.Component {
           <div className="right-dev">
             <div className="dev-container">
               <img className="dev-image" src="./images/richard_lu.jpg" />
+
               <div className="dev-description">
                 <h2>Richard Lu</h2>
                 <br />
