@@ -121,15 +121,16 @@ class Play extends React.Component {
       // do damage stuff
       newState = this.handleSwitch(newState);
       // newState = handleCombat
-      newState = this.handleCombat(newState);
-
-      console.log('damage is dealt now');
-      newState.p1Moved = false;
-      newState.p2Moved = false;
-      newState.p1Move = null;
-      newState.p2Move = null;
-      newState.refresh = true;
-      setTimeout(() => this.setState(newState), 3000);
+      setTimeout(() => {
+        newState = this.handleCombat(newState);
+        console.log('damage is dealt now');
+        newState.p1Moved = false;
+        newState.p2Moved = false;
+        newState.p1Move = null;
+        newState.p2Move = null;
+        newState.refresh = true;
+        setTimeout(() => this.setState(newState), 3000);
+      }, 1000);
     });
   }
 
