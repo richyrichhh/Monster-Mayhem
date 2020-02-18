@@ -28,9 +28,9 @@ const testMonster2 =
 let p1TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
 let p2TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
 
-const damageFormula = (monsterOne, move, monsterTwo) => (
-  monsterTwo.currentHp -= monsterOne.attack * move.power / monsterTwo.defense
-);
+const damageFormula = (monsterOne, move, monsterTwo) => {
+  return monsterOne.attack * move.power / monsterTwo.defense;
+};
 
 class Play extends React.Component {
   constructor(props) {
@@ -156,18 +156,23 @@ class Play extends React.Component {
     let effSpd1 = state.p1Char.speed;
     let effSpd2 = state.p2Char.speed;
     if (effSpd1 > effSpd2) {
-      state.p2Team[state.p2Char].currentHp -= ((state.p1Team[state.p1Char].attack - state.p2Team[state.p2Char].defense) / 10) + state.p1Move.power;
+      this.handleDamage(state.p1Team[state.p1Char], state.p1Move, state.p2Team[state.p2Char])
       if (state.p2Team[state.p2Char].currentHp > 0) {
-        state.p1Team[state.p1Char].currentHp -= ((state.p2Team[state.p2Char].attack - state.p1Team[state.p1Char].defense) / 10) + state.p2Move.power;
+        this.handleDamage(state.p2Team[state.p2Char], state.p2Move, state.p1Team[state.p1Char])
       }
     } else {
-      state.p1Team[state.p1Char].currentHp -= ((state.p2Team[state.p2Char].attack - state.p1Team[state.p1Char].defense) / 10) + state.p2Move.power;
+      this.handleDamage(state.p2Team[state.p2Char], state.p2Move, state.p1Team[state.p1Char])
       if (state.p1Team[state.p1Char].currentHp > 0) {
-        state.p2Team[state.p2Char].currentHp -= ((state.p1Team[state.p1Char].attack - state.p2Team[state.p2Char].defense) / 10) + state.p1Move.power;
+        this.handleDamage(state.p1Team[state.p1Char], state.p1Move, state.p2Team[state.p2Char])
       }
     }
 
     return state;
+  }
+
+  handleDamage(attacker, move, target, effects, damage) {
+    damage = damage || damageFormula(attacker, move, target)
+    target.currentHp -= damage;
   }
 
   makeMove(move, player) {
@@ -198,21 +203,6 @@ class Play extends React.Component {
     } else {
       return <span className="healthbar safe-health">{bar}</span>;
     }
-  }
-
-  handleDamage(player, effects, damage) {
-    let newState = Object.assign({}, this.state.team);
-    if (player === 1) {
-      damage = damage || ((newState.p1Char.attack - newState.p2Char.defense) / 10) + newState.p1Move.power;
-      newState.p2Char.currentHp -= damage;
-    } else if (player === 2) {
-      damage = damage || ((newState.p2Char.attack - newState.p1Char.defense) / 10) + newState.p2Move.power;
-      newState.p1Char.currentHp -= damage;
-    }
-    newState.p2Char.currentHp -= ((newState.p1Char.attack - newState.p2Char.defense) / 10) + newState.p1Move.power;
-    this.setState({
-      team: newState
-    })
   }
 
   handleQuit() {
