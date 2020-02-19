@@ -6,9 +6,11 @@ const passport = require('passport');
 const Team = require('../../models/Team');
 
 
-router.get('/user/:user_id', (req, res) => {
-    Team.findById(req.params.userId)
-        .then(team => res.json(team))
+router.get('/user/:userId', (req, res) => {
+    // Team.findById(req.params.userId)
+    //     .then(team => res.json(team))
+    console.log(req.params);
+    Team.findOne({user: req.params.userId}).then(team => res.json(team));
 });
 
 // router.get('/user/:user_id', (req, res) => {
@@ -19,7 +21,7 @@ router.get('/user/:user_id', (req, res) => {
 router.post('/',
     // passport.authenticate('jwt', { session: false }),
     (req, res) => {
-        console.dir(req.body);
+        // console.dir(req.body);
         const newTeam = new Team({
             team: [],
             user: req.body.id
@@ -30,7 +32,9 @@ router.post('/',
 );
 
 router.patch('/user/:user_id', (req, res, next) => {
-    Team.findOneAndUpdate({ userId: req.params.userId},
+    console.dir(req.params);
+    console.dir(req.body);
+    Team.findOneAndUpdate({ user: req.body.user},
         req.body,
         // console.log(req.body),
         { new: true })

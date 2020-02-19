@@ -26,7 +26,7 @@ export default class Game extends React.Component {
 
   componentDidMount() {
     this.props.fetchMonsters();
-    this.props.fetchTeam(this.currentUserId).then(data => data.team.data ? this.setState({userTeam: data.team.data}) : this.props.createNewTeam(this.currentUserId));
+    this.props.fetchTeam(this.currentUserId).then(data => console.dir(data));//data.team.data ? this.setState({userTeam: data.team.data}) : this.props.createNewTeam(this.currentUserId));
     // this.props.createNewTeam(this.team);
   };
 
