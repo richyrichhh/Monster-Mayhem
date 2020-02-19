@@ -18,14 +18,16 @@ export default class Game extends React.Component {
     }
     this.addToTeam = this.addToTeam.bind(this);
     this.team = [];
+    this.currentUserId = this.props.user.id;
+    console.log(this.currentUserId);
 
     this.removeFromTeam = this.removeFromTeam.bind(this);
   };
 
   componentDidMount() {
     this.props.fetchMonsters();
-    this.props.fetchTeam();
-    this.props.createNewTeam(this.team);
+    this.props.fetchTeam(this.currentUserId).then(data => data.team.data ? this.setState({userTeam: data.team.data}) : this.props.createNewTeam(this.currentUserId));
+    // this.props.createNewTeam(this.team);
   };
 
   addToTeam(e) {

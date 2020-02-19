@@ -19,10 +19,10 @@ router.get('/user/:user_id', (req, res) => {
 router.post('/',
     // passport.authenticate('jwt', { session: false }),
     (req, res) => {
-        console.dir(req);
+        console.dir(req.body);
         const newTeam = new Team({
-            team: req.body.monsters,
-            user: req.user.id
+            team: [],
+            user: req.body.id
         });
 
         newTeam.save().then(team => res.json(team));

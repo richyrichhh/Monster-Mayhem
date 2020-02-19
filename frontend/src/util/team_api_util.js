@@ -4,8 +4,9 @@ export const getUserTeam = id => {
   return axios.get(`/api/teams/user/${id}`)
 };
 
-export const createTeam = data => {
-  return axios.post('/api/teams/', data)
+export const createTeam = (id) => {
+  // data.currentUserId = id;
+  return axios.post('/api/teams/', id);
 };
 
 export const updateTeam = (id, data) => {

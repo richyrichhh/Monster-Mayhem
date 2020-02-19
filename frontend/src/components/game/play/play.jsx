@@ -216,7 +216,7 @@ class Play extends React.Component {
 
   handleQuit() {
     let gameId = this.gameId;
-    let team = this.state.team
+    let team = this.state.team;
     this.props.exitGame(gameId)
       .then(res => {
         this.socket.emit('leaveRoom', { gameId: res.game.gameId })
