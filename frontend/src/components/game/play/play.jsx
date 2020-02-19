@@ -126,11 +126,10 @@ class Play extends React.Component {
         newState.p1Moved = true;
         newState.p2Move = data.p2Move;
         newState.p2Moved = true;
-        // do damage stuff
   
         newState = this.handleSwitch(newState);
-        // newState = handleCombat
         newState = this.handleCombat(newState);
+
         setTimeout(() => {
           console.log('turn is ending');
           this.turn = false;
@@ -166,13 +165,21 @@ class Play extends React.Component {
         this.handleDamage(state.p1Team[state.p1Char], state.p1Move, state.p2Team[state.p2Char])
       }
     }
-
     return state;
   }
 
-  handleDamage(attacker, move, target, effects, damage) {
-    damage = damage || damageFormula(attacker, move, target)
+  handleDamage(attacker, move, target, damage) {
+    // let effects = move.effects;
+    damage = damage || damageFormula(attacker, move, target);
     target.currentHp -= damage;
+  }
+
+  playAnimation(character, animation) {
+
+  }
+
+  handleDeath(player) {
+
   }
 
   makeMove(move, player) {
@@ -195,13 +202,15 @@ class Play extends React.Component {
       bar += "|"
     }
     if (healthPct < 0.3) {
-        return <span className="healthbar danger-health">{bar}</span>;
+        // return <span className="healthbar danger-health">{bar}</span>;
+        return <span className="healthbar danger-health">{character.currentHp} / {character.maxHp}</span>;
     } else if (healthPct < 0.5) {
-      return (
-        <span className="healthbar warning-health">{bar}</span>
-      );
+        return <span className="healthbar warning-health">{character.currentHp} / {character.maxHp}</span>;
+
+        // return <span className="healthbar warning-health">{bar}</span>;
     } else {
-      return <span className="healthbar safe-health">{bar}</span>;
+      return <span className="healthbar safe-health">{character.currentHp} / {character.maxHp}</span>;
+      // return <span className="healthbar safe-health">{bar}</span>;
     }
   }
 
