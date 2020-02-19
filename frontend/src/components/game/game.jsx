@@ -47,6 +47,7 @@ export default class Game extends React.Component {
 
     if (this.team.length === 2) {
       alert('click fight to begin');
+      console.log(this.team);
       this.props.updateUserTeam(this.props.user.id, { team: this.team, user:this.props.user.id });
     };
   };

@@ -31,15 +31,16 @@ router.post('/',
     }
 );
 
-router.patch('/user/:user_id', (req, res, next) => {
+router.patch('/user/:userId', (req, res, next) => {
     console.dir(req.params);
     console.dir(req.body);
-    Team.findOneAndUpdate({ user: req.body.user},
+    Team.findOneAndUpdate({ user: req.params.userId},
         req.body,
         // console.log(req.body),
         { new: true })
         .then((event) => {
             // console.log(event);
+            console.log('updating!!!');
             res.json(event);
         });
     }
