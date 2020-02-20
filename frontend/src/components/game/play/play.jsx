@@ -13,7 +13,13 @@ const testMonster =
   speed: 100,
   defense: 100,
   moves: [{ name: 'tackle', power: 10, effects: [], effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
-  imgUrl: './images/test-char.png'};
+  imgUrl: './images/test-char.png',
+  animations: {
+    base: './images/test-char',
+    attack: {path: './images/attack-', frames: 5},
+    filetype: '.png'
+  }
+};
 
 const testMonster2 = 
 {_id: 1,
