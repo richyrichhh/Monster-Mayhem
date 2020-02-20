@@ -29,7 +29,13 @@ const testMonster2 =
   speed: 100,
   defense: 100,
   moves: [{ name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
-  imgUrl: './images/darryl_nguyen.jpg'};
+  imgUrl: './images/darryl_nguyen.jpg',
+  animations: {
+    base: './images/test-char',
+    attack: { path: './images/attack-', frames: 5 },
+    filetype: '.png'
+  }
+};
 
 let p1TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
 let p2TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
@@ -161,13 +167,17 @@ class Play extends React.Component {
     let effSpd1 = state.p1Char.speed;
     let effSpd2 = state.p2Char.speed;
     if (effSpd1 > effSpd2) {
+      this.playAnimation(1, 'attack');
       this.handleDamage(state.p1Team[state.p1Char], state.p1Move, state.p2Team[state.p2Char])
       if (state.p2Team[state.p2Char].currentHp > 0) {
+        this.playAnimation(2, 'attack');
         this.handleDamage(state.p2Team[state.p2Char], state.p2Move, state.p1Team[state.p1Char])
       }
     } else {
+      this.playAnimation(2, 'attack');
       this.handleDamage(state.p2Team[state.p2Char], state.p2Move, state.p1Team[state.p1Char])
       if (state.p1Team[state.p1Char].currentHp > 0) {
+        this.playAnimation(1, 'attack');
         this.handleDamage(state.p1Team[state.p1Char], state.p1Move, state.p2Team[state.p2Char])
       }
     }
@@ -180,8 +190,17 @@ class Play extends React.Component {
     target.currentHp -= damage;
   }
 
-  playAnimation(character, animation) {
-
+  playAnimation(player, animation) {
+    if (player === 1) {
+      let char = this.state.p1Team[this.state.p1Char];
+      for (var i = 0; i < char.animations[animation].frames; i++) {
+        setTimeout(() => {
+          let newState = Object.assign({}, this.state);
+          let character = newState.p1Team[newState.p1Char];
+          character.imgUrl = character.animations[animation].path + i.to_s() + character.animations.filetype;
+        }, 120 * i);
+      }
+    }
   }
 
   handleDeath(player) {
