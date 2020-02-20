@@ -168,18 +168,23 @@ class Play extends React.Component {
     let effSpd2 = state.p2Char.speed;
     if (effSpd1 > effSpd2) {
       this.playAnimation(1, 'attack');
-      this.handleDamage(state.p1Team[state.p1Char], state.p1Move, state.p2Team[state.p2Char])
+      setTimeout(() => {this.handleDamage(state.p1Team[state.p1Char], state.p1Move, state.p2Team[state.p2Char])
       if (state.p2Team[state.p2Char].currentHp > 0) {
-        this.playAnimation(2, 'attack');
-        this.handleDamage(state.p2Team[state.p2Char], state.p2Move, state.p1Team[state.p1Char])
-      }
+        setTimeout(() => {this.playAnimation(2, 'attack');
+        setTimeout(() => this.handleDamage(state.p2Team[state.p2Char], state.p2Move, state.p1Team[state.p1Char]), 1000);
+      }, 1000)
+      }}, 1000);
     } else {
       this.playAnimation(2, 'attack');
-      this.handleDamage(state.p2Team[state.p2Char], state.p2Move, state.p1Team[state.p1Char])
-      if (state.p1Team[state.p1Char].currentHp > 0) {
-        this.playAnimation(1, 'attack');
-        this.handleDamage(state.p1Team[state.p1Char], state.p1Move, state.p2Team[state.p2Char])
-      }
+      setTimeout(() => {
+        this.handleDamage(state.p2Team[state.p2Char], state.p2Move, state.p1Team[state.p1Char])
+        if (state.p1Team[state.p1Char].currentHp > 0) {
+          setTimeout(() => {
+            this.playAnimation(1, 'attack');
+            setTimeout(() => this.handleDamage(state.p1Team[state.p1Char], state.p1Move, state.p2Team[state.p2Char]), 1000);
+          }, 1000)
+        }
+      }, 1000);
     }
     return state;
   }
