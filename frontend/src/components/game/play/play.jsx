@@ -1,10 +1,12 @@
 import React from 'react';
 import io from 'socket.io-client';
+
 const switchMove = {
   name: 'switch',
   power: 0,
   effects: ['switch']
 }
+
 const testMonster = 
 {_id: 0,
   currentHp: 90,
@@ -101,7 +103,9 @@ class Play extends React.Component {
     this.game = data.game.data;
     this.state.p1 = this.game.host
     this.state.p2 = this.game.p2
-    console.dir(this.state);
+    this.props.fetchTeam(this.game.host).then(data => console.dir(data));
+    this.props.fetchTeam(this.game.p2).then(data => console.dir(data));
+    // console.dir(this.state);
   }
 
   initializeSocketListeners() {
@@ -168,20 +172,23 @@ class Play extends React.Component {
     let effSpd2 = state.p2Char.speed;
     if (effSpd1 > effSpd2) {
       this.playAnimation(1, 'attack');
-      setTimeout(() => {this.handleDamage(state.p1Team[state.p1Char], state.p1Move, state.p2Team[state.p2Char])
-      if (state.p2Team[state.p2Char].currentHp > 0) {
-        setTimeout(() => {this.playAnimation(2, 'attack');
-        setTimeout(() => this.handleDamage(state.p2Team[state.p2Char], state.p2Move, state.p1Team[state.p1Char]), 1000);
-      }, 1000)
-      }}, 1000);
+      setTimeout(() => {
+        state = this.handleDamage(1, state);
+        if (state.p2Team[state.p2Char].currentHp > 0) {
+          setTimeout(() => {
+            this.playAnimation(2, 'attack');
+            setTimeout(() => state = this.handleDamage(2, state), 1000);
+          }, 1000)
+        }
+      }, 1000);
     } else {
       this.playAnimation(2, 'attack');
       setTimeout(() => {
-        this.handleDamage(state.p2Team[state.p2Char], state.p2Move, state.p1Team[state.p1Char])
+        state = this.handleDamage(2, state);
         if (state.p1Team[state.p1Char].currentHp > 0) {
           setTimeout(() => {
             this.playAnimation(1, 'attack');
-            setTimeout(() => this.handleDamage(state.p1Team[state.p1Char], state.p1Move, state.p2Team[state.p2Char]), 1000);
+            setTimeout(() => state = this.handleDamage(1, state), 1000);
           }, 1000)
         }
       }, 1000);
@@ -189,10 +196,23 @@ class Play extends React.Component {
     return state;
   }
 
-  handleDamage(attacker, move, target, damage) {
+  handleDamage(player, state, damage) {
     // let effects = move.effects;
+    let newState = Object.assign({}, state);
+    let attacker, move, target;
+    if (player === 1) {
+      attacker = newState.p1Team[newState.p1Char];
+      target = newState.p2Team[newState.p2Char];
+      move = newState.p1Move;
+    } else {
+      attacker = newState.p2Team[newState.p2Char];
+      target = newState.p1Team[newState.p1Char];
+      move = newState.p2Move;
+    }
     damage = damage || damageFormula(attacker, move, target);
     target.currentHp -= damage;
+    this.setState(newState);
+    return newState;
   }
 
   playAnimation(player, animation) {
@@ -226,7 +246,6 @@ class Play extends React.Component {
   charHealthBar(character) {
     let healthPct = character.currentHp / character.maxHp;
     let bar = "";
-
 
     for (var x = 0; x < Math.floor(character.currentHp / 5); x++) {
       bar += "|"
