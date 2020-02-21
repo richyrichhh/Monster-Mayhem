@@ -14,7 +14,7 @@ const testMonster =
   attack: 100,
   speed: 100,
   defense: 100,
-  moves: [{ name: 'tackle', power: 10, effects: [], effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
+  moves: [{ name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
   imgUrl: './images/test-char.png',
   animations: {
     base: './images/test-char',
