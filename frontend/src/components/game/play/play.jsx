@@ -18,7 +18,7 @@ const testMonster =
   imgUrl: './images/test-char.png',
   animations: {
     base: './images/test-char',
-    attack: {path: './images/attack-', frames: 5},
+    attack: {path: './images/animations/test/attack-', frames: 4},
     filetype: '.png'
   }
 };
@@ -34,7 +34,7 @@ const testMonster2 =
   imgUrl: './images/darryl_nguyen.jpg',
   animations: {
     base: './images/test-char',
-    attack: { path: './images/attack-', frames: 5 },
+    attack: { path: './images/animations/test/attack-', frames: 4 },
     filetype: '.png'
   }
 };
@@ -222,7 +222,7 @@ class Play extends React.Component {
         setTimeout(() => {
           let newState = Object.assign({}, this.state);
           let character = newState.p1Team[newState.p1Char];
-          character.imgUrl = character.animations[animation].path + i.to_s() + character.animations.filetype;
+          character.imgUrl = character.animations[animation].path + i.toString() + character.animations.filetype;
         }, 120 * i);
       }
     }
