@@ -14,7 +14,7 @@ const testMonster =
   attack: 100,
   speed: 100,
   defense: 100,
-  moves: [{ name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
+  moves: [{ name: 'tackle', power: 10, effects: [] }, { name: 'useless', power: 0, effects: [] }, { name: 'oneshot', power: 1000, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
   imgUrl: './images/test-char.png',
   animations: {
     base: './images/test-char',
@@ -31,7 +31,7 @@ const testMonster2 =
   attack: 100,
   speed: 100,
   defense: 100,
-  moves: [{ name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
+  moves: [{ name: 'tackle', power: 10, effects: [] }, { name: 'useless', power: 0, effects: [] }, { name: 'oneshot', power: 1000, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
   imgUrl: './images/darryl_nguyen.jpg',
   animations: {
     base: './images/darryl_nguyen',
@@ -160,7 +160,7 @@ class Play extends React.Component {
           newState.p2Move = null;
           newState.refresh = true;
           setTimeout(() => this.setState(newState), 1000);
-        }, 8000);
+        }, 5000);
       }
     });
   }
