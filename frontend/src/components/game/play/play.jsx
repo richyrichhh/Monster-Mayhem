@@ -183,12 +183,14 @@ class Play extends React.Component {
             this.playAnimation(2, 'attack').then(() => {
               state = this.handleDamage(2, this.state);
               if (state.p1Team[state.p1Char].currentHp > 0) {
-                this.handleDeath(1);
+                if (p1CanSwitch === false) alert('player 2 wins');
+                else this.handleDeath(1);
               }
             });
           }, 2000);
         } else {
-          this.handleDeath(2);
+          if (p2CanSwitch === false) alert('player 1 wins');
+          else this.handleDeath(2);
         }
       });
     } else {
@@ -199,12 +201,14 @@ class Play extends React.Component {
             this.playAnimation(1, 'attack').then(() => {
               state = this.handleDamage(1, this.state);
               if (state.p2Team[state.p2Char].currentHp > 0) {
-                this.handleDeath(2);
+                if (p2CanSwitch === false) alert('player 1 wins');
+                else this.handleDeath(2);
               }
             });
           }, 2000)
         } else {
-          this.handleDeath(1);
+          if (p1CanSwitch === false) alert('player 2 wins');
+          else this.handleDeath(1);
         }
       });
     }
