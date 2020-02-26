@@ -18,14 +18,16 @@ export default class Game extends React.Component {
     }
     this.addToTeam = this.addToTeam.bind(this);
     this.team = [];
+    this.currentUserId = this.props.user.id;
+    console.log(this.currentUserId);
 
     this.removeFromTeam = this.removeFromTeam.bind(this);
   };
 
   componentDidMount() {
     this.props.fetchMonsters();
-    this.props.fetchTeam();
-    this.props.createNewTeam(this.team);
+    this.props.fetchTeam(this.currentUserId).then(data => console.dir(data));//data.team.data ? this.setState({userTeam: data.team.data}) : this.props.createNewTeam(this.currentUserId));
+    // this.props.createNewTeam(this.team);
   };
 
   addToTeam(e) {
@@ -45,6 +47,7 @@ export default class Game extends React.Component {
 
     if (this.team.length === 2) {
       alert('click fight to begin');
+      console.log(this.team);
       this.props.updateUserTeam(this.props.user.id, { team: this.team, user:this.props.user.id });
     };
   };

@@ -26,8 +26,8 @@ export const fetchUserTeam = (userId) => dispatch => (
     .catch(err => console.log(err))
 );
 
-export const createNewTeam = data => dispatch => (
-  createTeam(data)
+export const createNewTeam = (userId) => dispatch => (
+  createTeam({id: userId})
     .then(team => dispatch(receiveNewTeam(team)))
     .catch(err => console.log(err))
 );

@@ -40,3 +40,69 @@
 }
 
 
+#game-moves {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 1;
+    margin-bottom: 250px;
+}
+
+#character-moves-list {
+    display: flex;
+    flex-direction: row;
+}
+
+#character-moves-list > li > button {
+    width: 200px;
+    height: 100px;
+    background-color: crimson;
+    border: 5px solid maroon;
+    border-style: outset;
+    box-sizing: border-box;
+    font-size: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: Helvetica, sans-serif;
+    color: white;
+}
+
+#character-moves-list > li > button:active {
+    background-color: maroon;
+}
+
+.warning-health {
+    color: yellow;
+}
+
+.safe-health {
+    color: green;
+}
+
+.danger-health {
+    color: red;
+}
+
+.healthbar {
+    display: flex;
+    letter-spacing: 2px;
+    background-color: black;
+    font-weight: 1000;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    position: relative;
+    text-align: center;
+    justify-content: center;
+}
+
+#p1-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#p2-side {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
