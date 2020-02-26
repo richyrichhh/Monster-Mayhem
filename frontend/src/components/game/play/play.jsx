@@ -181,9 +181,14 @@ class Play extends React.Component {
         if (state.p2Team[state.p2Char].currentHp > 0) {
           setTimeout(() => {
             this.playAnimation(2, 'attack').then(() => {
-              this.handleDamage(2, this.state);
+              state = this.handleDamage(2, this.state);
+              if (state.p1Team[state.p1Char].currentHp > 0) {
+                this.handleDeath(1);
+              }
             });
           }, 2000);
+        } else {
+          this.handleDeath(2);
         }
       });
     } else {
@@ -192,9 +197,14 @@ class Play extends React.Component {
         if (state.p1Team[state.p1Char].currentHp > 0) {
           setTimeout(() => {
             this.playAnimation(1, 'attack').then(() => {
-              this.handleDamage(1, this.state);
+              state = this.handleDamage(1, this.state);
+              if (state.p2Team[state.p2Char].currentHp > 0) {
+                this.handleDeath(2);
+              }
             });
           }, 2000)
+        } else {
+          this.handleDeath(1);
         }
       });
     }
@@ -272,7 +282,17 @@ class Play extends React.Component {
   }
 
   handleDeath(player) {
-    this.playAnimation(player, 'death');
+    this.playAnimation(player, 'death').then(() => {
+      let state = Object.assign(this.state);
+      if (player === 1) {
+        state.p1Char = state.p1Char === 0 ? 1 : 0;
+        state.p1CanSwitch = false;
+      } else if (player === 2) {
+        state.p2Char = state.p2Char === 0 ? 1 : 0;
+        state.p2CanSwitch = false;
+      }
+      this.setState(state);
+    });
   }
 
   makeMove(move, player) {
