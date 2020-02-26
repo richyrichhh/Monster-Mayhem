@@ -16,7 +16,7 @@ Allow for users to create an account or login if user is already registered, but
 Players can select two characters to add to their team with each character having their own sets of movies and abilities.  
 ![Team Selection](https://github.com/nguyendarryl/Monster-Mayhem/blob/master/frontend/public/images/start_fight.jpg?raw=true)
 
-The game impolements websockets to provide a temporary server, allowing for multiplayer experience through joining two players online through matching websocket identification numbers
+The game impolements websockets to provide a temporary server, allowing for multiplayer experience through joining two players online through matching websocket identification numbers.  Players can battle each other in real time. 
 ```
 const io = socketio(server);
 
