@@ -173,8 +173,8 @@ class Play extends React.Component {
   }
 
   handleCombat(state) {
-    let effSpd1 = state.p1Char.speed;
-    let effSpd2 = state.p2Char.speed;
+    let effSpd1 = state.p1Team[state.p1Char].speed;
+    let effSpd2 = state.p2Team[state.p2Char].speed;
     if (effSpd1 === effSpd2) {
       if (Math.random() < 0.5) {
         effSpd1 += 1;
