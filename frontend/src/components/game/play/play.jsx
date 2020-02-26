@@ -28,9 +28,9 @@ const testMonster2 =
 {_id: 1,
   currentHp: 90,
   maxHp: 90,
-  attack: 100,
-  speed: 100,
-  defense: 100,
+  attack: 120,
+  speed: 10,
+  defense: 200,
   moves: [{ name: 'tackle', power: 10, effects: [] }, { name: 'useless', power: 0, effects: [] }, { name: 'oneshot', power: 1000, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
   imgUrl: './images/darryl_nguyen.jpg',
   animations: {
