@@ -75,9 +75,9 @@ io.on("connection", function (socket, data) {
     io.to(data.gameId).emit("makeMove", data);
   });
 
-  socket.on("handleMovesToBack", function(data) {
+  socket.on("sendMovesToBack", function(data) {
     console.dir(data);
-    io.to(data.gameId).emit("handleMoves", data);
+    io.to(data.gameId).emit("handleTurn", data);
   })
 
   socket.on("leaveRoom", function (data) {

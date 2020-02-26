@@ -45,6 +45,7 @@
     flex-direction: column;
     justify-content: center;
     z-index: 1;
+    margin-bottom: 250px;
 }
 
 #character-moves-list {

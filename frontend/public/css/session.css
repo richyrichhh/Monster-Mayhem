@@ -100,3 +100,7 @@
   font-family: 'proxima-nova', sans-serif;
   color: #bb0000;
 }
+
+.demobutton:focus, .session-form-bot > input:focus {
+  outline:0;
+}

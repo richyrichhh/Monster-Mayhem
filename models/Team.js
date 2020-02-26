@@ -3,8 +3,10 @@ const Schema = mongoose.Schema;
 
 const TeamSchema = new Schema({
   user: {
-    type: Schema.Types.ObjectId,
-    ref: "user"
+    // type: Schema.Types.ObjectId,
+    // ref: "user"
+    type: String,
+    required: true
   },
   team: [
     {

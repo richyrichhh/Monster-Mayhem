@@ -18,8 +18,8 @@ class LoginForm extends React.Component {
 
   // Once the user has been authenticated, redirect to the Tweets page
   // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.currentUser === true) {
-  //     this.props.history.push("/game");
+  //   if (this.currentUser === true) {
+  //     this.props.history.push("/tweets");
   //   }
 
   //   // Set or clear errors
@@ -54,6 +54,7 @@ class LoginForm extends React.Component {
       if (!res.errors) {
     
         this.props.closeModal();
+        this.props.history.push('/game');
   
       }
     });
@@ -81,6 +82,7 @@ class LoginForm extends React.Component {
     setTimeout(() => this.demoPassword(password, intervalSpeed), demoUsernameTime);
     setTimeout(() => this.props.login(user), totalDemoTime);
     setTimeout(() => this.props.closeModal(), totalDemoTime + buffer);
+    setTimeout(() => this.props.history.push("/game"), totalDemoTime + buffer);
   }
 
   demoUsername(username, intervalSpeed) {
@@ -144,7 +146,8 @@ class LoginForm extends React.Component {
             <button
               onClick={this.handleDemo}
               className="demobutton"
-              id="demo-login">
+              id="demo-login"
+            >
               Demo Login
             </button>
           </div>

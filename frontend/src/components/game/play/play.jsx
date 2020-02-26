@@ -1,27 +1,50 @@
 import React from 'react';
 import io from 'socket.io-client';
+
 const switchMove = {
   name: 'switch',
   power: 0,
   effects: ['switch']
 }
+
 const testMonster = 
 {_id: 0,
   currentHp: 90,
   maxHp: 90,
   attack: 100,
-  agility: 100,
+  speed: 100,
   defense: 100,
-  moves: [{ name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }, { name: 'tackle', power: 10 }],
-  imgUrl: './images/test-char.png'};
+  moves: [{ name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
+  imgUrl: './images/test-char.png',
+  animations: {
+    base: './images/test-char',
+    attack: {path: './images/animations/test/attack-', frames: 4},
+    filetype: '.png'
+  }
+};
 
-const damageFormula = (monsterOne, monsterTwo) => (
-  monsterTwo.currentHp -= monsterOne.attack * monsterOne.move.power / monsterTwo.defense
-);
+const testMonster2 = 
+{_id: 1,
+  currentHp: 90,
+  maxHp: 90,
+  attack: 100,
+  speed: 100,
+  defense: 100,
+  moves: [{ name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
+  imgUrl: './images/darryl_nguyen.jpg',
+  animations: {
+    base: './images/test-char',
+    attack: { path: './images/animations/test/attack-', frames: 4 },
+    filetype: '.png'
+  }
+};
 
-let p1TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster)]
-let p2TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster)]
+let p1TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
+let p2TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
 
+const damageFormula = (monsterOne, move, monsterTwo) => {
+  return monsterOne.attack * move.power / monsterTwo.defense;
+};
 
 class Play extends React.Component {
   constructor(props) {
@@ -53,6 +76,7 @@ class Play extends React.Component {
     window.state = this.state;
     window.currentUserId = this.currentUserId;
     
+    this.turn = false;
     this.initializeGame = this.initializeGame.bind(this);
     this.makeMove = this.makeMove.bind(this);
   }
@@ -79,7 +103,9 @@ class Play extends React.Component {
     this.game = data.game.data;
     this.state.p1 = this.game.host
     this.state.p2 = this.game.p2
-    console.dir(this.state);
+    this.props.fetchTeam(this.game.host).then(data => console.dir(data));
+    this.props.fetchTeam(this.game.p2).then(data => console.dir(data));
+    // console.dir(this.state);
   }
 
   initializeSocketListeners() {
@@ -103,34 +129,74 @@ class Play extends React.Component {
       newState.refresh = true;
       this.setState(newState);
       if (newState.p1Moved && newState.p2Moved) {
-        this.socket.emit('handleMovesToBack', { p1Move: this.state.p1Move, p2Move: this.state.p2Move, gameId: this.gameId });
+        this.socket.emit('sendMovesToBack', { p1Move: this.state.p1Move, p2Move: this.state.p2Move, gameId: this.gameId });
       }
     });
 
-    this.socket.on("handleMoves", (data) => {
-      let newState = Object.assign({}, this.state);
-      // do damage stuff
+    this.socket.on("handleTurn", (data) => {
+      if (!this.turn) {
+        this.turn = true;
+        let newState = Object.assign({}, this.state);
+        newState = Object.assign(newState, {p1Move: data.p1Move, p1Moved: true, p2Move: data.p2Move, p2Moved: true})
+        newState.p1Move = data.p1Move;
+        newState.p1Moved = true;
+        newState.p2Move = data.p2Move;
+        newState.p2Moved = true;
+  
+        newState = this.handleSwitch(newState);
+        newState = this.handleCombat(newState);
 
-      const p1Char = newState.p1Team[newState.p1Char];
-      const p2Char = newState.p2Team[newState.p2Char];
-
-      if (p1Char.speed > p2Char.speed){
-        damageFormula(p1Char, p2Char);
-        console.log(p2Char.currentHp);
-      } else {
-        damageFormula()
-        console.log(p1Char.currentHp);
+        setTimeout(() => {
+          console.log('turn is ending');
+          this.turn = false;
+          newState.p1Moved = false;
+          newState.p2Moved = false;
+          newState.p1Move = null;
+          newState.p2Move = null;
+          newState.refresh = true;
+          setTimeout(() => this.setState(newState), 1000);
+        }, 1000);
       }
-
-      console.log('damage is dealt now');
-      newState.p1Moved = false;
-      newState.p2Moved = false;
-      newState.p1Move = null;
-      newState.p2Move = null;
-      newState.refresh = true;
-      setTimeout(() => this.setState(newState), 3000);
     });
   }
+
+  handleSwitch(state) {
+    if (state.p1Move.effects.includes('switch')) state.p1Char = state.p1Char === 0 ? 1 : 0;
+    if (state.p2Move.effects.includes('switch')) state.p2Char = state.p2Char === 0 ? 1 : 0;
+    this.setState(state);
+    return state;
+  }
+
+  handleCombat(state) {
+    let effSpd1 = state.p1Char.speed;
+    let effSpd2 = state.p2Char.speed;
+    if (effSpd1 > effSpd2) {
+      this.playAnimation(1, 'attack');
+      setTimeout(() => {
+        state = this.handleDamage(1, state);
+        if (state.p2Team[state.p2Char].currentHp > 0) {
+          setTimeout(() => {
+            this.playAnimation(2, 'attack');
+            setTimeout(() => state = this.handleDamage(2, state), 1000);
+          }, 1000)
+        }
+      }, 1000);
+    } else {
+      this.playAnimation(2, 'attack');
+      setTimeout(() => {
+        state = this.handleDamage(2, state);
+        if (state.p1Team[state.p1Char].currentHp > 0) {
+          setTimeout(() => {
+            this.playAnimation(1, 'attack');
+            setTimeout(() => state = this.handleDamage(1, state), 1000);
+          }, 1000)
+        }
+      }, 1000);
+    }
+    return state;
+  }
+
+
 
   makeMove(move, player) {
     console.log('clicked makemove');
@@ -147,32 +213,25 @@ class Play extends React.Component {
     let healthPct = character.currentHp / character.maxHp;
     let bar = "";
 
-
     for (var x = 0; x < Math.floor(character.currentHp / 5); x++) {
       bar += "|"
     }
     if (healthPct < 0.3) {
-        return <span className="healthbar danger-health">{bar}</span>;
+        // return <span className="healthbar danger-health">{bar}</span>;
+        return <span className="healthbar danger-health">{character.currentHp} / {character.maxHp}</span>;
     } else if (healthPct < 0.5) {
-      return (
-        <span className="healthbar warning-health">{bar}</span>
-      );
-    } else {
-      return <span className="healthbar safe-health">{bar}</span>;
-    }
-  }
+        return <span className="healthbar warning-health">{character.currentHp} / {character.maxHp}</span>;
 
-  handleDamage(amt) {
-    let newState = Object.assign({}, this.state.team);
-    newState[this.state.currentChar].currentHp -= amt;
-    this.setState({
-      team: newState
-    })
+        // return <span className="healthbar warning-health">{bar}</span>;
+    } else {
+      return <span className="healthbar safe-health">{character.currentHp} / {character.maxHp}</span>;
+      // return <span className="healthbar safe-health">{bar}</span>;
+    }
   }
 
   handleQuit() {
     let gameId = this.gameId;
-    let team = this.state.team
+    let team = this.state.team;
     this.props.exitGame(gameId)
       .then(res => {
         this.socket.emit('leaveRoom', { gameId: res.game.gameId })
@@ -198,6 +257,7 @@ class Play extends React.Component {
   }
 
   renderMoves() {
+    const playerNum = (this.state.p1 === this.currentUserId ? 1 : this.state.p2 === this.currentUserId ? 2 : 0)
     if ((this.state.p1 === this.currentUserId && this.state.p1Moved === false) || (this.state.p2 === this.currentUserId && this.state.p2Moved === false)) {
       return (
         <div id="game-moves">
@@ -206,7 +266,7 @@ class Play extends React.Component {
               {this.state[`p${this.state.p1 === this.currentUserId ? '1' : '2'}Team`][this.state.p1 === this.currentUserId ? this.state.p1Char : this.state.p2Char].moves.map((move, i) => <li key={`move-${i}`}><button onClick={(e) => this.makeMove(move, this.state.p1 === this.currentUserId ? 1 : 2)}>{move.name}</button></li>)}
             </ul>
           </div>
-          <span id="switch-character"><button onClick={() => console.log('switch')}>Switch</button></span>
+          <span id="switch-character"><button onClick={() => this.sendSwitch(playerNum)}>Switch</button></span>
         </div>
       )
     } else {
