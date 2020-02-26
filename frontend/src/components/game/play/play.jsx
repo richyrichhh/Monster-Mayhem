@@ -160,7 +160,7 @@ class Play extends React.Component {
           newState.p2Move = null;
           newState.refresh = true;
           setTimeout(() => this.setState(newState), 1000);
-        }, 20000);
+        }, 8000);
       }
     });
   }
