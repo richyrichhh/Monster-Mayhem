@@ -183,14 +183,12 @@ class Play extends React.Component {
             this.playAnimation(2, 'attack').then(() => {
               state = this.handleDamage(2, this.state);
               if (state.p1Team[state.p1Char].currentHp > 0) {
-                if (p1CanSwitch === false) alert('player 2 wins');
-                else this.handleDeath(1);
+                this.handleDeath(1);
               }
             });
           }, 2000);
         } else {
-          if (p2CanSwitch === false) alert('player 1 wins');
-          else this.handleDeath(2);
+          this.handleDeath(2);
         }
       });
     } else {
@@ -201,14 +199,12 @@ class Play extends React.Component {
             this.playAnimation(1, 'attack').then(() => {
               state = this.handleDamage(1, this.state);
               if (state.p2Team[state.p2Char].currentHp > 0) {
-                if (p2CanSwitch === false) alert('player 1 wins');
-                else this.handleDeath(2);
+                this.handleDeath(2);
               }
             });
           }, 2000)
         } else {
-          if (p1CanSwitch === false) alert('player 2 wins');
-          else this.handleDeath(1);
+          this.handleDeath(1);
         }
       });
     }
@@ -289,11 +285,17 @@ class Play extends React.Component {
     this.playAnimation(player, 'death').then(() => {
       let state = Object.assign(this.state);
       if (player === 1) {
-        state.p1Char = state.p1Char === 0 ? 1 : 0;
-        state.p1CanSwitch = false;
+        if (state.p1CanSwitch === false) alert('player 2 wins');
+        else {
+          state.p1Char = state.p1Char === 0 ? 1 : 0;
+          state.p1CanSwitch = false;
+        }
       } else if (player === 2) {
-        state.p2Char = state.p2Char === 0 ? 1 : 0;
-        state.p2CanSwitch = false;
+        if (state.p2CanSwitch === false) alert('player 1 wins');
+        else {
+          state.p2Char = state.p2Char === 0 ? 1 : 0;
+          state.p2CanSwitch = false;
+        }
       }
       this.setState(state);
     });
