@@ -18,8 +18,8 @@ const testMonster =
   imgUrl: './images/test-char.png',
   animations: {
     base: './images/test-char',
-    attack: {path: './images/animations/test/attack-', frames: 4},
-    death: {path: './images/animations/test/attack-', frames: 4},
+    attack: {path: './images/animations/test/attack-', frames: 5},
+    death: {path: './images/animations/test/attack-', frames: 5},
     filetype: '.png'
   }
 };
@@ -35,8 +35,8 @@ const testMonster2 =
   imgUrl: './images/darryl_nguyen.jpg',
   animations: {
     base: './images/test-char',
-    attack: { path: './images/animations/test/attack-', frames: 4 },
-    death: { path: './images/animations/test/attack-', frames: 4 },
+    attack: { path: './images/animations/test/attack-', frames: 5 },
+    death: { path: './images/animations/test/attack-', frames: 5 },
     filetype: '.png'
   }
 };
@@ -234,14 +234,22 @@ class Play extends React.Component {
       if (player === 1) {
         let char = this.state.p1Team[this.state.p1Char];
         for (var i = 0; i <= char.animations[animation].frames; i++) {
-          this.animateP1(animation, i);
-          if (i === char.animations[animation].frames) setTimeout(() => resolve('done'), 120 * i);
+          if (i === char.animations[animation].frames) {
+            setTimeout(() => resolve('done'), (120 * i) + 300);
+            this.resetP1(i);
+          } else {
+            this.animateP1(animation, i);
+          }
         }
       } else if (player === 2) {
         let char = this.state.p2Team[this.state.p2Char];
         for (var i = 0; i <= char.animations[animation].frames; i++) {
-          this.animateP2(animation, i);
-          if (i === char.animations[animation].frames) setTimeout(() => resolve('done'), 120 * i);
+          if (i === char.animations[animation].frames) {
+            setTimeout(() => resolve('done'), (120 * i) + 300);
+            this.resetP2(i);
+          } else {
+            this.animateP2(animation, i);
+          }
         }
       }
     });
@@ -271,6 +279,16 @@ class Play extends React.Component {
     }, 120 * frame);
   }
 
+  resetP1(frame) {
+    setTimeout(() => {
+      console.log('animation for player 1 ' + 'change at' + Date(Date.now()).toString() + 'to' + ' reset');
+      let newState = Object.assign({}, this.state);
+      let character = newState.p1Team[newState.p1Char];
+      character.imgUrl = character.animations.base + character.animations.filetype;
+      this.setState(newState);
+    }, (120 * frame) + 200);
+  }
+
   animateP2(animation, frame) {
     setTimeout(() => {
       console.log('animation for player 2 ' + 'change at' + Date(Date.now()).toString() + 'to' + frame.toString());
@@ -281,23 +299,33 @@ class Play extends React.Component {
     }, 120 * frame);
   }
 
+  resetP2(frame) {
+    setTimeout(() => {
+      console.log('animation for player 2 ' + 'change at' + Date(Date.now()).toString() + 'to' + ' reset');
+      let newState = Object.assign({}, this.state);
+      let character = newState.p2Team[newState.p2Char];
+      character.imgUrl = character.animations.base + character.animations.filetype;
+      this.setState(newState);
+    }, (120 * frame) + 200);
+  }
+
   handleDeath(player) {
     this.playAnimation(player, 'death').then(() => {
-      let state = Object.assign(this.state);
+      let newState = Object.assign(this.state);
       if (player === 1) {
-        if (state.p1CanSwitch === false) alert('player 2 wins');
+        if (newState.p1CanSwitch === false) alert('player 2 wins');
         else {
-          state.p1Char = state.p1Char === 0 ? 1 : 0;
-          state.p1CanSwitch = false;
+          newState.p1Char = newState.p1Char === 0 ? 1 : 0;
+          newState.p1CanSwitch = false;
         }
       } else if (player === 2) {
-        if (state.p2CanSwitch === false) alert('player 1 wins');
+        if (newState.p2CanSwitch === false) alert('player 1 wins');
         else {
-          state.p2Char = state.p2Char === 0 ? 1 : 0;
-          state.p2CanSwitch = false;
+          newState.p2Char = newState.p2Char === 0 ? 1 : 0;
+          newState.p2CanSwitch = false;
         }
       }
-      this.setState(state);
+      this.setState(newState);
     });
   }
 
