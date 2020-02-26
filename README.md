@@ -13,7 +13,7 @@ Monster Mayhem is an online multiplayer battle arena game based on class horror 
 ## Features ##
 Allow for users to create an account or login if user is already registered, but a demo login feature is implemented if user does not want to create an account for any reason
 
-Players can select two characters to add to their team with each character having their own sets of movies and abilities.  
+Players can select two characters to add to their team with each character having their own sets of movies and abilities. Hovering over characters displays character stats, movies, and abilities. 
 ![Team Selection](https://github.com/nguyendarryl/Monster-Mayhem/blob/master/frontend/public/images/start_fight.jpg?raw=true)
 
 The game impolements websockets to provide a temporary server, allowing for multiplayer experience through joining two players online through matching websocket identification numbers.  Players can battle each other in real time. 
