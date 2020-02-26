@@ -19,6 +19,7 @@ const testMonster =
   animations: {
     base: './images/test-char',
     attack: {path: './images/animations/test/attack-', frames: 4},
+    death: {path: './images/animations/test/attack-', frames: 4},
     filetype: '.png'
   }
 };
@@ -35,6 +36,7 @@ const testMonster2 =
   animations: {
     base: './images/test-char',
     attack: { path: './images/animations/test/attack-', frames: 4 },
+    death: { path: './images/animations/test/attack-', frames: 4 },
     filetype: '.png'
   }
 };
@@ -67,8 +69,10 @@ class Play extends React.Component {
       p2Char: 0,
       p1Moved: false,
       p1Move: null,
+      p1CanSwitch: true,
       p2Moved: false,
       p2Move: null,
+      p2CanSwitch: true,
       refresh: false,
       loaded: false
     }
@@ -147,6 +151,7 @@ class Play extends React.Component {
         newState = this.handleCombat(newState);
 
         setTimeout(() => {
+          newState = Object.assign({}, this.state);
           console.log('turn is ending');
           this.turn = false;
           newState.p1Moved = false;
@@ -155,7 +160,7 @@ class Play extends React.Component {
           newState.p2Move = null;
           newState.refresh = true;
           setTimeout(() => this.setState(newState), 1000);
-        }, 1000);
+        }, 20000);
       }
     });
   }
@@ -171,29 +176,24 @@ class Play extends React.Component {
     let effSpd1 = state.p1Char.speed;
     let effSpd2 = state.p2Char.speed;
     if (effSpd1 > effSpd2) {
-      this.playAnimation(1, 'attack');
-      setTimeout(() => {
-        state = this.handleDamage(1, state);
+      this.playAnimation(1, 'attack').then(() => {
+        state = this.handleDamage(1, this.state);
         if (state.p2Team[state.p2Char].currentHp > 0) {
           setTimeout(() => {
-            this.playAnimation(2, 'attack');
-            setTimeout(() => state = this.handleDamage(2, state), 1000);
-          }, 1000)
+            this.playAnimation(2, 'attack').then(() => this.handleDamage(2, this.state));
+          }, 2000)
         }
-      }, 1000);
+      });
     } else {
-      this.playAnimation(2, 'attack');
-      setTimeout(() => {
-        state = this.handleDamage(2, state);
+      this.playAnimation(2, 'attack').then(() => {
+        state = this.handleDamage(2, this.state);
         if (state.p1Team[state.p1Char].currentHp > 0) {
           setTimeout(() => {
-            this.playAnimation(1, 'attack');
-            setTimeout(() => state = this.handleDamage(1, state), 1000);
-          }, 1000)
+            this.playAnimation(1, 'attack').then(() => this.handleDamage(1, this.state));
+          }, 2000)
         }
-      }, 1000);
+      });
     }
-    return state;
   }
 
   handleDamage(player, state, damage) {
@@ -216,20 +216,59 @@ class Play extends React.Component {
   }
 
   playAnimation(player, animation) {
-    if (player === 1) {
-      let char = this.state.p1Team[this.state.p1Char];
-      for (var i = 0; i < char.animations[animation].frames; i++) {
-        setTimeout(() => {
-          let newState = Object.assign({}, this.state);
-          let character = newState.p1Team[newState.p1Char];
-          character.imgUrl = character.animations[animation].path + i.toString() + character.animations.filetype;
-        }, 120 * i);
+    return new Promise((resolve, reject) => {
+      if (player === 1) {
+        let char = this.state.p1Team[this.state.p1Char];
+        for (var i = 0; i <= char.animations[animation].frames; i++) {
+          this.animateP1(animation, i);
+          if (i === char.animations[animation].frames) setTimeout(() => resolve('done'), 1000 * i);
+        }
+      } else {
+        let char = this.state.p2Team[this.state.p2Char];
+        for (var i = 0; i <= char.animations[animation].frames; i++) {
+          this.animateP2(animation, i);
+          if (i === char.animations[animation].frames) setTimeout(() => resolve('done'), 1000 * i);
+        }
       }
-    }
+    });
+  }
+
+  // playAnimation(player, animation) {
+  //   if (player === 1) {
+  //     let char = this.state.p1Team[this.state.p1Char];
+  //     for (var i = 0; i <= char.animations[animation].frames; i++) {
+  //       this.animateP1(animation, i);
+  //     }
+  //   } else {
+  //     let char = this.state.p2Team[this.state.p2Char];
+  //     for (var i = 0; i <= char.animations[animation].frames; i++) {
+  //       this.animateP2(animation, i);
+  //     }
+  //   }
+  // }
+
+  animateP1(animation, frame) {
+    setTimeout(() => {
+      console.log('animation for player 1 ' + 'change at' + Date(Date.now()).toString() + 'to' + frame.toString());
+      let newState = Object.assign({}, this.state);
+      let character = newState.p1Team[newState.p1Char];
+      character.imgUrl = character.animations[animation].path + frame.toString() + character.animations.filetype;
+      this.setState(newState);
+    }, 1000 * frame);
+  }
+
+  animateP2(animation, frame) {
+    setTimeout(() => {
+      console.log('animation for player 2 ' + 'change at' + Date(Date.now()).toString() + 'to' + frame.toString());
+      let newState = Object.assign({}, this.state);
+      let character = newState.p2Team[newState.p2Char];
+      character.imgUrl = character.animations[animation].path + frame.toString() + character.animations.filetype;
+      this.setState(newState);
+    }, 1000 * frame);
   }
 
   handleDeath(player) {
-
+    this.playAnimation(player, 'death');
   }
 
   makeMove(move, player) {
@@ -300,7 +339,7 @@ class Play extends React.Component {
               {this.state[`p${this.state.p1 === this.currentUserId ? '1' : '2'}Team`][this.state.p1 === this.currentUserId ? this.state.p1Char : this.state.p2Char].moves.map((move, i) => <li key={`move-${i}`}><button onClick={(e) => this.makeMove(move, this.state.p1 === this.currentUserId ? 1 : 2)}>{move.name}</button></li>)}
             </ul>
           </div>
-          <span id="switch-character"><button onClick={() => this.sendSwitch(playerNum)}>Switch</button></span>
+          {((this.state.p1 === this.currentUserId && this.state.p1CanSwitch === true) || (this.state.p2 === this.currentUserId && this.state.p2CanSwitch === true)) ? <span id="switch-character"><button onClick={() => this.sendSwitch(playerNum)}>Switch</button></span> : <span id="switch-character"><button disabled>Switch</button></span>}
         </div>
       )
     } else {
