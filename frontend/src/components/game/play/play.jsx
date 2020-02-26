@@ -34,7 +34,7 @@ const testMonster2 =
   moves: [{ name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
   imgUrl: './images/darryl_nguyen.jpg',
   animations: {
-    base: './images/darryl_nguyen.jpg',
+    base: './images/darryl_nguyen',
     attack: { path: './images/animations/test/attack-', frames: 5 },
     death: { path: './images/animations/test/attack-', frames: 5 },
     filetype: '.png'
