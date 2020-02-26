@@ -175,6 +175,13 @@ class Play extends React.Component {
   handleCombat(state) {
     let effSpd1 = state.p1Char.speed;
     let effSpd2 = state.p2Char.speed;
+    if (effSpd1 === effSpd2) {
+      if (Math.random() < 0.5) {
+        effSpd1 += 1;
+      } else {
+        effSpd2 += 1;
+      }
+    }
     if (effSpd1 > effSpd2) {
       this.playAnimation(1, 'attack').then(() => {
         state = this.handleDamage(1, this.state);
