@@ -180,8 +180,10 @@ class Play extends React.Component {
         state = this.handleDamage(1, this.state);
         if (state.p2Team[state.p2Char].currentHp > 0) {
           setTimeout(() => {
-            this.playAnimation(2, 'attack').then(() => this.handleDamage(2, this.state));
-          }, 2000)
+            this.playAnimation(2, 'attack').then(() => {
+              this.handleDamage(2, this.state);
+            });
+          }, 2000);
         }
       });
     } else {
@@ -189,7 +191,9 @@ class Play extends React.Component {
         state = this.handleDamage(2, this.state);
         if (state.p1Team[state.p1Char].currentHp > 0) {
           setTimeout(() => {
-            this.playAnimation(1, 'attack').then(() => this.handleDamage(1, this.state));
+            this.playAnimation(1, 'attack').then(() => {
+              this.handleDamage(1, this.state);
+            });
           }, 2000)
         }
       });
@@ -221,13 +225,13 @@ class Play extends React.Component {
         let char = this.state.p1Team[this.state.p1Char];
         for (var i = 0; i <= char.animations[animation].frames; i++) {
           this.animateP1(animation, i);
-          if (i === char.animations[animation].frames) setTimeout(() => resolve('done'), 1000 * i);
+          if (i === char.animations[animation].frames) setTimeout(() => resolve('done'), 120 * i);
         }
-      } else {
+      } else if (player === 2) {
         let char = this.state.p2Team[this.state.p2Char];
         for (var i = 0; i <= char.animations[animation].frames; i++) {
           this.animateP2(animation, i);
-          if (i === char.animations[animation].frames) setTimeout(() => resolve('done'), 1000 * i);
+          if (i === char.animations[animation].frames) setTimeout(() => resolve('done'), 120 * i);
         }
       }
     });
@@ -254,7 +258,7 @@ class Play extends React.Component {
       let character = newState.p1Team[newState.p1Char];
       character.imgUrl = character.animations[animation].path + frame.toString() + character.animations.filetype;
       this.setState(newState);
-    }, 1000 * frame);
+    }, 120 * frame);
   }
 
   animateP2(animation, frame) {
@@ -264,7 +268,7 @@ class Play extends React.Component {
       let character = newState.p2Team[newState.p2Char];
       character.imgUrl = character.animations[animation].path + frame.toString() + character.animations.filetype;
       this.setState(newState);
-    }, 1000 * frame);
+    }, 120 * frame);
   }
 
   handleDeath(player) {
