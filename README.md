@@ -37,6 +37,8 @@ Players can select two characters to add to their team with each character havin
     };
   };
  ```
+
+```
  export default class Game extends React.Component {
   constructor(props) {
     super(props);
