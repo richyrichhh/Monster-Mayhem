@@ -20,6 +20,7 @@ const testMonster =
     base: './images/test-char',
     attack: {path: './images/animations/test/attack-', frames: 5},
     death: {path: './images/animations/test/attack-', frames: 5},
+    idle: { path: '', frames: 0 },
     filetype: '.png'
   }
 };
@@ -37,6 +38,7 @@ const testMonster2 =
     base: './images/darryl_nguyen',
     attack: { path: './images/animations/test/attack-', frames: 5 },
     death: { path: './images/animations/test/attack-', frames: 5 },
+    idle: { path: '', frames: 0 },
     filetype: '.png'
   }
 };
@@ -60,6 +62,7 @@ class Play extends React.Component {
     })
 
     this.state = {
+      charStates: 'idle',
       playerNum: 1,
       p1: null,
       p2: null,
@@ -140,14 +143,14 @@ class Play extends React.Component {
     this.socket.on("handleTurn", (data) => {
       if (!this.turn) {
         this.turn = true;
-        let newState = Object.assign({}, this.state);
-        newState = Object.assign(newState, {p1Move: data.p1Move, p1Moved: true, p2Move: data.p2Move, p2Moved: true})
-        newState.p1Move = data.p1Move;
-        newState.p1Moved = true;
-        newState.p2Move = data.p2Move;
-        newState.p2Moved = true;
-        
-        this.handleSwitch(newState)
+        // let newState = Object.assign({}, this.state);
+        // newState = Object.assign(newState, {p1Move: data.p1Move, p1Moved: true, p2Move: data.p2Move, p2Moved: true})
+        // newState.p1Move = data.p1Move;
+        // newState.p1Moved = true;
+        // newState.p2Move = data.p2Move;
+        // newState.p2Moved = true;
+        this.prepTurn()
+          .then((newState) => this.handleSwitch(newState)
           .then((state) => this.handleCombat(state)
           .then(() => {
             setTimeout(() => {
@@ -161,12 +164,26 @@ class Play extends React.Component {
               newState.refresh = true;
               setTimeout(() => this.setState(newState), 1000);
             }, 2000);
-          }));
+          })));
         // newState = this.handleSwitch(newState);
         // newState = this.handleCombat(newState);
 
       }
     });
+  }
+
+  prepTurn() {
+    return new Promise((resolve, reject) => {
+      let newState = Object.assign({}, this.state);
+      newState = Object.assign(newState, { p1Move: data.p1Move, p1Moved: true, p2Move: data.p2Move, p2Moved: true })
+      newState.p1Move = data.p1Move;
+      newState.p1Moved = true;
+      newState.p2Move = data.p2Move;
+      newState.p2Moved = true;
+      newState.charStates = 'battle'
+      this.setState(newState);
+      resolve(newState);
+    })
   }
 
   handleSwitch(state) {
@@ -346,6 +363,20 @@ class Play extends React.Component {
       }
       this.setState(newState);
     });
+  }
+
+  idle(frame1, frame2) {
+    let newState = Object.assign({}, this.state);
+    if (newState.charStates === 'idle') {
+      let p1Character = newState.p1Team[newState.p1Char];
+      let p2Character = newState.p2Team[newState.p2Char];
+      p1Character.imgUrl = p1Character.animations.idle.path + frame.toString() + p1Character.animations.filetype;
+      p2Character.imgUrl = p2Character.animations.idle.path + frame.toString() + p2Character.animations.filetype;
+      this.setState(newState);
+      frame1 >= p1Character.animations.idle.frames ? nextFrame1 = 0 : nextFrame1 = frame1 + 1;
+      frame2 >= p2Character.animations.idle.frames ? nextFrame2 = 0 : nextFrame2 = frame2 + 1;
+      setTimeout(() => this.idle(frame1, frame2), 120);
+    }
   }
 
   makeMove(move, player) {
