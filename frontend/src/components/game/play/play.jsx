@@ -146,75 +146,87 @@ class Play extends React.Component {
         newState.p1Moved = true;
         newState.p2Move = data.p2Move;
         newState.p2Moved = true;
-  
-        newState = this.handleSwitch(newState);
-        newState = this.handleCombat(newState);
+        
+        this.handleSwitch(newState)
+          .then((state) => this.handleCombat(state)
+          .then(() => {
+            setTimeout(() => {
+              newState = Object.assign({}, this.state);
+              console.log('turn is ending');
+              this.turn = false;
+              newState.p1Moved = false;
+              newState.p2Moved = false;
+              newState.p1Move = null;
+              newState.p2Move = null;
+              newState.refresh = true;
+              setTimeout(() => this.setState(newState), 1000);
+            }, 2000);
+          }));
+        // newState = this.handleSwitch(newState);
+        // newState = this.handleCombat(newState);
 
-        setTimeout(() => {
-          newState = Object.assign({}, this.state);
-          console.log('turn is ending');
-          this.turn = false;
-          newState.p1Moved = false;
-          newState.p2Moved = false;
-          newState.p1Move = null;
-          newState.p2Move = null;
-          newState.refresh = true;
-          setTimeout(() => this.setState(newState), 1000);
-        }, 5000);
       }
     });
   }
 
   handleSwitch(state) {
-    if (state.p1Move.effects.includes('switch')) state.p1Char = state.p1Char === 0 ? 1 : 0;
-    if (state.p2Move.effects.includes('switch')) state.p2Char = state.p2Char === 0 ? 1 : 0;
-    this.setState(state);
-    return state;
+    return new Promise((resolve, reject) => {
+      if (state.p1Move.effects.includes('switch')) state.p1Char = state.p1Char === 0 ? 1 : 0;
+      if (state.p2Move.effects.includes('switch')) state.p2Char = state.p2Char === 0 ? 1 : 0;
+      this.setState(state);
+      resolve(state);
+    })
   }
 
   handleCombat(state) {
-    let effSpd1 = state.p1Team[state.p1Char].speed;
-    let effSpd2 = state.p2Team[state.p2Char].speed;
-    if (effSpd1 === effSpd2) {
-      if (Math.random() < 0.5) {
-        effSpd1 += 1;
-      } else {
-        effSpd2 += 1;
+    return new Promise((resolve, reject) => {
+      let effSpd1 = state.p1Team[state.p1Char].speed;
+      let effSpd2 = state.p2Team[state.p2Char].speed;
+      if (effSpd1 === effSpd2) {
+        if (Math.random() < 0.5) {
+          effSpd1 += 1;
+        } else {
+          effSpd2 += 1;
+        }
       }
-    }
-    if (effSpd1 > effSpd2) {
-      this.playAnimation(1, 'attack').then(() => {
-        state = this.handleDamage(1, this.state);
-        if (state.p2Team[state.p2Char].currentHp > 0) {
-          setTimeout(() => {
-            this.playAnimation(2, 'attack').then(() => {
-              state = this.handleDamage(2, this.state);
-              if (state.p1Team[state.p1Char].currentHp <= 0) {
-                this.handleDeath(1);
-              }
-            });
-          }, 2000);
-        } else {
-          this.handleDeath(2);
-        }
-      });
-    } else {
-      this.playAnimation(2, 'attack').then(() => {
-        state = this.handleDamage(2, this.state);
-        if (state.p1Team[state.p1Char].currentHp > 0) {
-          setTimeout(() => {
-            this.playAnimation(1, 'attack').then(() => {
-              state = this.handleDamage(1, this.state);
-              if (state.p2Team[state.p2Char].currentHp <= 0) {
-                this.handleDeath(2);
-              }
-            });
-          }, 2000)
-        } else {
-          this.handleDeath(1);
-        }
-      });
-    }
+      if (effSpd1 > effSpd2) {
+        this.playAnimation(1, 'attack').then(() => {
+          state = this.handleDamage(1, this.state);
+          if (state.p2Team[state.p2Char].currentHp > 0) {
+            setTimeout(() => {
+              this.playAnimation(2, 'attack').then(() => {
+                state = this.handleDamage(2, this.state);
+                if (state.p1Team[state.p1Char].currentHp <= 0) {
+                  this.handleDeath(1);
+                }
+                resolve('combat done');
+              });
+            }, 2000);
+          } else {
+            this.handleDeath(2);
+            resolve('combat done');
+          }
+        });
+      } else {
+        this.playAnimation(2, 'attack').then(() => {
+          state = this.handleDamage(2, this.state);
+          if (state.p1Team[state.p1Char].currentHp > 0) {
+            setTimeout(() => {
+              this.playAnimation(1, 'attack').then(() => {
+                state = this.handleDamage(1, this.state);
+                if (state.p2Team[state.p2Char].currentHp <= 0) {
+                  this.handleDeath(2);
+                }
+              });
+              resolve('combat done');
+            }, 2000)
+          } else {
+            this.handleDeath(1);
+            resolve('combat done');
+          }
+        });
+      }
+    })
   }
 
   handleDamage(player, state, damage) {
