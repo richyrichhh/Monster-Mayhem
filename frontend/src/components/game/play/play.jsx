@@ -149,7 +149,7 @@ class Play extends React.Component {
         // newState.p1Moved = true;
         // newState.p2Move = data.p2Move;
         // newState.p2Moved = true;
-        this.prepTurn()
+        this.prepTurn(data)
           .then((newState) => this.handleSwitch(newState)
           .then((state) => this.handleCombat(state)
           .then(() => {
@@ -172,7 +172,7 @@ class Play extends React.Component {
     });
   }
 
-  prepTurn() {
+  prepTurn(data) {
     return new Promise((resolve, reject) => {
       let newState = Object.assign({}, this.state);
       newState = Object.assign(newState, { p1Move: data.p1Move, p1Moved: true, p2Move: data.p2Move, p2Moved: true })
@@ -279,12 +279,12 @@ class Play extends React.Component {
         }
       } else if (player === 2) {
         let char = this.state.p2Team[this.state.p2Char];
-        for (var i = 0; i <= char.animations[animation].frames; i++) {
-          if (i === char.animations[animation].frames) {
-            setTimeout(() => resolve('done'), (120 * i) + 300);
-            this.resetP2(i);
+        for (var j = 0; j <= char.animations[animation].frames; j++) {
+          if (j === char.animations[animation].frames) {
+            setTimeout(() => resolve('done'), (120 * j) + 300);
+            this.resetP2(j);
           } else {
-            this.animateP2(animation, i);
+            this.animateP2(animation, j);
           }
         }
       }
@@ -370,12 +370,13 @@ class Play extends React.Component {
     if (newState.charStates === 'idle') {
       let p1Character = newState.p1Team[newState.p1Char];
       let p2Character = newState.p2Team[newState.p2Char];
-      p1Character.imgUrl = p1Character.animations.idle.path + frame.toString() + p1Character.animations.filetype;
-      p2Character.imgUrl = p2Character.animations.idle.path + frame.toString() + p2Character.animations.filetype;
+      p1Character.imgUrl = p1Character.animations.idle.path + frame1.toString() + p1Character.animations.filetype;
+      p2Character.imgUrl = p2Character.animations.idle.path + frame2.toString() + p2Character.animations.filetype;
       this.setState(newState);
+      let nextFrame1, nextFrame2;
       frame1 >= p1Character.animations.idle.frames ? nextFrame1 = 0 : nextFrame1 = frame1 + 1;
       frame2 >= p2Character.animations.idle.frames ? nextFrame2 = 0 : nextFrame2 = frame2 + 1;
-      setTimeout(() => this.idle(frame1, frame2), 120);
+      setTimeout(() => this.idle(nextFrame1, nextFrame2), 120);
     }
   }
 
@@ -412,7 +413,7 @@ class Play extends React.Component {
 
   handleQuit() {
     let gameId = this.gameId;
-    let team = this.state.team;
+    // let team = this.state.team;
     this.props.exitGame(gameId)
       .then(res => {
         this.socket.emit('leaveRoom', { gameId: res.game.gameId })
@@ -472,11 +473,11 @@ class Play extends React.Component {
           <span id="play-background">
             <span>
               <span id="p1-side" className="lit-up">
-                <img src={this.state.p1Team[this.state.p1Char].imgUrl} className="game-character-img game-left" />
+                <img src={this.state.p1Team[this.state.p1Char].imgUrl} className="game-character-img game-left" alt="char-p1" />
                 <span id="p1-hp">{this.charHealthBar(this.state.p1Team[this.state.p1Char])}</span>
               </span>
               <span id="p2-side">
-                <img src={this.state.p2Team[this.state.p2Char].imgUrl} className="game-character-img game-right" />
+                <img src={this.state.p2Team[this.state.p2Char].imgUrl} className="game-character-img game-right" alt="char-p2" />
                 <span id="p2-hp">{this.charHealthBar(this.state.p2Team[this.state.p2Char])}</span>
               </span>
             </span>
