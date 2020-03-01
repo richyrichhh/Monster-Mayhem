@@ -246,6 +246,24 @@ class Play extends React.Component {
     })
   }
 
+  handleDamage(player, state, damage) {
+    // let effects = move.effects;
+    let newState = Object.assign({}, state);
+    let attacker, move, target;
+    if (player === 1) {
+      attacker = newState.p1Team[newState.p1Char];
+      target = newState.p2Team[newState.p2Char];
+      move = newState.p1Move;
+    } else {
+      attacker = newState.p2Team[newState.p2Char];
+      target = newState.p1Team[newState.p1Char];
+      move = newState.p2Move;
+    }
+    damage = damage || damageFormula(attacker, move, target);
+    target.currentHp -= damage;
+    this.setState(newState);
+    return newState;
+  }
 
   playAnimation(player, animation) {
     return new Promise((resolve, reject) => {
