@@ -497,15 +497,15 @@ class Play extends React.Component {
       bar += "|"
     }
     if (healthPct < 0.3) {
-        // return <span className="healthbar danger-health">{bar}</span>;
-        return <span className="healthbar danger-health">{character.currentHp} / {character.maxHp}</span>;
+        return <span className="healthbar danger-health">{bar}</span>;
+        // return <span className="healthbar danger-health">{character.currentHp} / {character.maxHp}</span>;
     } else if (healthPct < 0.5) {
-        return <span className="healthbar warning-health">{character.currentHp} / {character.maxHp}</span>;
+        // return <span className="healthbar warning-health">{character.currentHp} / {character.maxHp}</span>;
 
-        // return <span className="healthbar warning-health">{bar}</span>;
+        return <span className="healthbar warning-health">{bar}</span>;
     } else {
-      return <span className="healthbar safe-health">{character.currentHp} / {character.maxHp}</span>;
-      // return <span className="healthbar safe-health">{bar}</span>;
+      // return <span className="healthbar safe-health">{character.currentHp} / {character.maxHp}</span>;
+      return <span className="healthbar safe-health">{bar}</span>;
     }
   }
 
