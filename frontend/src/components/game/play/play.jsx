@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 
 const switchMove = {
   name: 'switch',
-  power: 0,
+  strength: 0,
   effect: 99
 }
 
@@ -14,7 +14,7 @@ const testMonster =
   attack: 100,
   speed: 100,
   defense: 100,
-  movespool: [{ name: 'tackle', power: 10, effect: 0 }, { name: 'useless', power: 0, effect: 0 }, { name: 'oneshot', power: 1000, effect: 0 }, { name: 'tackle', power: 10, effect: 0 }],
+  movespool: [{ name: 'tackle', strength: 10, effect: 0 }, { name: 'useless', strength: 0, effect: 0 }, { name: 'oneshot', strength: 1000, effect: 0 }, { name: 'tackle', strength: 10, effect: 0 }],
   imgUrl: './images/test-char.png',
   animations: {
     base: './images/test-char',
@@ -32,7 +32,7 @@ const testMonster2 =
   attack: 120,
   speed: 10,
   defense: 200,
-  movespool: [{ name: 'tackle', power: 10, effect: 0 }, { name: 'useless', power: 0, effect: 0 }, { name: 'oneshot', power: 1000, effect: 0 }, { name: 'tackle', power: 10, effect: 0 }],
+  movespool: [{ name: 'tackle', strength: 10, effect: 0 }, { name: 'useless', strength: 0, effect: 0 }, { name: 'oneshot', strength: 1000, effect: 0 }, { name: 'tackle', strength: 10, effect: 0 }],
   imgUrl: './images/darryl_nguyen.jpg',
   animations: {
     base: './images/darryl_nguyen',
@@ -88,7 +88,7 @@ let p1TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2
 let p2TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
 
 const damageFormula = (monsterOne, move, monsterTwo) => {
-  return monsterOne.attack * move.power / monsterTwo.defense;
+  return monsterOne.attack * move.strength / monsterTwo.defense;
 };
 
 class Play extends React.Component {
