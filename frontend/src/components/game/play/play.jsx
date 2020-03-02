@@ -163,7 +163,7 @@ class Play extends React.Component {
       p1load = this.props.fetchTeam(this.game.host).then(data => {
         console.dir(data.team.data.team)
         let p1Team = data.team.data.team.map(id => {
-          let monster = this.monsters[id];
+          let monster = Object.assign({}, this.monsters[id]);
           monster = this.fixMonster(monster);
           console.log(monster);
           return monster;
@@ -174,7 +174,7 @@ class Play extends React.Component {
         console.log('p2 is' + this.game.p2);
         console.dir(data.team.data.team)
         let p2Team = data.team.data.team.map(id => {
-          let monster = this.monsters[id];
+          let monster = Object.assign({}, this.monsters[id]);
           monster = this.fixMonster(monster);
           console.log(monster);
           return monster;
