@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 const switchMove = {
   name: 'switch',
   power: 0,
-  effects: ['switch']
+  effect: 99
 }
 
 const testMonster = 
@@ -14,7 +14,7 @@ const testMonster =
   attack: 100,
   speed: 100,
   defense: 100,
-  movespool: [{ name: 'tackle', power: 10, effects: [] }, { name: 'useless', power: 0, effects: [] }, { name: 'oneshot', power: 1000, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
+  movespool: [{ name: 'tackle', power: 10, effect: 0 }, { name: 'useless', power: 0, effect: 0 }, { name: 'oneshot', power: 1000, effect: 0 }, { name: 'tackle', power: 10, effect: 0 }],
   imgUrl: './images/test-char.png',
   animations: {
     base: './images/test-char',
@@ -32,7 +32,7 @@ const testMonster2 =
   attack: 120,
   speed: 10,
   defense: 200,
-  movespool: [{ name: 'tackle', power: 10, effects: [] }, { name: 'useless', power: 0, effects: [] }, { name: 'oneshot', power: 1000, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
+  movespool: [{ name: 'tackle', power: 10, effect: 0 }, { name: 'useless', power: 0, effect: 0 }, { name: 'oneshot', power: 1000, effect: 0 }, { name: 'tackle', power: 10, effect: 0 }],
   imgUrl: './images/darryl_nguyen.jpg',
   animations: {
     base: './images/darryl_nguyen',
@@ -45,7 +45,7 @@ const testMonster2 =
 
 const monsterAnimations = {
   Chucky: {
-  base: './images/animations/chucky/stand/chucky_1-1.png',
+  base: './images/animations/chucky/stand/chucky_1-1',
   attack: { path: './images/animations/chucky/stab/chucky_8-', frames: 10 },
   heavyAttack: { path: './images/animations/chucky/roundhouse-slash/chucky_12-', frames: 10 },
   death: { path: './images/animations/chucky/death/chucky_5-', frames: 5 },
@@ -53,7 +53,7 @@ const monsterAnimations = {
   filetype: '.png'
   },
   "Freddy Kreuger": {
-    base: './images/animations/chucky/stand/chucky_1-1.png',
+    base: './images/animations/freddy/idle/freddy_0-0',
     kick: { path: './images/animations/freddy/kick/freddy_210-', frames: 10 },
     heavyKick: { path: './images/animations/freddy/roundhouse/freddy_240-', frames: 27 },
     knee: { path: './images/animations/freddy/knee/freddy_220-', frames: 14 },
@@ -63,7 +63,7 @@ const monsterAnimations = {
     filetype: '.png'
   },
   Pennywise: {
-    base: './images/animations/penny/stand/penny_0-0.png',
+    base: './images/animations/penny/stand/penny_0-0',
     attack: { path: './images/animations/penny/punch/penny_100-', frames: 5 },
     heavyAttack: { path: './images/animations/penny/heavy-punch/penny_200-', frames: 4 },
     kick: { path: './images/animations/penny/kick/penny_200-', frames: 6 },
@@ -72,7 +72,7 @@ const monsterAnimations = {
     filetype: '.png'
   },
   "Jason Voorhees": {
-    base: './images/animations/jason/stand/jason_0-0.png',
+    base: './images/animations/jason/stand/jason_0-0',
     attack: { path: './images/animations/jason/slash/jason_200-', frames: 13 },
     heavyAttack: { path: './images/animations/jason/heavy-slash/jason_610-', frames: 17 },
     punch: { path: './images/animations/jason/punch/jason_230-', frames: 7 },
@@ -201,7 +201,7 @@ class Play extends React.Component {
   fixMonster(monster) {
     monster.animations = monsterAnimations[monster.name]
     console.log(monsterAnimations["Jason Voorhees"]);
-    monster.imgUrl = monster.animations.base;
+    monster.imgUrl = monster.animations.base + monster.animations.filetype;
     monster.currentHp = monster.health;
     monster.maxHp = monster.health;
     return monster;
@@ -280,8 +280,8 @@ class Play extends React.Component {
 
   handleSwitch(state) {
     return new Promise((resolve, reject) => {
-      if (state.p1Move.effects.includes('switch')) state.p1Char = state.p1Char === 0 ? 1 : 0;
-      if (state.p2Move.effects.includes('switch')) state.p2Char = state.p2Char === 0 ? 1 : 0;
+      if (state.p1Move.effect === 99) state.p1Char = state.p1Char === 0 ? 1 : 0;
+      if (state.p2Move.effect === 99) state.p2Char = state.p2Char === 0 ? 1 : 0;
       this.setState(state);
       resolve(state);
     })
