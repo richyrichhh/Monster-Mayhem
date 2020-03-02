@@ -46,7 +46,7 @@ const testMonster2 =
 const monsterAnimations = {
   Chucky: {
   base: './images/animations/chucky/stand/chucky_1-1.png',
-    attack: { path: './images/animations/chucky/stab/chucky_8-', frames: 10 },
+  attack: { path: './images/animations/chucky/stab/chucky_8-', frames: 10 },
   heavyAttack: { path: './images/animations/chucky/roundhouse-slash/chucky_12-', frames: 10 },
   death: { path: './images/animations/chucky/death/chucky_5-', frames: 5 },
   idle: { path: './images/animations/chucky/stand/chucky_1-', frames: 12 },
@@ -164,8 +164,7 @@ class Play extends React.Component {
         console.dir(data.team.data.team)
         let p1Team = data.team.data.team.map(id => {
           let monster = this.monsters[id];
-          monster.animations = monsterAnimations[monster.name];
-          monster.imgUrl = monster.animations.base;
+          monster = this.fixMonster(monster);
           console.log(monster);
           return monster;
         })
@@ -176,8 +175,7 @@ class Play extends React.Component {
         console.dir(data.team.data.team)
         let p2Team = data.team.data.team.map(id => {
           let monster = this.monsters[id];
-          monster.animations = monsterAnimations[monster.name]
-          monster.imgUrl = monster.animations.base;
+          monster = this.fixMonster(monster);
           console.log(monster);
           return monster;
         })
@@ -186,7 +184,10 @@ class Play extends React.Component {
 
       Promise.all([p1load, p2load]).then((data) => {
         console.dir(data);
-        
+        let state = Object.assign({}, this.state);
+        state.p1Team = data[0];
+        state.p2Team = data[1];
+        this.setState(state);
         // teams && this.game ? this.setState({ loaded: true }) : "";
       })
     });
@@ -195,6 +196,15 @@ class Play extends React.Component {
     console.log(newState);
     
     // console.dir(this.state);
+  }
+
+  fixMonster(monster) {
+    monster.animations = monsterAnimations[monster.name]
+    console.log(monsterAnimations["Jason Voorhees"]);
+    monster.imgUrl = monster.animations.base;
+    monster.currentHp = monster.health;
+    monster.maxHp = monster.health;
+    return monster;
   }
 
   initializeSocketListeners() {
