@@ -24,21 +24,25 @@
     width: 100%;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .game-character-img {
-    height: 300px;
+    position: absolute;
+    height: 200px;
 }
 
 .game-left {
-    margin-left: 100px;
+    left: 42.5%;
 }
 
 .game-right {
-    margin-right: 100px;
+    right: 42.5%;
 }
 
+.moving {
+    z-index: 10;
+}
 
 #game-moves {
     display: flex;
@@ -86,12 +90,19 @@
 .healthbar {
     display: flex;
     letter-spacing: 2px;
-    background-color: black;
     font-weight: 1000;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    position: relative;
+    /* position: relative; */
     text-align: center;
-    justify-content: center;
+    /* background-color: yellow; */
+}
+
+#p1-hp {
+    height: 100%;
+}
+
+#p2-hp {
+    height: 100%;
 }
 
 #p1-side {
@@ -99,12 +110,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* background-color: orange; */
+    width: 100%;
+    height: 100%;
 }
 #p2-side {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 100%;
+    /* background-color: green; */
 }
 
 #p2-side > img {

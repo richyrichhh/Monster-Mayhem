@@ -1,6 +1,8 @@
 import React from 'react';
 import io from 'socket.io-client';
 
+const $ = window.$;
+
 const switchMove = {
   name: 'switch',
   strength: 0,
@@ -43,46 +45,46 @@ const testMonster2 =
   }
 };
 
-const monsterAnimations = {
-  Chucky: {
-  base: './images/animations/chucky/stand/chucky_1-1',
-  attack: { path: './images/animations/chucky/stab/chucky_8-', frames: 10 },
-  heavyAttack: { path: './images/animations/chucky/roundhouse-slash/chucky_12-', frames: 10 },
-  death: { path: './images/animations/chucky/death/chucky_5-', frames: 5 },
-  idle: { path: './images/animations/chucky/stand/chucky_1-', frames: 12 },
-  filetype: '.png'
-  },
-  "Freddy Kreuger": {
-    base: './images/animations/freddy/idle/freddy_0-0',
-    kick: { path: './images/animations/freddy/kick/freddy_210-', frames: 10 },
-    heavyKick: { path: './images/animations/freddy/roundhouse/freddy_240-', frames: 27 },
-    knee: { path: './images/animations/freddy/knee/freddy_220-', frames: 14 },
-    attack: { path: './images/animations/freddy/combo/freddy_200-', frames: 30 },
-    death: { path: './images/animations/freddy/death/freddy_255-', frames: 11 },
-    idle: { path: './images/animations/freddy/idle/freddy_0-', frames: 46 },
-    filetype: '.png'
-  },
-  Pennywise: {
-    base: './images/animations/penny/stand/penny_0-0',
-    attack: { path: './images/animations/penny/punch/penny_100-', frames: 5 },
-    heavyAttack: { path: './images/animations/penny/heavy-punch/penny_200-', frames: 4 },
-    kick: { path: './images/animations/penny/kick/penny_200-', frames: 6 },
-    death: { path: './images/animations/chucky/death/penny_440-', frames: 9 },
-    idle: { path: './images/animations/penny/stand/penny_0-', frames: 7 },
-    filetype: '.png'
-  },
-  "Jason Voorhees": {
-    base: './images/animations/jason/stand/jason_0-0',
-    attack: { path: './images/animations/jason/slash/jason_200-', frames: 13 },
-    heavyAttack: { path: './images/animations/jason/heavy-slash/jason_610-', frames: 17 },
-    punch: { path: './images/animations/jason/punch/jason_230-', frames: 7 },
-    superHeavyAttack: { path: './images/animations/jason/chop/jason_210-', frames: 16 },
-    range: { path: './images/animations/jason/bow/jason_1200-', frames: 13 },
-    death: { path: './images/animations/jason/death/jason_5950-', frames: 16 },
-    idle: { path: './images/animations/jason/stand/jason_0-', frames: 14 },
-    filetype: '.png'
-  }
-}
+// const monsterAnimations = {
+//   Chucky: {
+//   base: './images/animations/chucky/stand/chucky_1-1',
+//   attack: { path: './images/animations/chucky/stab/chucky_8-', frames: 10 },
+//   heavyAttack: { path: './images/animations/chucky/roundhouse-slash/chucky_12-', frames: 10 },
+//   death: { path: './images/animations/chucky/death/chucky_5-', frames: 5 },
+//   idle: { path: './images/animations/chucky/stand/chucky_1-', frames: 12 },
+//   filetype: '.png'
+//   },
+//   "Freddy Kreuger": {
+//     base: './images/animations/freddy/idle/freddy_0-0',
+//     kick: { path: './images/animations/freddy/kick/freddy_210-', frames: 10 },
+//     heavyKick: { path: './images/animations/freddy/roundhouse/freddy_240-', frames: 27 },
+//     knee: { path: './images/animations/freddy/knee/freddy_220-', frames: 14 },
+//     attack: { path: './images/animations/freddy/combo/freddy_200-', frames: 30 },
+//     death: { path: './images/animations/freddy/death/freddy_255-', frames: 11 },
+//     idle: { path: './images/animations/freddy/idle/freddy_0-', frames: 46 },
+//     filetype: '.png'
+//   },
+//   Pennywise: {
+//     base: './images/animations/penny/stand/penny_0-0',
+//     attack: { path: './images/animations/penny/punch/penny_100-', frames: 5 },
+//     heavyAttack: { path: './images/animations/penny/heavy-punch/penny_200-', frames: 4 },
+//     kick: { path: './images/animations/penny/kick/penny_200-', frames: 6 },
+//     death: { path: './images/animations/penny/death/penny_440-', frames: 9 },
+//     idle: { path: './images/animations/penny/stand/penny_0-', frames: 7 },
+//     filetype: '.png'
+//   },
+//   "Jason Voorhees": {
+//     base: './images/animations/jason/stand/jason_0-0',
+//     attack: { path: './images/animations/jason/slash/jason_200-', frames: 13 },
+//     heavyAttack: { path: './images/animations/jason/heavy-slash/jason_610-', frames: 17 },
+//     punch: { path: './images/animations/jason/punch/jason_230-', frames: 7 },
+//     superHeavyAttack: { path: './images/animations/jason/chop/jason_210-', frames: 16 },
+//     range: { path: './images/animations/jason/bow/jason_1200-', frames: 13 },
+//     death: { path: './images/animations/jason/death/jason_5950-', frames: 16 },
+//     idle: { path: './images/animations/jason/stand/jason_0-', frames: 14 },
+//     filetype: '.png'
+//   }
+// }
 
 let p1TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
 let p2TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
@@ -199,8 +201,8 @@ class Play extends React.Component {
   }
 
   fixMonster(monster) {
-    monster.animations = monsterAnimations[monster.name]
-    console.log(monsterAnimations["Jason Voorhees"]);
+    // monster.animations = monsterAnimations[monster.name]
+    // console.log(monsterAnimations["Jason Voorhees"]);
     monster.imgUrl = monster.animations.base + monster.animations.filetype;
     monster.currentHp = monster.health;
     monster.maxHp = monster.health;
@@ -360,6 +362,7 @@ class Play extends React.Component {
   playAnimation(player, animation) {
     return new Promise((resolve, reject) => {
       if (player === 1) {
+        $(document.getElementsByClassName('game-left')[0]).addClass('moving');
         let char = this.state.p1Team[this.state.p1Char];
         for (var i = 0; i <= char.animations[animation].frames; i++) {
           if (i === char.animations[animation].frames) {
@@ -370,6 +373,7 @@ class Play extends React.Component {
           }
         }
       } else if (player === 2) {
+        $(document.getElementsByClassName('game-right')[0]).addClass('moving');
         let char = this.state.p2Team[this.state.p2Char];
         for (var j = 0; j <= char.animations[animation].frames; j++) {
           if (j === char.animations[animation].frames) {
@@ -413,6 +417,7 @@ class Play extends React.Component {
       let newState = Object.assign({}, this.state);
       let character = newState.p1Team[newState.p1Char];
       character.imgUrl = character.animations.base + character.animations.filetype;
+      $(document.getElementsByClassName('game-left')[0]).removeClass('moving');
       this.setState(newState);
     }, (120 * frame) + 200);
   }
@@ -433,6 +438,7 @@ class Play extends React.Component {
       let newState = Object.assign({}, this.state);
       let character = newState.p2Team[newState.p2Char];
       character.imgUrl = character.animations.base + character.animations.filetype;
+      $(document.getElementsByClassName('game-right')[0]).removeClass('moving');
       this.setState(newState);
     }, (120 * frame) + 200);
   }
