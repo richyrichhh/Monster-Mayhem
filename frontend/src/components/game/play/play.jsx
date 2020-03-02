@@ -14,7 +14,7 @@ const testMonster =
   attack: 100,
   speed: 100,
   defense: 100,
-  moves: [{ name: 'tackle', power: 10, effects: [] }, { name: 'useless', power: 0, effects: [] }, { name: 'oneshot', power: 1000, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
+  movespool: [{ name: 'tackle', power: 10, effects: [] }, { name: 'useless', power: 0, effects: [] }, { name: 'oneshot', power: 1000, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
   imgUrl: './images/test-char.png',
   animations: {
     base: './images/test-char',
@@ -32,7 +32,7 @@ const testMonster2 =
   attack: 120,
   speed: 10,
   defense: 200,
-  moves: [{ name: 'tackle', power: 10, effects: [] }, { name: 'useless', power: 0, effects: [] }, { name: 'oneshot', power: 1000, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
+  movespool: [{ name: 'tackle', power: 10, effects: [] }, { name: 'useless', power: 0, effects: [] }, { name: 'oneshot', power: 1000, effects: [] }, { name: 'tackle', power: 10, effects: [] }],
   imgUrl: './images/darryl_nguyen.jpg',
   animations: {
     base: './images/darryl_nguyen',
@@ -42,6 +42,47 @@ const testMonster2 =
     filetype: '.png'
   }
 };
+
+const monsterAnimations = {
+  Chucky: {
+  base: './images/animations/chucky/stand/chucky_1-1.png',
+    attack: { path: './images/animations/chucky/stab/chucky_8-', frames: 10 },
+  heavyAttack: { path: './images/animations/chucky/roundhouse-slash/chucky_12-', frames: 10 },
+  death: { path: './images/animations/chucky/death/chucky_5-', frames: 5 },
+  idle: { path: './images/animations/chucky/stand/chucky_1-', frames: 12 },
+  filetype: '.png'
+  },
+  "Freddy Kreuger": {
+    base: './images/animations/chucky/stand/chucky_1-1.png',
+    kick: { path: './images/animations/freddy/kick/freddy_210-', frames: 10 },
+    heavyKick: { path: './images/animations/freddy/roundhouse/freddy_240-', frames: 27 },
+    knee: { path: './images/animations/freddy/knee/freddy_220-', frames: 14 },
+    attack: { path: './images/animations/freddy/combo/freddy_200-', frames: 30 },
+    death: { path: './images/animations/freddy/death/freddy_255-', frames: 11 },
+    idle: { path: './images/animations/freddy/idle/freddy_0-', frames: 46 },
+    filetype: '.png'
+  },
+  Pennywise: {
+    base: './images/animations/penny/stand/penny_0-0.png',
+    attack: { path: './images/animations/penny/punch/penny_100-', frames: 5 },
+    heavyAttack: { path: './images/animations/penny/heavy-punch/penny_200-', frames: 4 },
+    kick: { path: './images/animations/penny/kick/penny_200-', frames: 6 },
+    death: { path: './images/animations/chucky/death/penny_440-', frames: 9 },
+    idle: { path: './images/animations/penny/stand/penny_0-', frames: 7 },
+    filetype: '.png'
+  },
+  "Jason Voorhees": {
+    base: './images/animations/jason/stand/jason_0-0.png',
+    attack: { path: './images/animations/jason/slash/jason_200-', frames: 13 },
+    heavyAttack: { path: './images/animations/jason/heavy-slash/jason_610-', frames: 17 },
+    punch: { path: './images/animations/jason/punch/jason_230-', frames: 7 },
+    superHeavyAttack: { path: './images/animations/jason/chop/jason_210-', frames: 16 },
+    range: { path: './images/animations/jason/bow/jason_1200-', frames: 13 },
+    death: { path: './images/animations/jason/death/jason_5950-', frames: 16 },
+    idle: { path: './images/animations/jason/stand/jason_0-', frames: 14 },
+    filetype: '.png'
+  }
+}
 
 let p1TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
 let p2TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
@@ -108,10 +149,51 @@ class Play extends React.Component {
 
   initializeGame(data) {
     this.game = data.game.data;
-    this.state.p1 = this.game.host
-    this.state.p2 = this.game.p2
-    this.props.fetchTeam(this.game.host).then(data => console.dir(data));
-    this.props.fetchTeam(this.game.p2).then(data => console.dir(data));
+    let newState = Object.assign({}, this.state);
+    newState.p1 = this.game.host;
+    newState.p2 = this.game.p2;
+    this.setState(newState);
+    this.monsters = {};
+    let p1load, p2load;
+    this.props.fetchMonsters().then(data => {
+      for (let monster of data.monsters.data) {
+        this.monsters[monster._id] = monster;
+      }
+      console.dir(this.monsters);
+      p1load = this.props.fetchTeam(this.game.host).then(data => {
+        console.dir(data.team.data.team)
+        let p1Team = data.team.data.team.map(id => {
+          let monster = this.monsters[id];
+          monster.animations = monsterAnimations[monster.name];
+          monster.imgUrl = monster.animations.base;
+          console.log(monster);
+          return monster;
+        })
+        return p1Team;
+      });
+      p2load = (this.game.p2) ? this.props.fetchTeam(this.game.p2).then(data => {
+        console.log('p2 is' + this.game.p2);
+        console.dir(data.team.data.team)
+        let p2Team = data.team.data.team.map(id => {
+          let monster = this.monsters[id];
+          monster.animations = monsterAnimations[monster.name]
+          monster.imgUrl = monster.animations.base;
+          console.log(monster);
+          return monster;
+        })
+        return p2Team;
+      }) : null;
+
+      Promise.all([p1load, p2load]).then((data) => {
+        console.dir(data);
+        
+        // teams && this.game ? this.setState({ loaded: true }) : "";
+      })
+    });
+
+
+    console.log(newState);
+    
     // console.dir(this.state);
   }
 
@@ -445,7 +527,7 @@ class Play extends React.Component {
         <div id="game-moves">
           <div id="character-moves">
             <ul id="character-moves-list">
-              {this.state[`p${this.state.p1 === this.currentUserId ? '1' : '2'}Team`][this.state.p1 === this.currentUserId ? this.state.p1Char : this.state.p2Char].moves.map((move, i) => <li key={`move-${i}`}><button onClick={(e) => this.makeMove(move, this.state.p1 === this.currentUserId ? 1 : 2)}>{move.name}</button></li>)}
+              {this.state[`p${this.state.p1 === this.currentUserId ? '1' : '2'}Team`][this.state.p1 === this.currentUserId ? this.state.p1Char : this.state.p2Char].movespool.map((move, i) => <li key={`move-${i}`}><button onClick={(e) => this.makeMove(move, this.state.p1 === this.currentUserId ? 1 : 2)}>{move.name}</button></li>)}
             </ul>
           </div>
           {((this.state.p1 === this.currentUserId && this.state.p1CanSwitch === true) || (this.state.p2 === this.currentUserId && this.state.p2CanSwitch === true)) ? <span id="switch-character"><button onClick={() => this.sendSwitch(playerNum)}>Switch</button></span> : <span id="switch-character"><button disabled>Switch</button></span>}

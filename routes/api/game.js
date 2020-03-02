@@ -7,7 +7,7 @@ const Game = require('../../models/Game');
 router.post("/", (req, res) => {
     const newGame = new Game({
       host: req.body.host,
-      p2: 'yo momma',
+      p2: null,
       active: true,
       full: false
     });

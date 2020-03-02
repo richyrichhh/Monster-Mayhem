@@ -7,8 +7,7 @@ const GameSchema = new Schema({
         required: true
     },
     p2: {
-        type: String,
-        required: true
+        type: String
     },
     active: {
         type: Boolean
