@@ -138,6 +138,7 @@ class Play extends React.Component {
     Promise.all([game, sockets]).then(() => {
       if (this.state.p1 && this.state.p2) {
         this.setState({loaded: true});
+        this.idle(0, 0);
       }
       // teams && this.game ? this.setState({ loaded: true }) : "";
     })
@@ -189,7 +190,6 @@ class Play extends React.Component {
         let state = Object.assign({}, this.state);
         state.p1Team = data[0];
         state.p2Team = data[1];
-        this.idle(0, 0);
         this.setState(state);
         // teams && this.game ? this.setState({ loaded: true }) : "";
       })
