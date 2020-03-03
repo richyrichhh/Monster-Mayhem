@@ -2,7 +2,7 @@
 
 path = "./"
 
-counter = 35
+counter = 0
 # Dir.open(path).each do |p|
 #   next if File.extname(p) != ".png"
 #   filename = File.basename(p, File.extname(p))
@@ -13,9 +13,9 @@ counter = 35
 
 
 Dir.open(path).sort().each do |p|
- next unless p.match(/freddy_200-...\.png/)
+ next unless p.match(/chucky_2-.\.png/)
  old = path  + p
- new = path  + "freddy_200-#{counter}.png"
+ new = path  + "chucky_2-#{counter}.png"
  File.rename(old, new)
  puts old + " => " + new
  counter += 1
