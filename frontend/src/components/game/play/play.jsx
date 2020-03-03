@@ -369,10 +369,11 @@ class Play extends React.Component {
       if (player === 1) {
         $(document.getElementsByClassName('game-left')[0]).addClass('moving');
         let char = this.state.p1Team[this.state.p1Char];
-        for (var i = 0; i <= char.animations[animation].frames; i++) {
-          if (i === char.animations[animation].frames) {
+        for (var i = 0; i < char.animations[animation].frames; i++) {
+          if (i === char.animations[animation].frames - 1) {
             setTimeout(() => resolve('done'), (120 * i) + 300);
-            this.resetP1(i);
+            this.animateP1(animation, i);
+            this.resetP1(i + 1);
           } else {
             this.animateP1(animation, i);
           }
@@ -380,10 +381,11 @@ class Play extends React.Component {
       } else if (player === 2) {
         $(document.getElementsByClassName('game-right')[0]).addClass('moving');
         let char = this.state.p2Team[this.state.p2Char];
-        for (var j = 0; j <= char.animations[animation].frames; j++) {
-          if (j === char.animations[animation].frames) {
+        for (var j = 0; j < char.animations[animation].frames; j++) {
+          if (j === char.animations[animation].frames - 1) {
             setTimeout(() => resolve('done'), (120 * j) + 300);
-            this.resetP2(j);
+            this.animateP2(animation, j);
+            this.resetP2(j + 1);
           } else {
             this.animateP2(animation, j);
           }
@@ -477,8 +479,8 @@ class Play extends React.Component {
       p2Character.imgUrl = p2Character.animations.idle.path + frame2.toString() + p2Character.animations.filetype;
       this.setState(newState);
       let nextFrame1, nextFrame2;
-      frame1 >= p1Character.animations.idle.frames ? nextFrame1 = 0 : nextFrame1 = frame1 + 1;
-      frame2 >= p2Character.animations.idle.frames ? nextFrame2 = 0 : nextFrame2 = frame2 + 1;
+      frame1 >= p1Character.animations.idle.frames - 1 ? nextFrame1 = 0 : nextFrame1 = frame1 + 1;
+      frame2 >= p2Character.animations.idle.frames - 1 ? nextFrame2 = 0 : nextFrame2 = frame2 + 1;
       setTimeout(() => this.idle(nextFrame1, nextFrame2), 120);
     }
   }
