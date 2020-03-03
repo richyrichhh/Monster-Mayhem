@@ -301,11 +301,11 @@ class Play extends React.Component {
         }
       }
       if (effSpd1 > effSpd2) {
-        this.playAnimation(1, 'attack').then(() => {
+        this.playAnimation(1, state.p1Move.animation || 'attack').then(() => {
           state = this.handleDamage(1, this.state);
           if (state.p2Team[state.p2Char].currentHp > 0) {
             setTimeout(() => {
-              this.playAnimation(2, 'attack').then(() => {
+              this.playAnimation(2, state.p2Move.animation || 'attack').then(() => {
                 state = this.handleDamage(2, this.state);
                 if (state.p1Team[state.p1Char].currentHp <= 0) {
                   this.handleDeath(1);
@@ -319,11 +319,11 @@ class Play extends React.Component {
           }
         });
       } else {
-        this.playAnimation(2, 'attack').then(() => {
+        this.playAnimation(2, state.p2Move.animation || 'attack').then(() => {
           state = this.handleDamage(2, this.state);
           if (state.p1Team[state.p1Char].currentHp > 0) {
             setTimeout(() => {
-              this.playAnimation(1, 'attack').then(() => {
+              this.playAnimation(1, state.p1Move.animation || 'attack').then(() => {
                 state = this.handleDamage(1, this.state);
                 if (state.p2Team[state.p2Char].currentHp <= 0) {
                   this.handleDeath(2);
