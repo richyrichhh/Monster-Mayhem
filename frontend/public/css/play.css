@@ -29,15 +29,19 @@
 
 .game-character-img {
     position: absolute;
-    height: 200px;
+    scale: 3;
+    max-height: 500px;
+    min-height: 300px;
 }
 
 .game-left {
-    left: 42.5%;
+    left: 37.5%;
+
 }
 
 .game-right {
-    right: 42.5%;
+    right: 37.5%;
+    
 }
 
 .moving {
