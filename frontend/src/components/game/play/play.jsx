@@ -479,8 +479,8 @@ class Play extends React.Component {
       p2Character.imgUrl = p2Character.animations.idle.path + frame2.toString() + p2Character.animations.filetype;
       this.setState(newState);
       let nextFrame1, nextFrame2;
-      frame1 >= p1Character.animations.idle.frames - 1 ? nextFrame1 = 0 : nextFrame1 = frame1 + 1;
-      frame2 >= p2Character.animations.idle.frames - 1 ? nextFrame2 = 0 : nextFrame2 = frame2 + 1;
+      frame1 == p1Character.animations.idle.frames - 1 ? nextFrame1 = 0 : nextFrame1 = frame1 + 1;
+      frame2 == p2Character.animations.idle.frames - 1 ? nextFrame2 = 0 : nextFrame2 = frame2 + 1;
       setTimeout(() => this.idle(nextFrame1, nextFrame2), 120);
     }
   }
