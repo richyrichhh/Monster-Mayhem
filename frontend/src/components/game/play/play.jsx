@@ -189,6 +189,7 @@ class Play extends React.Component {
         let state = Object.assign({}, this.state);
         state.p1Team = data[0];
         state.p2Team = data[1];
+        this.idle(0, 0);
         this.setState(state);
         // teams && this.game ? this.setState({ loaded: true }) : "";
       })
@@ -255,8 +256,12 @@ class Play extends React.Component {
               newState.p2Moved = false;
               newState.p1Move = null;
               newState.p2Move = null;
+              newState.charStates = 'idle';
               newState.refresh = true;
-              setTimeout(() => this.setState(newState), 1000);
+              setTimeout(() => {
+                this.setState(newState)
+                this.idle(0, 0);
+              }, 1000);
             }, 2000);
           })));
         // newState = this.handleSwitch(newState);
