@@ -492,6 +492,72 @@ class Play extends React.Component {
     }, (120 * frame) + 200);
   }
 
+  playEffect(player, effect) {
+    return new Promise((resolve, reject) => {
+      if (player === 1) {
+        $(document.getElementById('effect-img-left')[0]).addClass('moving');
+        for (var i = 0; i < effectsTable[effect].frames; i++) {
+          if (i === effectsTable[effect].frames - 1) {
+            setTimeout(() => resolve('done'), (120 * i) + 300);
+            this.animateEffectP1(effect, i);
+            this.resetEffectP1(i + 1);
+          } else {
+            this.animateEffectP1(effect, i);
+          }
+        }
+      } else if (player === 2) {
+        $(document.getElementById('effect-img-right')).addClass('moving');
+        for (var j = 0; j < i < effectsTable[effect].frames; j++) {
+          if (j === i < effectsTable[effect].frames - 1) {
+            setTimeout(() => resolve('done'), (120 * j) + 300);
+            this.animateEffectP2(animation, j);
+            this.resetEffectP2(j + 1);
+          } else {
+            this.animateEffectP2(animation, j);
+          }
+        }
+      }
+    });
+  }
+
+  animateEffectP1(effect, frame) {
+    setTimeout(() => {
+      console.log('effect for player 1 ' + 'change at' + Date(Date.now()).toString() + 'to' + frame.toString());
+      let newState = Object.assign({}, this.state);
+      newState.p1Effect = effectsTable[effect].path + frame.toString() + effectsTable[effect].filetype;
+      this.setState(newState);
+    }, 120 * frame);
+  }
+
+  resetEffectP1(frame) {
+    setTimeout(() => {
+      console.log('animation for player 1 ' + 'change at' + Date(Date.now()).toString() + 'to' + ' reset');
+      let newState = Object.assign({}, this.state);
+      newState.p1Effect = effectsTable.base;
+      $(document.getElementById('effect-img-left')).removeClass('moving');
+      this.setState(newState);
+    }, (120 * frame) + 200);
+  }
+
+  animateEffectP2(effect, frame) {
+    setTimeout(() => {
+      console.log('effect for player 2 ' + 'change at' + Date(Date.now()).toString() + 'to' + frame.toString());
+      let newState = Object.assign({}, this.state);
+      newState.p2Effect = effectsTable[effect].path + frame.toString() + effectsTable[effect].filetype;
+      this.setState(newState);
+    }, 120 * frame);
+  }
+
+  resetEffectP2(frame) {
+    setTimeout(() => {
+      console.log('animation for player 2 ' + 'change at' + Date(Date.now()).toString() + 'to' + ' reset');
+      let newState = Object.assign({}, this.state);
+      newState.p2Effect = effectsTable.base;
+      $(document.getElementById('effect-img-right')).removeClass('moving');
+      this.setState(newState);
+    }, (120 * frame) + 200);
+  }
+
   handleDeath(player) {
     this.playAnimation(player, 'death').then(() => {
       let newState = Object.assign(this.state);
