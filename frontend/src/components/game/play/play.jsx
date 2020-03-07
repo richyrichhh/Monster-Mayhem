@@ -151,11 +151,11 @@ class Play extends React.Component {
       p2Char: 0,
       p1Moved: false,
       p1Move: null,
-      p1Effect: 'none',
+      p1Effect: effectsTable.none.path + '0' + effectsTable.none.filetype,
       p1CanSwitch: true,
       p2Moved: false,
       p2Move: null,
-      p2Effect: 'none',
+      p2Effect: effectsTable.none.path + '0' + effectsTable.none.filetype,
       p2CanSwitch: true,
       refresh: false,
       loaded: false
@@ -621,10 +621,12 @@ class Play extends React.Component {
             <span>
               <span id="p1-side" className="lit-up">
                 <img src={this.state.p1Team[this.state.p1Char].imgUrl} className="game-character-img game-left" alt="char-p1" />
+                <img src={this.state.p1Effect} id="effect-img-left" className="effect-img" alt="effect-p1" />
                 <span id="p1-hp">{this.charHealthBar(this.state.p1Team[this.state.p1Char])}</span>
               </span>
               <span id="p2-side">
                 <img src={this.state.p2Team[this.state.p2Char].imgUrl} className="game-character-img game-right" alt="char-p2" />
+                <img src={this.state.p2Effect} id="effect-img-right" className="effect-img" alt="effect-p2" />
                 <span id="p2-hp">{this.charHealthBar(this.state.p2Team[this.state.p2Char])}</span>
               </span>
             </span>
