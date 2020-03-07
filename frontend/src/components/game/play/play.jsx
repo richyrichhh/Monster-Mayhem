@@ -113,8 +113,14 @@ const effectsTable = {
     path: './images/effects/strike/tile-',
     frames: 16,
     filetype: '.png'
-  }
-}
+  },
+  none: {
+    path: './images/effects/none/tile-',
+    frames: 1,
+    filetype: '.png'
+  },
+  base: './images/effects/none/tile-0.png'
+};
 
 let p1TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
 let p2TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
@@ -145,9 +151,11 @@ class Play extends React.Component {
       p2Char: 0,
       p1Moved: false,
       p1Move: null,
+      p1Effect: 'none',
       p1CanSwitch: true,
       p2Moved: false,
       p2Move: null,
+      p2Effect: 'none',
       p2CanSwitch: true,
       refresh: false,
       loaded: false
