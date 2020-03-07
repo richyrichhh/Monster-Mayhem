@@ -6,7 +6,9 @@ const $ = window.$;
 const switchMove = {
   name: 'switch',
   strength: 0,
-  effect: 99
+  effect: 99,
+  animation: 'none',
+  hit: 'none'
 }
 
 const testMonster = 
@@ -85,6 +87,34 @@ const testMonster2 =
 //     filetype: '.png'
 //   }
 // }
+
+const effectsTable = {
+  crossSlash: {
+    path: './images/effects/cross-slash/tile-',
+    frames: 16,
+    filetype: '.png'
+  },
+  explosion: {
+    path: './images/effects/explosion/tile-',
+    frames: 16,
+    filetype: '.png'
+  },
+  multiSlash: {
+    path: './images/effects/multi-slash/tile-',
+    frames: 40,
+    filetype: '.png'
+  },
+  poisonBlast: {
+    path: './images/effects/poison-blast/tile-',
+    frames: 36,
+    filetype: '.png'
+  },
+  strike: {
+    path: './images/effects/strike/tile-',
+    frames: 16,
+    filetype: '.png'
+  }
+}
 
 let p1TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
 let p2TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
@@ -207,6 +237,10 @@ class Play extends React.Component {
     monster.imgUrl = monster.animations.base + monster.animations.filetype;
     monster.currentHp = monster.health;
     monster.maxHp = monster.health;
+    monster.animations.none = {
+      path: monster.animations.base,
+      frames: 1
+    }
     return monster;
   }
 

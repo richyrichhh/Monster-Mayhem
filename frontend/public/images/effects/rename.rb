@@ -13,9 +13,9 @@ counter = 0
 
 
 Dir.open(path).sort().each do |p|
- next unless p.match(/chucky_2-.\.png/)
+ next unless p.match(/tile0..\.png/)
  old = path  + p
- new = path  + "chucky_2-#{counter}.png"
+ new = path  + "tile-#{counter}.png"
  File.rename(old, new)
  puts old + " => " + new
  counter += 1
