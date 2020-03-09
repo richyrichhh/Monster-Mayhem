@@ -136,9 +136,6 @@ class Play extends React.Component {
     this.currentUserId = this.props.user.id;
     // console.dir(this.props.user);
     this.socket = process.env.NODE_ENV === 'production' ? io() : io('http://localhost:5000')
-    this.socket.emit("sendJoinRoomToBack", {
-      gameId: this.gameId
-    })
 
     this.state = {
       charStates: 'idle',
@@ -158,7 +155,8 @@ class Play extends React.Component {
       p2Effect: effectsTable.none.path + '0' + effectsTable.none.filetype,
       p2CanSwitch: true,
       refresh: false,
-      loaded: false
+      loaded: false,
+      turn: 0
     }
 
     window.state = this.state;
@@ -167,12 +165,17 @@ class Play extends React.Component {
     this.turn = false;
     this.initializeGame = this.initializeGame.bind(this);
     this.makeMove = this.makeMove.bind(this);
+    this.socket.emit("sendJoinRoomToBack", {
+      gameId: this.gameId,
+      userId: this.currentUserId
+    });
   }
 
   componentDidMount() {
     const game = this.props.fetchGame(this.gameId)
       .then((game) => this.initializeGame(game));
     const sockets = this.initializeSocketListeners();
+    
     Promise.all([game, sockets]).then(() => {
       if (this.state.p1 && this.state.p2) {
         this.setState({loaded: true});
@@ -193,6 +196,7 @@ class Play extends React.Component {
     let newState = Object.assign({}, this.state);
     newState.p1 = this.game.host;
     newState.p2 = this.game.p2;
+    newState.turn += 1;
     this.setState(newState);
     this.monsters = {};
     let p1load, p2load;
@@ -254,11 +258,13 @@ class Play extends React.Component {
 
   initializeSocketListeners() {
     this.socket.on("startGame", (data) => {
-      let newState = Object.assign({}, this.state);
-      console.dir(data);
-      newState.refresh = true;
-      this.setState(newState);
+      console.log('starting game');
+      window.location.reload(false);
+      // this.componentDidMount();
     });
+
+    this.socket.on("askForStates", () => this.socket.emit('sendingBackStates', this.state));
+    this.socket.on("receivingState", (state) => (state.turn > this.state.turn) ? this.setState(state) : "");
 
     this.socket.on("makeMove", (data) => {
       console.log('making move');
@@ -316,11 +322,12 @@ class Play extends React.Component {
   prepTurn(data) {
     return new Promise((resolve, reject) => {
       let newState = Object.assign({}, this.state);
-      newState = Object.assign(newState, { p1Move: data.p1Move, p1Moved: true, p2Move: data.p2Move, p2Moved: true })
+      // newState = Object.assign(newState, { p1Move: data.p1Move, p1Moved: true, p2Move: data.p2Move, p2Moved: true })
       newState.p1Move = data.p1Move;
       newState.p1Moved = true;
       newState.p2Move = data.p2Move;
       newState.p2Moved = true;
+      newState.turn += 1;
       newState.charStates = 'battle'
       this.setState(newState);
       resolve(newState);

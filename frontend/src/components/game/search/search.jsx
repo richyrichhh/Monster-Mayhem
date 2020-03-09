@@ -31,17 +31,22 @@ class Search extends React.Component {
     this.props.fetchGame(gameId).then(res => {
       // console.dir(res);
       if (!res) alert('Game not found!');
-      else if (res.game.data.active === false) alert('Game not found!');
-      else if (res.game.data.full === true) alert('Game started!');
+      // else if (res.game.data.active === true) alert('Game started!');
+      // else if (res.game.data.full === true) alert('Game started!');
       else {
-        const updatedGame = {
-          host: res.game.data.host,
-          p2: this.state.currentUserId,
-          full: true,
-          active: res.game.data.active
+        if (res.game.data.full === false) {
+          const updatedGame = {
+            host: res.game.data.host,
+            p2: this.state.currentUserId,
+            full: true,
+            active: res.game.data.active
+          }
+          this.props.updateGame(res.game.data._id, updatedGame).then(data => this.props.history.push(`/game/play/${res.game.data._id}`));
         }
-        this.props.updateGame(res.game.data._id, updatedGame).then(res => console.dir(res));
-        this.props.history.push(`/game/play/${res.game.data._id}`);
+        else {
+          this.props.history.push(`/game/play/${res.game.data._id}`);
+        }
+        // this.props.history.push(`/game/play/${res.game.data._id}`);
       }
     });
   }

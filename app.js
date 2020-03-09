@@ -58,17 +58,32 @@ io.on("connection", function (socket, data) {
   socket.on("sendJoinRoomToBack", function (data) {
     Game.findById(data.gameId).then(game => {
       socket.join(game._id); //Join a room
-      console.log("Joined room: " + game._id)
+      console.log(game);
+      console.log(`${data.userId} joined room: ${game._id}`);
+      if (data.userId === game.p2 && !game.active) {
+        game.active = true;
+        game.save().then(() => {
+          io.to(game._id).emit("startGame", { p1: game.p1, p2: game.p2 });
+        });
+      }
+      
+      if (game.active) {
+        io.to(game._id).emit("askForStates", 'please');
+      }
     })
   })
 
-  socket.on("joinGame", function (id) {
-    socket.join(id); //Join a room
-    console.log("Joined game " + id)
-    io.to(id).emit("receive-room", "made it")
-      io.to(game._id).emit("startGame", {p1: game.p1, p2: game.p2})
+  socket.on('sendingBackStates', (states) => {
+    console.log(states);
+  })
 
-  });
+  // socket.on("joinGame", function (id) {
+  //   socket.join(id); //Join a room
+  //   console.log("Joined game " + id)
+  //   // io.to(id).emit("receive-room", "made it")
+  //   io.to(id).emit("startGame", {p1: game.p1, p2: game.p2})
+
+  // });
 
   socket.on("sendMoveToBack", function (data) {
     // console.log(data);

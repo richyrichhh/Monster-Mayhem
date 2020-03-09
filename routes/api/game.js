@@ -8,7 +8,7 @@ router.post("/", (req, res) => {
     const newGame = new Game({
       host: req.body.host,
       p2: null,
-      active: true,
+      active: false,
       full: false
     });
 
