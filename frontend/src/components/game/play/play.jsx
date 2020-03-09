@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 const $ = window.$;
 
 const damageFormula = (monsterOne, move, monsterTwo) => {
-  return monsterOne.attack * (move.strength * 10) / monsterTwo.defense;
+  return monsterOne.attack * (move.strength) / monsterTwo.defense;
 };
 
 const switchMove = {
