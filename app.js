@@ -60,21 +60,23 @@ io.on("connection", function (socket, data) {
       socket.join(game._id); //Join a room
       console.log(game);
       console.log(`${data.userId} joined room: ${game._id}`);
+
       if (data.userId === game.p2 && !game.active) {
         game.active = true;
         game.save().then(() => {
           io.to(game._id).emit("startGame", { p1: game.p1, p2: game.p2 });
         });
       }
-      
-      if (game.active) {
-        io.to(game._id).emit("askForStates", 'please');
-      }
     })
   })
 
-  socket.on('sendingBackStates', (states) => {
-    console.log(states);
+  socket.on('checkStates', (id) => {
+    io.to(id).emit("askForStates", 'please');
+  })
+
+  socket.on('sendingBackStates', (data) => {
+    // console.log(data);
+    io.to(data.gameId).emit("receivingState", data.state);
   })
 
   // socket.on("joinGame", function (id) {

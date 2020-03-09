@@ -126,7 +126,7 @@ let p1TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2
 let p2TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
 
 const damageFormula = (monsterOne, move, monsterTwo) => {
-  return monsterOne.attack * move.strength / monsterTwo.defense;
+  return monsterOne.attack * (move.strength * 10) / monsterTwo.defense;
 };
 
 class Play extends React.Component {
@@ -180,6 +180,7 @@ class Play extends React.Component {
       if (this.state.p1 && this.state.p2) {
         this.setState({loaded: true});
         this.idle(0, 0);
+        this.socket.emit('checkStates', this.gameId);
       }
       // teams && this.game ? this.setState({ loaded: true }) : "";
     })
@@ -263,7 +264,10 @@ class Play extends React.Component {
       // this.componentDidMount();
     });
 
-    this.socket.on("askForStates", () => this.socket.emit('sendingBackStates', this.state));
+    this.socket.on("askForStates", () => {
+      this.socket.emit('sendingBackStates', {state: this.state, gameId: this.gameId});
+    });
+
     this.socket.on("receivingState", (state) => (state.turn > this.state.turn) ? this.setState(state) : "");
 
     this.socket.on("makeMove", (data) => {

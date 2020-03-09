@@ -44,7 +44,7 @@ class Search extends React.Component {
           this.props.updateGame(res.game.data._id, updatedGame).then(data => this.props.history.push(`/game/play/${res.game.data._id}`));
         }
         else {
-          this.props.history.push(`/game/play/${res.game.data._id}`);
+          this.props.history.push(`/game/play/${res.game.data._id}`); 
         }
         // this.props.history.push(`/game/play/${res.game.data._id}`);
       }
