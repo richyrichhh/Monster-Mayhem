@@ -348,41 +348,41 @@ class Play extends React.Component {
         }
       }
       if (effSpd1 > effSpd2) {
-        this.playAnimation(1, state.p1Move.animation || 'attack').then(() => {
+        this.playAnimation(1, state.p1Move.animation || 'none').then(() => this.playEffect(2, state.p1Move.hit).then(() => {
           state = this.handleDamage(1, this.state);
           if (state.p2Team[state.p2Char].currentHp > 0) {
             setTimeout(() => {
-              this.playAnimation(2, state.p2Move.animation || 'attack').then(() => {
+              this.playAnimation(2, state.p2Move.animation || 'none').then(() => this.playEffect(1, state.p2Move.hit).then(() => {
                 state = this.handleDamage(2, this.state);
                 if (state.p1Team[state.p1Char].currentHp <= 0) {
                   this.handleDeath(1);
                 }
-                resolve('combat done');
-              });
+                setTimeout(() => resolve('combat done'), 500);
+              }));
             }, 2000);
           } else {
             this.handleDeath(2);
-            resolve('combat done');
+            setTimeout(() => resolve('combat done'), 500);
           }
-        });
+        }));
       } else {
-        this.playAnimation(2, state.p2Move.animation || 'attack').then(() => {
+        this.playAnimation(2, state.p2Move.animation || 'attack').then(() => this.playEffect(1, state.p2Move.hit).then(() => {
           state = this.handleDamage(2, this.state);
           if (state.p1Team[state.p1Char].currentHp > 0) {
             setTimeout(() => {
-              this.playAnimation(1, state.p1Move.animation || 'attack').then(() => {
+              this.playAnimation(1, state.p1Move.animation || 'attack').then(() => this.playEffect(2, state.p1Move.hit).then(() => {
                 state = this.handleDamage(1, this.state);
                 if (state.p2Team[state.p2Char].currentHp <= 0) {
                   this.handleDeath(2);
                 }
-              });
-              resolve('combat done');
-            }, 2000)
+                setTimeout(() => resolve('combat done'), 500);
+              }));
+            }, 2000);
           } else {
             this.handleDeath(1);
-            resolve('combat done');
+            setTimeout(() => resolve('combat done'), 500);
           }
-        });
+        }));
       }
     })
   }
@@ -407,33 +407,35 @@ class Play extends React.Component {
   }
 
   playAnimation(player, animation) {
-    return new Promise((resolve, reject) => {
-      if (player === 1) {
+    if (player === 1) {
+      return new Promise((resolve, reject) => {
         $(document.getElementsByClassName('game-left')[0]).addClass('moving');
         let char = this.state.p1Team[this.state.p1Char];
-        for (var i = 0; i < char.animations[animation].frames; i++) {
+        for (let i = 0; i < char.animations[animation].frames; i++) {
           if (i === char.animations[animation].frames - 1) {
-            setTimeout(() => resolve('done'), (120 * i) + 300);
+            setTimeout(() => resolve('done'), (60 * i) + 300);
             this.animateP1(animation, i);
             this.resetP1(i + 1);
           } else {
             this.animateP1(animation, i);
           }
         }
-      } else if (player === 2) {
+      });
+    } else if (player === 2) {
+      return new Promise((resolve, reject) => {
         $(document.getElementsByClassName('game-right')[0]).addClass('moving');
         let char = this.state.p2Team[this.state.p2Char];
-        for (var j = 0; j < char.animations[animation].frames; j++) {
+        for (let j = 0; j < char.animations[animation].frames; j++) {
           if (j === char.animations[animation].frames - 1) {
-            setTimeout(() => resolve('done'), (120 * j) + 300);
+            setTimeout(() => resolve('done'), (60 * j) + 300);
             this.animateP2(animation, j);
             this.resetP2(j + 1);
           } else {
             this.animateP2(animation, j);
           }
         }
-      }
-    });
+      });
+    }
   }
 
   // playAnimation(player, animation) {
@@ -457,7 +459,7 @@ class Play extends React.Component {
       let character = newState.p1Team[newState.p1Char];
       character.imgUrl = character.animations[animation].path + frame.toString() + character.animations.filetype;
       this.setState(newState);
-    }, 120 * frame);
+    }, 60 * frame);
   }
 
   resetP1(frame) {
@@ -468,7 +470,7 @@ class Play extends React.Component {
       character.imgUrl = character.animations.base + character.animations.filetype;
       $(document.getElementsByClassName('game-left')[0]).removeClass('moving');
       this.setState(newState);
-    }, (120 * frame) + 200);
+    }, (60 * frame));
   }
 
   animateP2(animation, frame) {
@@ -478,7 +480,7 @@ class Play extends React.Component {
       let character = newState.p2Team[newState.p2Char];
       character.imgUrl = character.animations[animation].path + frame.toString() + character.animations.filetype;
       this.setState(newState);
-    }, 120 * frame);
+    }, 60 * frame);
   }
 
   resetP2(frame) {
@@ -489,16 +491,16 @@ class Play extends React.Component {
       character.imgUrl = character.animations.base + character.animations.filetype;
       $(document.getElementsByClassName('game-right')[0]).removeClass('moving');
       this.setState(newState);
-    }, (120 * frame) + 200);
+    }, (60 * frame));
   }
 
   playEffect(player, effect) {
     return new Promise((resolve, reject) => {
       if (player === 1) {
-        $(document.getElementById('effect-img-left')[0]).addClass('moving');
-        for (var i = 0; i < effectsTable[effect].frames; i++) {
+        // $(document.getElementById('effect-img-left')).addClass('moving');
+        for (let i = 0; i < effectsTable[effect].frames; i++) {
           if (i === effectsTable[effect].frames - 1) {
-            setTimeout(() => resolve('done'), (120 * i) + 300);
+            setTimeout(() => resolve('done'), (60 * i) + 300);
             this.animateEffectP1(effect, i);
             this.resetEffectP1(i + 1);
           } else {
@@ -506,14 +508,14 @@ class Play extends React.Component {
           }
         }
       } else if (player === 2) {
-        $(document.getElementById('effect-img-right')).addClass('moving');
-        for (var j = 0; j < i < effectsTable[effect].frames; j++) {
-          if (j === i < effectsTable[effect].frames - 1) {
-            setTimeout(() => resolve('done'), (120 * j) + 300);
-            this.animateEffectP2(animation, j);
+        // $(document.getElementById('effect-img-right')).addClass('moving');
+        for (let j = 0; j < effectsTable[effect].frames; j++) {
+          if (j === effectsTable[effect].frames - 1) {
+            setTimeout(() => resolve('done'), (60 * j) + 300);
+            this.animateEffectP2(effect, j);
             this.resetEffectP2(j + 1);
           } else {
-            this.animateEffectP2(animation, j);
+            this.animateEffectP2(effect, j);
           }
         }
       }
@@ -526,17 +528,17 @@ class Play extends React.Component {
       let newState = Object.assign({}, this.state);
       newState.p1Effect = effectsTable[effect].path + frame.toString() + effectsTable[effect].filetype;
       this.setState(newState);
-    }, 120 * frame);
+    }, 60 * frame);
   }
 
   resetEffectP1(frame) {
     setTimeout(() => {
-      console.log('animation for player 1 ' + 'change at' + Date(Date.now()).toString() + 'to' + ' reset');
+      console.log('effect for player 1 ' + 'change at' + Date(Date.now()).toString() + 'to' + ' reset');
       let newState = Object.assign({}, this.state);
       newState.p1Effect = effectsTable.base;
-      $(document.getElementById('effect-img-left')).removeClass('moving');
+      // $(document.getElementById('effect-img-left')).removeClass('moving');
       this.setState(newState);
-    }, (120 * frame) + 200);
+    }, (60 * frame));
   }
 
   animateEffectP2(effect, frame) {
@@ -545,17 +547,17 @@ class Play extends React.Component {
       let newState = Object.assign({}, this.state);
       newState.p2Effect = effectsTable[effect].path + frame.toString() + effectsTable[effect].filetype;
       this.setState(newState);
-    }, 120 * frame);
+    }, 60 * frame);
   }
 
   resetEffectP2(frame) {
     setTimeout(() => {
-      console.log('animation for player 2 ' + 'change at' + Date(Date.now()).toString() + 'to' + ' reset');
+      console.log('effect for player 2 ' + 'change at' + Date(Date.now()).toString() + 'to' + ' reset');
       let newState = Object.assign({}, this.state);
       newState.p2Effect = effectsTable.base;
-      $(document.getElementById('effect-img-right')).removeClass('moving');
+      // $(document.getElementById('effect-img-right')).removeClass('moving');
       this.setState(newState);
-    }, (120 * frame) + 200);
+    }, (60 * frame));
   }
 
   handleDeath(player) {

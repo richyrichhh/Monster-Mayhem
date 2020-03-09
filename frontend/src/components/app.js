@@ -11,7 +11,7 @@ import AboutContainer from './about/about';
 // import SignupFormContainer from './session/signup_form_container';
 import GameContainer from './game/game_container';
 import SearchContainer from './game/search/search_container';
-import PlayContainer from './play/play_container';
+// import PlayContainer from './play/play_container';
 import RealPlayContainer from './game/play/play_container';
 import LearnContainer from './learn/learn';
 import FooterContainer from './footer/footer';
@@ -27,7 +27,6 @@ const App = () => (
         <ProtectedRoute exact path="/learn" component={LearnContainer} />
         <ProtectedRoute exact path="/game" component={GameContainer} />
         <ProtectedRoute exact path="/game/search" component={SearchContainer} />
-        {/* <ProtectedRoute exact path="/game/play" component={PlayContainer} /> */}
         <ProtectedRoute exact path="/game/play/:gameId" component={RealPlayContainer} />
         <Redirect to="/game" />
       </Switch>
