@@ -15,6 +15,14 @@ const switchMove = {
   hit: 'none'
 }
 
+const uselessMove = {
+  name: '',
+  strength: 0,
+  effect: 0,
+  animation: 'none',
+  hit: 'none'
+}
+
 const testMonster = 
 {_id: 0,
   currentHp: 90,
@@ -85,6 +93,8 @@ const effectsTable = {
   base: './images/effects/none/tile-0.png'
 };
 
+const debuffTable = [[], 'confused', 'poisoned', 'stunned', 'wounded']
+
 let p1TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
 let p2TestTeam = [Object.assign({}, testMonster), Object.assign({}, testMonster2)]
 
@@ -115,7 +125,8 @@ class Play extends React.Component {
       p2CanSwitch: true,
       refresh: false,
       loaded: false,
-      turn: 0
+      turn: 0,
+      log: []
     }
 
     window.state = this.state;
@@ -148,6 +159,11 @@ class Play extends React.Component {
   componentDidUpdate() {
     if (this.state.refresh) {
       this.refresh();
+    }
+    if (this.state.log.length > 0) {
+      let gameLogs = document.getElementById('game-logs'); 
+      let xH = gameLogs.scrollHeight;
+      gameLogs.scrollTo(0, xH);
     }
   }
 
@@ -213,6 +229,7 @@ class Play extends React.Component {
       path: monster.animations.base,
       frames: 1
     }
+    monster.effects = [0, 0, 0, 0, 0]
     return monster;
   }
 
@@ -270,6 +287,7 @@ class Play extends React.Component {
               newState.charStates = 'idle';
               newState.refresh = true;
               setTimeout(() => {
+                newState = this.handleEffects(newState);
                 this.setState(newState)
                 this.idle(0, 0);
               }, 1000);
@@ -301,9 +319,56 @@ class Play extends React.Component {
     return new Promise((resolve, reject) => {
       if (state.p1Move.effect === 99) state.p1Char = state.p1Char === 0 ? 1 : 0;
       if (state.p2Move.effect === 99) state.p2Char = state.p2Char === 0 ? 1 : 0;
+
+      state = this.handleConfusion(state);
+      state = this.handleStun(state);
+      
       this.setState(state);
       resolve(state);
     })
+  }
+
+  handleConfusion(state) {
+    let randInt
+    if (state.p1Team[state.p1Char].effects[1] > 0) {
+      randInt = Math.floor(Math.random() * 10);
+      if (randInt >= 7) {
+        state.p1Team[state.p1Char].currentHp -= 20;
+        state.p1Move = uselessMove;
+        state.log.push(`${state.p1Team[state.p1Char].name} is confused and hurt himself in his confusion!`);
+      }
+    }
+    if (state.p2Team[state.p2Char].effects[1] > 0) {
+      randInt = Math.floor(Math.random() * 10);
+      if (randInt >= 7) {
+        state.p2Team[state.p2Char].currentHp -= 20;
+        state.p2Move = uselessMove;
+        state.log.push(`${state.p2Team[state.p2Char].name} is confused and hurt himself in his confusion!`);
+      }
+    }
+    this.setState(state);
+    return state;
+  }
+
+  handleStun(state, player) {
+    switch(player) {
+      case 1:
+        if (state.p1Team[state.p1Char].effects[3] > 0) {
+          state.p1Move = uselessMove;
+          state.log.push(`${state.p1Team[state.p1Char].name} is stunned and can't act!`);
+          state.p1Team[state.p1Char].effects[3] -= 1;
+        }
+        break;
+      case 2:
+        if (state.p2Team[state.p2Char].effects[3] > 0) {
+          state.p2Move = uselessMove;
+          state.log.push(`${state.p2Team[state.p2Char].name} is stunned and can't act!`);
+          state.p2Team[state.p2Char].effects[3] -= 1;
+        }
+        break;
+    }
+    this.setState(state);
+    return state;
   }
 
   handleCombat(state) {
@@ -318,10 +383,12 @@ class Play extends React.Component {
         }
       }
       if (effSpd1 > effSpd2) {
+        state = this.handleStun(state, 1);
         this.playAnimation(1, state.p1Move.animation || 'none').then(() => this.playEffect(2, state.p1Move.hit).then(() => {
           state = this.handleDamage(1, this.state);
           if (state.p2Team[state.p2Char].currentHp > 0) {
             setTimeout(() => {
+              state = this.handleStun(state, 2);
               this.playAnimation(2, state.p2Move.animation || 'none').then(() => this.playEffect(1, state.p2Move.hit).then(() => {
                 state = this.handleDamage(2, this.state);
                 if (state.p1Team[state.p1Char].currentHp <= 0) {
@@ -336,10 +403,12 @@ class Play extends React.Component {
           }
         }));
       } else {
+        state = this.handleStun(state, 2);
         this.playAnimation(2, state.p2Move.animation || 'attack').then(() => this.playEffect(1, state.p2Move.hit).then(() => {
           state = this.handleDamage(2, this.state);
           if (state.p1Team[state.p1Char].currentHp > 0) {
             setTimeout(() => {
+              state = this.handleStun(state, 1);
               this.playAnimation(1, state.p1Move.animation || 'attack').then(() => this.playEffect(2, state.p1Move.hit).then(() => {
                 state = this.handleDamage(1, this.state);
                 if (state.p2Team[state.p2Char].currentHp <= 0) {
@@ -358,7 +427,6 @@ class Play extends React.Component {
   }
 
   handleDamage(player, state, damage) {
-    // let effects = move.effects;
     let newState = Object.assign({}, state);
     let attacker, move, target;
     if (player === 1) {
@@ -370,8 +438,30 @@ class Play extends React.Component {
       target = newState.p1Team[newState.p1Char];
       move = newState.p2Move;
     }
+    let effect = move.effect;
     damage = damage || damageFormula(attacker, move, target);
     target.currentHp -= damage;
+    if (damage > 0) newState.log.push(`${attacker.name}'s ${move.name} dealt ${damage} damage to ${target.name}.`);
+    if (effect > 0 && effect < 99) {
+      let turns = 0;
+      switch (effect) {
+        case 1:
+          turns = 3;
+          break;
+        case 2:
+          turns = 4;
+          break;
+        case 3:
+          let randInt = Math.floor(Math.random() * 10);
+          if (randInt >= 3) turns = 1;
+          break;
+        case 4:
+          turns = 4;
+          break;
+      }
+      target.effects[effect] = turns;
+      if (turns > 0) newState.log.push(`${target.name} is ${debuffTable[effect]} for ${turns >= 2 ? turns - 1 : turns} ${turns > 2 ? 'turns' : 'turn'} by ${move.name}.`)
+    }
     this.setState(newState);
     return newState;
   }
@@ -407,20 +497,6 @@ class Play extends React.Component {
       });
     }
   }
-
-  // playAnimation(player, animation) {
-  //   if (player === 1) {
-  //     let char = this.state.p1Team[this.state.p1Char];
-  //     for (var i = 0; i <= char.animations[animation].frames; i++) {
-  //       this.animateP1(animation, i);
-  //     }
-  //   } else {
-  //     let char = this.state.p2Team[this.state.p2Char];
-  //     for (var i = 0; i <= char.animations[animation].frames; i++) {
-  //       this.animateP2(animation, i);
-  //     }
-  //   }
-  // }
 
   animateP1(animation, frame) {
     setTimeout(() => {
@@ -528,6 +604,40 @@ class Play extends React.Component {
       // $(document.getElementById('effect-img-right')).removeClass('moving');
       this.setState(newState);
     }, (60 * frame));
+  }
+
+  handleEffects(state) {
+    let p1Char = state.p1Team[state.p1Char];
+    let p2Char = state.p2Team[state.p2Char];
+    let damage;
+    if (p1Char.effects[2] > 0) {
+      damage = Math.floor(p1Char.maxHp / 20);
+      p1Char.currentHp -= damage;
+      state.log.push(`${p1Char.name} takes ${damage} damage from poison.`)
+    }
+    if (p2Char.effects[2] > 0) {
+      damage = Math.floor(p2Char.maxHp / 20);
+      p2Char.currentHp -= damage;
+      state.log.push(`${p2Char.name} takes ${damage} damage from poison.`)
+    }
+    if (p1Char.effects[4] > 0) {
+      damage = Math.floor(p1Char.currentHp / 10);
+      p1Char.currentHp -= damage;
+      state.log.push(`${p1Char.name} takes ${damage} damage from bleeding.`)
+    }
+    if (p2Char.effects[4] > 0) {
+      damage = Math.floor(p2Char.currentHp / 10);
+      p2Char.currentHp -= damage;
+      state.log.push(`${p2Char.name} takes ${damage} damage from bleeding.`)
+    }
+    p1Char.effects = p1Char.effects.map((n, i) => {
+      if (n > 0 && i !== 3) n -= 1;
+    })
+    p2Char.effects = p2Char.effects.map((o, ind) => {
+      if (o > 0 && ind !== 3) o -= 1;
+    })
+
+    return state;
   }
 
   handleDeath(player) {
@@ -651,6 +761,18 @@ class Play extends React.Component {
     }
   }
 
+  renderLogs() {
+    const logs = this.state.log;
+    return (
+      <div id="game-logs-div">
+        <ul name="game-logs" id="game-logs" cols="100" rows="10">
+          {logs.map(line => <li>{line}</li>)}
+        </ul>
+
+      </div>
+    )
+  }
+
   render() {
     if (this.state.loaded) {
       return (
@@ -670,6 +792,7 @@ class Play extends React.Component {
             </span>
           </span>
           {this.renderMoves()}
+          {this.renderLogs()}
         </div>
       );
     } else {
