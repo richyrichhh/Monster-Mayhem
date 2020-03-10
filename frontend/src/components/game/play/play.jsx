@@ -266,6 +266,7 @@ class Play extends React.Component {
     this.socket.on("handleTurn", (data) => {
       if (!this.turn) {
         this.turn = true;
+        this.randInts = data.randInts;
         // let newState = Object.assign({}, this.state);
         // newState = Object.assign(newState, {p1Move: data.p1Move, p1Moved: true, p2Move: data.p2Move, p2Moved: true})
         // newState.p1Move = data.p1Move;
@@ -329,9 +330,9 @@ class Play extends React.Component {
   }
 
   handleConfusion(state) {
-    let randInt
+    let randInt;
     if (state.p1Team[state.p1Char].effects[1] > 0) {
-      randInt = Math.floor(Math.random() * 10);
+      randInt = this.randInts.shift();
       if (randInt >= 7) {
         state.p1Team[state.p1Char].currentHp -= 20;
         state.p1Move = uselessMove;
@@ -339,7 +340,7 @@ class Play extends React.Component {
       }
     }
     if (state.p2Team[state.p2Char].effects[1] > 0) {
-      randInt = Math.floor(Math.random() * 10);
+      randInt = this.randInts.shift();
       if (randInt >= 7) {
         state.p2Team[state.p2Char].currentHp -= 20;
         state.p2Move = uselessMove;
@@ -452,7 +453,7 @@ class Play extends React.Component {
           turns = 4;
           break;
         case 3:
-          let randInt = Math.floor(Math.random() * 10);
+          let randInt = this.randInts.shift();
           if (randInt >= 3) turns = 1;
           break;
         case 4:
