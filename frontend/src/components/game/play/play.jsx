@@ -305,9 +305,19 @@ class Play extends React.Component {
     return new Promise((resolve, reject) => {
       let newState = Object.assign({}, this.state);
       // newState = Object.assign(newState, { p1Move: data.p1Move, p1Moved: true, p2Move: data.p2Move, p2Moved: true })
-      newState.p1Move = data.p1Move;
+      if (data.p1Move) {
+        newState.p1Move = data.p1Move;
+      } else { 
+        console.log('ERROR IN P1MOVE');
+        newState.p1Move = uselessMove;
+      }
       newState.p1Moved = true;
-      newState.p2Move = data.p2Move;
+      if (data.p2Move) {
+        newState.p2Move = data.p2Move;
+      } else {
+        console.log('ERROR IN P2MOVE');
+        newState.p2Move = uselessMove;
+      }
       newState.p2Moved = true;
       newState.turn += 1;
       newState.charStates = 'battle'
