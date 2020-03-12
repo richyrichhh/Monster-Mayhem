@@ -634,9 +634,18 @@ class Play extends React.Component {
     p1Char.effects = p1Char.effects.map((n, i) => {
       if (n > 0 && i !== 3) n -= 1;
     })
-    p2Char.effects = p2Char.effects.map((o, ind) => {
-      if (o > 0 && ind !== 3) o -= 1;
-    })
+    //p1 effects go down by 1
+    if (p1Char.effects[1] > 0) p1Char.effects[1] -= 1;
+    if (p1Char.effects[2]) p1Char.effects[2] -= 1;
+    if (p1Char.effects[4]) p1Char.effects[4] -= 1;
+    if (p1Char.effects[5]) p1Char.effects[5] -= 1;
+    if (p2Char.effects[1]) p2Char.effects[1] -= 1;
+    if (p2Char.effects[2]) p2Char.effects[2] -= 1;
+    if (p2Char.effects[4]) p2Char.effects[4] -= 1;
+    if (p2Char.effects[5]) p2Char.effects[5] -= 1;
+    // p2Char.effects = p2Char.effects.map((o, ind) => {
+    //   if (o > 0 && ind !== 3) o -= 1;
+    // })
 
     return state;
   }
