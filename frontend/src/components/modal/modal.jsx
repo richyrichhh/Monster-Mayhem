@@ -19,7 +19,7 @@ function Modal({ modal, closeModal }) {
             break;
         // case 'learn':
         //     component = <LearnToFormContainer />;
-            break;
+            // break;
         default:
             return null;
     }

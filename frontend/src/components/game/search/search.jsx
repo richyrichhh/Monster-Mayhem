@@ -67,20 +67,25 @@ class Search extends React.Component {
     return (
       <div id="game-lobby-div">
         <div id="game-lobby-content">
-          <div id="game-lobby-title">Find a Game</div>
+          <div id="game-lobby-title">
+            Find a Game
+          </div>
           <div id="game-lobby">
             <div id="game-search-create">
               <button onClick={() => this.createGame()} className="create-game">Create Game</button>
             </div>
+
             <div id="game-search-join">
-              <input type="text" value={this.state.gameId} onChange={this.update("gameId")} id="search-game-id" placeholder="Game ID" />
-              <input id="join-game-btn" type="submit" value="Join" onClick={(e) => this.joinGame(e)} />
+              <input type="text" value={this.state.gameId} onChange={this.update("gameId")} id="search-game-id" placeholder="Game ID"/>
+              <input className="join-game-btn" type="submit" value="Join" onClick={(e) => this.joinGame(e)} />
             </div>
+
           </div>
         </div>
-        <div id="game-lobby-background">
+
+        {/* <div id="game-lobby-background">
           <img src={splashImg} alt="background" className="splash-image" />
-        </div>
+        </div> */}
       </div>
     );
   }

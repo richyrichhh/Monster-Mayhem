@@ -1,0 +1,87 @@
+#game-lobby-div {
+  background: url("../images/forest-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  /* background-size: cover; */
+  /* object-fit: cover; */
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#game-lobby-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    background: rgba(0, 0, 0, .7);
+    position: absolute;
+    margin: 0 auto;
+    clear:left;
+    z-index: 1;
+    text-align:center;
+    min-width: 200px;
+    min-height: 316px;
+    width: 20%;
+    height: 55%;
+    font-size: 32px;
+    color: white;
+    vertical-align: middle;
+    border-style: solid;
+    padding: 0px;
+    border-color: transparent;
+    border-radius: 5px;
+    box-shadow: 0px 0px 0px 10px rgba(37, 37, 37, 0.8);
+    /* margin-top: 10%; */
+}
+
+.create-game {
+  width: 130px;
+  height: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #111;
+  border: 2px solid rgb(85, 1, 1);
+  color: white;
+  font-size: 14px;
+}
+
+
+#game-search-join {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#search-game-id {
+  border-radius: 2px;
+  background-color: #111;
+  border: 2px solid rgb(85, 1, 1);
+  color: white;
+  padding: 5px;
+  margin-top: 50px;
+}
+
+#search-game-id:focus, .join-game-btn:focus, .create-game:focus {
+  outline:0;
+}
+
+.join-game-btn {
+  cursor: pointer;
+  width: 130px;
+  height: 40px;
+  border-radius: 10px;
+  border: 2px solid rgb(85, 1, 1);
+  background-color: #111;
+  color: white;
+  /* padding: 5px; */
+  margin-top: 5px;
+  font-size: 14px;
+}
+
+::placeholder {
+  color: white;
+}
+
+

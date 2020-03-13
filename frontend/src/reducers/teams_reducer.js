@@ -12,6 +12,7 @@ import { RECEIVE_USER_TEAM, RECEIVE_NEW_TEAM, RECEIVE_UPDATED_TEAM } from '../ac
         return newState;
       case RECEIVE_UPDATED_TEAM:
         newState.update = action.team.data;
+        return newState;
       default:
         return state;
     }
