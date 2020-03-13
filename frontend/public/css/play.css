@@ -182,9 +182,10 @@
 #game-logs {
     width: 100%;
     height: 100%;
-    color: black;
+    color: white;
     font: 'Tahoma';
     overflow: scroll;
+    background: rgba(0, 0, 0, .5);
 }
 
 #gameplay-header {
