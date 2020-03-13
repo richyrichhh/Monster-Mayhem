@@ -56,9 +56,9 @@
 
 #search-game-id {
   border-radius: 2px;
-  background-color: #111;
+  background-color: white;
   border: 2px solid rgb(85, 1, 1);
-  color: white;
+  color: black;
   padding: 5px;
   margin-top: 50px;
 }
@@ -81,7 +81,7 @@
 }
 
 ::placeholder {
-  color: white;
+  color: black;
 }
 
 .join-game-btn:hover, .create-game:hover {
