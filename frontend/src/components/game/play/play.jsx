@@ -763,7 +763,7 @@ class Play extends React.Component {
               {this.state[`p${this.state.p1 === this.currentUserId ? '1' : '2'}Team`][this.state.p1 === this.currentUserId ? this.state.p1Char : this.state.p2Char].movespool.map((move, i) => <li key={`move-${i}`}><button onClick={(e) => this.makeMove(move, this.state.p1 === this.currentUserId ? 1 : 2)}>{move.name}</button></li>)}
             </ul>
           </div>
-          {((this.state.p1 === this.currentUserId && this.state.p1CanSwitch === true) || (this.state.p2 === this.currentUserId && this.state.p2CanSwitch === true)) ? <span id="switch-character"><button onClick={() => this.sendSwitch(playerNum)}>Switch</button></span> : <span id="switch-character"><button disabled>Switch</button></span>}
+          {((this.state.p1 === this.currentUserId && this.state.p1CanSwitch === true) || (this.state.p2 === this.currentUserId && this.state.p2CanSwitch === true)) ? <span id="switch-character"><button className="switch-button" onClick={() => this.sendSwitch(playerNum)}>Switch</button></span> : <span id="switch-character"><button disabled>Switch</button></span>}
         </div>
       )
     } else {
@@ -807,8 +807,8 @@ class Play extends React.Component {
           <div id="gameplay-header">
             Room ID: {this.gameId}
           </div>
-          <span id="play-background">
-            <span>
+          <div id="play-background">
+            <div>
               <span id="p1-side" className="lit-up">
                 <img src={this.state.p1Team[this.state.p1Char].imgUrl} className="game-character-img game-left" alt="char-p1" />
                 <img src={this.state.p1Effect} id="effect-img-left" className="effect-img" alt="effect-p1" />
@@ -819,16 +819,19 @@ class Play extends React.Component {
                 <img src={this.state.p2Effect} id="effect-img-right" className="effect-img" alt="effect-p2" />
                 <span id="p2-hp">{this.charHealthBar(this.state.p2Team[this.state.p2Char])}</span>
               </span>
-            </span>
-          </span>
-          {this.renderMoves()}
-          {this.renderLogs()}
+            </div>
+
+          </div>
+          <div className="moves-container">
+            {this.renderMoves()}
+            {this.renderLogs()}
+          </div>
         </div>
       );
     } else {
       return (<div className="loading-page">
         <div id="gameplay-header">
-          Room ID: {roomId}
+          Room ID: <span>{roomId}</span>
         </div>
         {/* <img src='./images/loading.jpg' alt="loading"/> */}
       </div>)
