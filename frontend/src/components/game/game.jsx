@@ -3,7 +3,7 @@ import React from 'react';
 import { Route } from 'react-router-dom';
 import MainMenu from './menus/main_menu';
 import GameMonsterItem from './game_monster_item';
-const _ = require('underscore');
+// const _ = require('underscore');
 
 // import GamePlay from './play/play';
 // import EditTeamContainer from './menus/edit_team_container'
@@ -75,7 +75,7 @@ export default class Game extends React.Component {
     return (
       <div id='game-div'>
         <div>
-          <img id='game-page-background' src="https://wallpaperaccess.com/full/235857.jpg" />
+          <img id='game-page-background' src="https://wallpaperaccess.com/full/235857.jpg" alt="" />
           <Route exact path="/game" component={MainMenu} />
         </div>
         {/* <Route path="/game/play" component={GamePlay} /> */}

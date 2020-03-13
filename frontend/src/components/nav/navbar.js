@@ -29,7 +29,7 @@ class NavBar extends React.Component {
           </Link>
 
           <div id="navbar-div-logout">
-            <a className="logout-button" href="#" onClick={this.logoutUser}>
+            <a className="logout-button" href="/" onClick={this.logoutUser}>
               Logout
             </a>
           </div>

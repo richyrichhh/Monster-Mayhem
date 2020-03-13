@@ -6,7 +6,7 @@ class Learn extends React.Component {
   render() {
     return (
       <div className="learn-div">
-        <img className="learn-background" src="./images/forest-bg.jpg" />
+        <img className="learn-background" src="./images/forest-bg.jpg" alt=""/>
         <div className="learn-title-container">
           <h1 className="learn-title">Learn How To Play Monster Mayhem</h1>
         </div>
@@ -20,32 +20,32 @@ class Learn extends React.Component {
               <br />
               <br /> Select 2 monsters.
             </p>
-            <img className="learn-image-1" src="./images/hover_char.jpg"></img>
+            <img className="learn-image-1" src="./images/hover_char.jpg" alt=""></img>
           </div>
 
           <div className="learn-container">
-            <img className="learn-image-1" src="./images/start_fight.jpg"></img>
+            <img className="learn-image-1" src="./images/start_fight.jpg" alt=""></img>
             <p className="learn-description">Select Fight to begin!</p>
           </div>
 
           <div className="learn-container">
             <p className="learn-description">how is it going tonight yall</p>
-            <img className="learn-image-1" src="./images/start_fight.jpg"></img>
+            <img className="learn-image-1" src="./images/start_fight.jpg" alt=""></img>
           </div>
 
           <div className="learn-container">
             <p className="learn-description">how is it going tonight yall</p>
-            <img className="learn-image-1" src="./images/start_fight.jpg"></img>
+            <img className="learn-image-1" src="./images/start_fight.jpg" alt=""></img>
           </div>
 
           <div className="learn-container">
             <p className="learn-description">how is it going tonight yall</p>
-            <img className="learn-image-1" src="./images/start_fight.jpg"></img>
+            <img className="learn-image-1" src="./images/start_fight.jpg" alt=""></img>
           </div>
 
           <div className="learn-container">
             <p className="learn-description">how is it going tonight yall</p>
-            <img className="learn-image-1" src="./images/start_fight.jpg"></img>
+            <img className="learn-image-1" src="./images/start_fight.jpg" alt=""></img>
           </div>
         </div>
       </div>
