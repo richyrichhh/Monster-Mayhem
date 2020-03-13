@@ -678,6 +678,7 @@ class Play extends React.Component {
       }
       this.setState(newState);
     });
+    // this.history.push("/game")
   }
 
   idle(frame1, frame2) {
@@ -771,9 +772,7 @@ class Play extends React.Component {
         <div id="game-moves">
           <div id="character-moves">
             <ul id="character-moves-list">
-              <button>
-                Waiting...
-              </button>
+              <p className="waiting-icon">Waiting...</p>
             </ul>
           </div>
         </div>
@@ -805,7 +804,7 @@ class Play extends React.Component {
       return (
         <div id="gameplay-div">
           <div id="gameplay-header">
-            Room ID: {this.gameId}
+            Room ID: <span>{this.gameId}</span>
           </div>
           <div id="play-background">
             <div>

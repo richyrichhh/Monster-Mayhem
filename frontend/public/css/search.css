@@ -80,9 +80,9 @@
   font-size: 14px;
 }
 
-::placeholder {
+/* ::placeholder {
   color: black;
-}
+} */
 
 .join-game-btn:hover, .create-game:hover {
   background-color: crimson;

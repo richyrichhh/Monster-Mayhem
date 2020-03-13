@@ -192,6 +192,8 @@
     color: white;
     padding: 20px;
     font-weight: bold;
+    /* font-size: 26px;
+    padding-left: 10px; */
 }
 
 #gameplay-header > span {
@@ -241,3 +243,8 @@
     margin-top: 10px;
 }
 
+.waiting-icon {
+    color: white;
+    font-size: 40px;
+
+}
