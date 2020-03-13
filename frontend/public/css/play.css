@@ -168,3 +168,8 @@
     font: 'Tahoma';
     overflow: scroll;
 }
+
+#gameplay-header {
+    color: white;
+    padding: 5px;
+}

@@ -797,6 +797,9 @@ class Play extends React.Component {
     if (this.state.loaded) {
       return (
         <div id="gameplay-div">
+          <div id="gameplay-header">
+            Room ID: {this.gameId}
+          </div>
           <span id="play-background">
             <span>
               <span id="p1-side" className="lit-up">
