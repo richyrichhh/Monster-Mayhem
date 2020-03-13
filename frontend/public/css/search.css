@@ -84,4 +84,7 @@
   color: white;
 }
 
+.join-game-btn:hover, .create-game:hover {
+  background-color: crimson;
+}
 
