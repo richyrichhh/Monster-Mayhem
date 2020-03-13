@@ -794,6 +794,13 @@ class Play extends React.Component {
   }
 
   render() {
+    let roomId;
+    if (this.gameId === 'undefined'){
+      roomId = 'No Current Room'
+    } else {
+      roomId = this.gameId;
+    }
+
     if (this.state.loaded) {
       return (
         <div id="gameplay-div">
@@ -820,7 +827,10 @@ class Play extends React.Component {
       );
     } else {
       return (<div className="loading-page">
-        <img src='./images/loading.jpg' alt="loading"/>
+        <div id="gameplay-header">
+          Room ID: {roomId}
+        </div>
+        {/* <img src='./images/loading.jpg' alt="loading"/> */}
       </div>)
     }
   }

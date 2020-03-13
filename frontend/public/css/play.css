@@ -173,3 +173,11 @@
     color: white;
     padding: 5px;
 }
+
+.loading-page {
+    background: url(../images/loading.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+}
