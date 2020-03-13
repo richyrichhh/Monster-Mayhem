@@ -7,6 +7,7 @@
     align-items: center;
     flex-direction: column;
     background-color: black;
+    overflow: scroll;
 }
 
 #play-background {
@@ -19,6 +20,8 @@
     background-repeat: no-repeat;
     background-size: cover;
     /* object-fit: cover; */
+    min-width: 1600px;
+    min-height: 430px;
 }
 
 #play-background > div {
@@ -39,12 +42,12 @@
 }
 
 .game-left {
-    left: 37.5%;
+    /* left: 37.5%; */
 
 }
 
 .game-right {
-    right: 37.5%;
+    /* right: 37.5%; */
     
 }
 
@@ -53,7 +56,7 @@
     scale: 3;
     height: 300px;
     width: 300px;
-    left: 32.5%;
+    /* left: 32.5%; */
     z-index: 100;
     /* background-color: orange; */
 }
@@ -63,7 +66,7 @@
     scale: 3;
     height: 300px;
     width: 300px;
-    right: 32.5%;
+    /* right: 32.5%; */
     z-index: 100;
     /* background-color: black; */
 }
@@ -236,3 +239,4 @@
     color: white;
     margin-top: 10px;
 }
+
