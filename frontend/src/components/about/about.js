@@ -19,7 +19,7 @@ class About extends React.Component {
                 <br />
                 <h3>Fullstack Developer</h3>
                 <br />
-                oahfgaongouanoiuaznj
+                {/* oahfgaongouanoiuaznj */}
                 <br />
                 <br />
                 <div className="icons">
@@ -47,7 +47,7 @@ class About extends React.Component {
                 <br />
                 <h3>Fullstack Developer</h3>
                 <br />
-                oahfgaongouanoiua
+                {/* oahfgaongouanoiua */}
                 <br />
                 <br />
                 <div className="icons">
@@ -78,7 +78,7 @@ class About extends React.Component {
                 <br />
                 <h3>Fullstack Developer</h3>
                 <br />
-                oahfgaongouanoiu
+                {/* oahfgaongouanoiu */}
                 <br />
                 <br />
                 <div className="icons">
@@ -106,7 +106,7 @@ class About extends React.Component {
                 <br />
                 <h3>Fullstack Developer</h3>
                 <br />
-                oahfgaongouanoiuaznjoznvje
+                {/* oahfgaongouanoiuaznjoznvje */}
                 <br />
                 <br />
                 <div className="icons">
