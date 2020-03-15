@@ -7,7 +7,6 @@ import FightContainer from '../game/messages/fight_message_container';
 import FirstWinnerContainer from '../game/messages/first_winner_message_container';
 import SecondWinnerContainer from '../game/messages/second_winner_message_container';
 // import LearnToFormContainer from '../learn'
-import { NavLink } from 'react-router-dom';
 
 function Modal({ modal, closeModal }) {
     if (!modal) {

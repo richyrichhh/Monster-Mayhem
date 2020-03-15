@@ -45,6 +45,7 @@
   height: 100%;
   width: 100%;
   overflow: auto;
+  font-family: Metal Mania;
 }
 
 .dev-info {
@@ -88,6 +89,7 @@
   background: rgba(0, 0, 0, .7);
   border-radius: 0px 5px 5px 0px;
   border-color: transparent;
+  font-family: Metal Mania;
 }
 
 .dev-image {

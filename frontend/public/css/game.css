@@ -28,7 +28,8 @@
 #game-div > h2, h4, h5{
     text-align: center;
     color: white;
-    font-family: 'Montserrat';
+    /* font-family: 'Montserrat'; */
+    font-family: Metal Mania;
     z-index: 1;
     margin-top: 5%;
     font-size: x-large;
@@ -114,7 +115,8 @@
 .show-stats{
     display: block;
     color: white;
-    font-family: 'Montserrat';
+    /* font-family: 'Montserrat'; */
+    font-family: Metal Mania;
     width: 50%;
     padding: 0px;
     margin: 5px;
@@ -123,12 +125,14 @@
 .hide-stats {
     display: none;
     color: white;
-    font-family: 'Montserrat';
+    /* font-family: 'Montserrat'; */
+    font-family: Metal Mania;
 }
 
 .show-moves-right {
     color: white;
-    font-family: 'Montserrat';
+    /* : 'Montserrat'; */
+    font-family: Metal Mania;
     background-color: rgba(99, 0, 0, .7);
     margin-right: -32%;
     z-index: 2;
@@ -142,7 +146,8 @@
 
 .show-moves-left {
     color: white;
-    font-family: 'Montserrat';
+    /* font-family: 'Montserrat'; */
+    font-family: Metal Mania;
     background-color: rgba(99, 0, 0, .7);
     margin-left: -32%;
     z-index: 2;
@@ -183,6 +188,7 @@
 
 .fight-title {
     font-size: 32px;
+    font-family: Metal Mania;
     text-align: center;
 }
 
@@ -197,8 +203,9 @@
     color: white;
     text-decoration: none;
     font-size: 14px;
-    font-family: Montserrat;
+    /* font-family: Montserrat; */
     letter-spacing: 1px;
+    font-family: Metal Mania;
 }
 
 .fight-link:hover {

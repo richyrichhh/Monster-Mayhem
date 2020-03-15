@@ -33,7 +33,7 @@
   box-sizing: border-box;
   border: 1px solid #222;
   height: 60px;
-
+  font-family: Metal Mania;
   background-color: #222;
   color: white;
   border-radius: 5px;
@@ -57,7 +57,7 @@
   font-size: 24px;
   padding-top: 15px;
   padding-bottom: 25px;
-
+  font-family: Metal Mania;
 }
 
 .session-form-top {
@@ -69,6 +69,7 @@
   height: 20%;
   width: 320px;
   padding-bottom: 40px;
+  font-family: Metal Mania;
 }
 
 .demo {
@@ -83,7 +84,7 @@
   height: 60px;
   box-sizing: border-box;
   border: 1px solid #222;
-
+  font-family: Metal Mania;
   background-color: #222;
   color: white;
   border-radius: 5px;
@@ -101,6 +102,6 @@
   color: #bb0000;
 }
 
-.demobutton:, .session-form-bot > input:focus {
+.demobutton, .session-form-bot > input:focus {
   outline:0;
 }

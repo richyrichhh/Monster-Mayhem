@@ -45,7 +45,7 @@
     text-align:center;
     width: 25%;
     height: 55%;
-    font-size: 22px;
+    font-size: 30px;
     color: white;
     vertical-align: middle;
     border-style: solid;
@@ -54,9 +54,10 @@
     border-radius: 5px;
     box-shadow: 0px 0px 0px 10px rgba(37, 37, 37, 0.8);
     margin-top: 10%;
-    font-family: Finger Paint;    
+    /* font-family: Finger Paint;     */
     /* font-family: Trade Winds; */
-    /* font-family: Metal Mania; */
+    font-family: Metal Mania;
+    overflow: scroll;
 }
 
 /* .about {
