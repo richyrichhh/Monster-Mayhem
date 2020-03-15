@@ -664,13 +664,19 @@ class Play extends React.Component {
     this.playAnimation(player, 'death').then(() => {
       let newState = Object.assign(this.state);
       if (player === 1) {
-        if (newState.p1CanSwitch === false) alert('player 2 wins');
+        if (newState.p1CanSwitch === false) {
+          this.props.secondWinnerModal();
+        // alert('player 2 wins');
+        }
         else {
           newState.p1Char = newState.p1Char === 0 ? 1 : 0;
           newState.p1CanSwitch = false;
         }
       } else if (player === 2) {
-        if (newState.p2CanSwitch === false) alert('player 1 wins');
+        if (newState.p2CanSwitch === false) {
+          this.props.firstWinnerModal();
+        }
+        // alert('player 1 wins');
         else {
           newState.p2Char = newState.p2Char === 0 ? 1 : 0;
           newState.p2CanSwitch = false;
