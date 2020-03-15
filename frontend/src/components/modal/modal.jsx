@@ -3,6 +3,7 @@ import { closeModal } from '../../actions/modal_actions';
 import { connect } from 'react-redux';
 import LoginFormContainer from '../session/login_form_container';
 import SignupFormContainer from '../session/signup_form_container';
+import FightContainer from '../game/messages/fight_message_container';
 // import LearnToFormContainer from '../learn'
 
 function Modal({ modal, closeModal }) {
@@ -20,6 +21,9 @@ function Modal({ modal, closeModal }) {
         // case 'learn':
         //     component = <LearnToFormContainer />;
             // break;
+        case 'fight':
+            component = <FightContainer/>
+            break;
         default:
             return null;
     }

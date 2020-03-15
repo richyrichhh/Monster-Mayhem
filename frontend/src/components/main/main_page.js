@@ -6,7 +6,7 @@ class MainPage extends React.Component {
     return (
       <div id="splash-div">
         {/* <div id="splash-img-div"> */}
-        <img className="splash-img" src="https://wallpaperaccess.com/full/235857.jpg" alt=""/>
+        {/* <img className="splash-img" src="https://wallpaperaccess.com/full/235857.jpg" alt=""/> */}
           <div className="container">
             <p className="about"> 
               Hello, 

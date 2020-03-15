@@ -5,10 +5,16 @@
     width: 100%;
     height: 100%;
     overflow: scroll;
-
 }
 
-#game-page-background {
+#game-div {
+        background: url("../images/main_pic.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+/* #game-page-background {
     position: absolute;
     z-index: -20;
     background-color: rgba(0, 0, 0, .9);
@@ -17,7 +23,7 @@
     height: 90vh;
     width: 100%;
     background-size: cover;
-}
+} */
 
 #game-div > h2, h4, h5{
     text-align: center;
@@ -153,6 +159,49 @@
     display: flex;
 }
 
+.fight-container {
+    /* background-color: rgba(0, 0, 0, .7);; */
+    background-color: #111;;
+    /* background-position: top;
+    background-size: cover;
+    background-blend-mode: overlay; */
+    color: white;
+    width: 340px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    border-radius: 10px;
+    padding: 15px;
+}
 
+.fight-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
 
+.fight-title {
+    font-size: 32px;
+    text-align: center;
+}
+
+.fight-link {
+    width: 125px;
+    height: 40px;
+    background: #111;
+    border: 3px solid rgb(85, 1, 1);
+    border-radius: 10px;
+    text-align: center;
+    line-height: 40px;
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-family: Montserrat;
+    letter-spacing: 1px;
+}
+
+.fight-link:hover {
+    background-color: crimson;
+}
 

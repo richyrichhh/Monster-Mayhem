@@ -5,9 +5,13 @@
   flex-direction: column;
   align-items: center;
   overflow: scroll;
+  background: url("../images/main_pic.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
 
-.splash-img{
+/* .splash-img{
   filter: brightness(0.8);
    z-index: -20;
   position: fixed;
@@ -15,7 +19,7 @@
   height: 90vh;
   position: absolute;
   background-size: cover;
-}
+} */
 
 /* #splash-div > footer {
   background-color: #000;
@@ -42,7 +46,7 @@
     width: 25%;
     height: 55%;
     font-size: 22px;
-    color: crimson;
+    color: white;
     vertical-align: middle;
     border-style: solid;
     padding: 10px;

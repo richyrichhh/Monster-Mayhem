@@ -48,9 +48,10 @@ export default class Game extends React.Component {
     })
 
     if (this.team.length === 2) {
-      alert('click fight to begin');
+      // alert('click fight to begin');
       console.log(this.team);
       this.props.updateUserTeam(this.props.user.id, { team: this.team, user: this.props.user.id });
+      this.props.openModal();
     };
   };
 
@@ -75,7 +76,7 @@ export default class Game extends React.Component {
     return (
       <div id='game-div'>
         <div>
-          <img id='game-page-background' src="https://wallpaperaccess.com/full/235857.jpg" alt="" />
+          {/* <img id='game-page-background' src="https://wallpaperaccess.com/full/235857.jpg" alt="" /> */}
           <Route exact path="/game" component={MainMenu} />
         </div>
         {/* <Route path="/game/play" component={GamePlay} /> */}
