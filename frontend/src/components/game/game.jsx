@@ -19,7 +19,7 @@ export default class Game extends React.Component {
     this.addToTeam = this.addToTeam.bind(this);
     this.team = [];
     this.currentUserId = this.props.user.id;
-    console.log(this.currentUserId);
+    // console.log(this.currentUserId);
 
     this.removeFromTeam = this.removeFromTeam.bind(this);
   };
@@ -37,10 +37,10 @@ export default class Game extends React.Component {
 
     if (e.target.alt) {
       this.team.push(e.target.alt);
-      console.log(e.target.alt)
+      // console.log(e.target.alt)
     } else {
       this.team.push(e.target.title);
-      console.log(e.target.title);
+      // console.log(e.target.title);
     }
 
     this.setState({
@@ -49,7 +49,7 @@ export default class Game extends React.Component {
 
     if (this.team.length === 2) {
       // alert('click fight to begin');
-      console.log(this.team);
+      // console.log(this.team);
       this.props.updateUserTeam(this.props.user.id, { team: this.team, user: this.props.user.id });
       this.props.openModal();
     };

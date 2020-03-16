@@ -14,9 +14,9 @@ class Search extends React.Component {
     };
   }
 
-  componentDidMount() {
-    console.log('we here at search');
-  }
+  // componentDidMount() {
+    // console.log('we here at search');
+  // }
 
   update(field) {
     return e =>
@@ -52,7 +52,7 @@ class Search extends React.Component {
   }
 
   createGame() {
-    console.dir(this.props.currentUser.user.id);
+    // console.dir(this.props.currentUser.user.id);
     const game = {
       host: this.state.currentUserId
     }
