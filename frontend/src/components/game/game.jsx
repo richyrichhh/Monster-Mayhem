@@ -82,7 +82,7 @@ export default class Game extends React.Component {
         {/* <Route path="/game/play" component={GamePlay} /> */}
         {/* <Route exact path="/edit" component={EditTeamContainer} /> */}
 
-        <h2>Please select two characters:</h2>
+        <h2 id="game-select-title">Please select two characters:</h2>
         <div className='monster-icon-div'>
           {
             monsters.map((monster, index) => 
@@ -90,7 +90,7 @@ export default class Game extends React.Component {
                 addToTeam = {this.addToTeam}
                 monster={monster}
                 addToTeam={this.addToTeam}
-                index={index}
+                key={index}
               />
             )
           }

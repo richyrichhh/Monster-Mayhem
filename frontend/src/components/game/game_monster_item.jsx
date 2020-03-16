@@ -87,8 +87,8 @@ class GameMonsterItem extends React.Component {
                         <h3>Moves:</h3>
                         <ul>
                             {
-                            monster.movespool.map(move => 
-                                <li className='move-list-item'>{move.name}</li>
+                            monster.movespool.map((move, id) => 
+                                <li className='move-list-item' key={id}>{move.name}</li>
                             )
                             }
                         </ul>
@@ -107,8 +107,8 @@ class GameMonsterItem extends React.Component {
                         <h3>Moves:</h3>
                         <ul>
                             {
-                                monster.movespool.map(move => 
-                                    <li className='move-list-item'>{move.name}</li>
+                                monster.movespool.map((move, id) => 
+                                    <li className='move-list-item' key={id}>{move.name}</li>
                                 )
                             }
                         </ul>

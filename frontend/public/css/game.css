@@ -25,7 +25,7 @@
     background-size: cover;
 } */
 
-#game-div > h2, h4, h5{
+#game-div > h4, h5{
     text-align: center;
     color: white;
     /* font-family: 'Montserrat'; */
@@ -35,6 +35,16 @@
     font-size: x-large;
 }
 
+#game-select-title {
+    text-align: center;
+    color: white;
+    /* font-family: 'Montserrat'; */
+    font-family: Metal Mania;
+    z-index: 1;
+    margin-top: 10px;
+    margin-bottom: 1%;
+    font-size: 36px;
+}
 
 
 .monster-icon-div {
