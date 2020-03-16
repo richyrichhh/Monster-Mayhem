@@ -90,7 +90,7 @@ export default class Game extends React.Component {
                 addToTeam = {this.addToTeam}
                 monster={monster}
                 addToTeam={this.addToTeam}
-                key={index}
+                index={index}
               />
             )
           }
