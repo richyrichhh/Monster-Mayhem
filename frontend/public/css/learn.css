@@ -45,6 +45,7 @@
   height: 100%;
   width: 100%;
   overflow: auto;
+  font-family: Metal Mania;
 }
 
 .learn-info {
@@ -81,9 +82,10 @@
   flex-direction: column;
   z-index: 1;
   height: 100%;
-  width: 100%;
+  width: 20%;
   overflow: auto;
   padding: 5px;
+  font-family: Metal Mania;
 }
 
 .learn-image-1 {

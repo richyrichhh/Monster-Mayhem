@@ -76,7 +76,7 @@ class Search extends React.Component {
             </div>
 
             <div id="game-search-join">
-              <input type="text" value={this.state.gameId} onChange={this.update("gameId")} id="search-game-id" placeholder="Game ID"/>
+              <input type="text" value={this.state.gameId} onChange={this.update("gameId")} id="search-game-id" placeholder="Room ID"/>
               <input className="join-game-btn" type="submit" value="Join" onClick={(e) => this.joinGame(e)} />
             </div>
 

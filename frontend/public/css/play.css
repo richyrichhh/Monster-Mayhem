@@ -192,6 +192,7 @@
     color: white;
     padding: 20px;
     font-weight: bold;
+    font-family: Metal Mania;
     /* font-size: 26px;
     padding-left: 10px; */
 }
@@ -268,8 +269,9 @@
 }
 
 .winner-title {
-    font-size: 32px;
+    font-size: 48px;
     text-align: center;
+    font-family: Metal Mania;
 }
 
 .winner-link {
