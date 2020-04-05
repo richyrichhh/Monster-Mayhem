@@ -63,6 +63,18 @@ class Search extends React.Component {
       });
   }
 
+  createAIGame() {
+    const game = {
+      host: this.state.currentUserId,
+      p2: 'cpu-player'
+    }
+    this.props.createGame(game)
+      .then(res => {
+        console.dir(res);
+        this.props.history.push(`/game/play/${res.game.data._id}`)
+      });
+  }
+
   render() {
     return (
       <div id="game-lobby-div">
@@ -73,6 +85,7 @@ class Search extends React.Component {
           <div id="game-lobby">
             <div id="game-search-create">
               <button onClick={() => this.createGame()} className="create-game">Create Game</button>
+              <button onClick={() => this.createAIGame()} className="create-game">Play vs AI</button>
             </div>
 
             <div id="game-search-join">
