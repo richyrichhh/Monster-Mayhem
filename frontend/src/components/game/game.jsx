@@ -91,6 +91,7 @@ export default class Game extends React.Component {
                 monster={monster}
                 addToTeam={this.addToTeam}
                 index={index}
+                key={`monster${index}`}
               />
             )
           }

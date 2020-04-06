@@ -199,7 +199,6 @@ class Play extends React.Component {
           let monster = Object.assign({}, this.monsters[id]);
           monster = this.fixMonster(monster);
           console.log(monster);
-          return monster;
         })
         return p2Team;
       }) : null;
