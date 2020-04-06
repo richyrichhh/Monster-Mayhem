@@ -192,7 +192,7 @@ class Play extends React.Component {
         return p1Team;
       });
       p2load = (this.game.p2) ? this.props.fetchTeam(this.game.p2).then(data => {
-        if (this.game.p2 === 'cpu-player') return [this.fixMonster(Object.assign({}, this.monsters["5e2a30551c9d4400007d0d9b"])), this.fixMonster(Object.assign({}, this.monsters["5e2cf05c1c9d440000b08573"]))];
+        if (this.game.p2 === 'cpu-player') return [this.fixMonster(Object.assign({}, Object.values(this.monsters)[Math.floor(Math.random() * 4)])), this.fixMonster(Object.assign({}, Object.values(this.monsters)[Math.floor(Math.random() * 4)]))];
         // console.log('p2 is' + this.game.p2);
         // console.dir(data.team.data.team)
         let p2Team = data.team.data.team.map(id => {
