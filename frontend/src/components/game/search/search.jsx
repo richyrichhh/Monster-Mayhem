@@ -58,7 +58,7 @@ class Search extends React.Component {
     }
     this.props.createGame(game)
       .then(res => {
-        console.dir(res);
+        // console.dir(res);
         this.props.history.push(`/game/play/${res.game.data._id}`)
       });
   }
@@ -70,7 +70,7 @@ class Search extends React.Component {
     }
     this.props.createGame(game)
       .then(res => {
-        console.dir(res);
+        // console.dir(res);
         this.props.history.push(`/game/play/${res.game.data._id}`)
       });
   }

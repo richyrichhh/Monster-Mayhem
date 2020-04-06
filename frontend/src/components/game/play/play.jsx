@@ -180,31 +180,31 @@ class Play extends React.Component {
       for (let monster of data.monsters.data) {
         this.monsters[monster._id] = monster;
       }
-      console.dir(this.monsters);
+      // console.dir(this.monsters);
       p1load = this.props.fetchTeam(this.game.host).then(data => {
-        console.dir(data.team.data.team)
+        // console.dir(data.team.data.team)
         let p1Team = data.team.data.team.map(id => {
           let monster = Object.assign({}, this.monsters[id]);
           monster = this.fixMonster(monster);
-          console.log(monster);
+          // console.log(monster);
           return monster;
         })
         return p1Team;
       });
       p2load = (this.game.p2) ? this.props.fetchTeam(this.game.p2).then(data => {
         if (this.game.p2 === 'cpu-player') return [this.fixMonster(Object.assign({}, this.monsters["5e2a30551c9d4400007d0d9b"])), this.fixMonster(Object.assign({}, this.monsters["5e2cf05c1c9d440000b08573"]))];
-        console.log('p2 is' + this.game.p2);
-        console.dir(data.team.data.team)
+        // console.log('p2 is' + this.game.p2);
+        // console.dir(data.team.data.team)
         let p2Team = data.team.data.team.map(id => {
           let monster = Object.assign({}, this.monsters[id]);
           monster = this.fixMonster(monster);
-          console.log(monster);
+          // console.log(monster);
         })
         return p2Team;
       }) : null;
 
       Promise.all([p1load, p2load]).then((data) => {
-        console.dir(data);
+        // console.dir(data);
         let state = Object.assign({}, this.state);
         state.p1Team = data[0];
         state.p2Team = data[1];
@@ -214,7 +214,7 @@ class Play extends React.Component {
     });
 
 
-    console.log(newState);
+    // console.log(newState);
     
     // console.dir(this.state);
   }
@@ -235,7 +235,7 @@ class Play extends React.Component {
 
   initializeSocketListeners() {
     this.socket.on("startGame", (data) => {
-      console.log('starting game');
+      // console.log('starting game');
       window.location.reload(false);
       // this.componentDidMount();
     });
@@ -247,7 +247,7 @@ class Play extends React.Component {
     this.socket.on("receivingState", (state) => (state.turn > this.state.turn) ? this.setState(state) : "");
 
     this.socket.on("makeMove", (data) => {
-      console.log('making move');
+      // console.log('making move');
       let newState = Object.assign({}, this.state);
       if (data.player === 1) {
         newState.p1Move = data.move;
@@ -283,7 +283,7 @@ class Play extends React.Component {
           .then(() => {
             setTimeout(() => {
               newState = Object.assign({}, this.state);
-              console.log('turn is ending');
+              // console.log('turn is ending');
               this.turn = false;
               newState.p1Moved = false;
               newState.p2Moved = false;
@@ -312,14 +312,14 @@ class Play extends React.Component {
       if (data.p1Move) {
         newState.p1Move = data.p1Move;
       } else { 
-        console.log('ERROR IN P1MOVE');
+        // console.log('ERROR IN P1MOVE');
         newState.p1Move = uselessMove;
       }
       newState.p1Moved = true;
       if (data.p2Move) {
         newState.p2Move = data.p2Move;
       } else {
-        console.log('ERROR IN P2MOVE');
+        // console.log('ERROR IN P2MOVE');
         newState.p2Move = uselessMove;
       }
       newState.p2Moved = true;
@@ -707,13 +707,13 @@ class Play extends React.Component {
   }
 
   makeMove(move, player) {
-    console.log('clicked makemove');
+    // console.log('clicked makemove');
     console.log(`${move} ${player}`);
     this.socket.emit('sendMoveToBack', { move: move, player: player, gameId: this.gameId });
   }
 
   sendSwitch(player) {
-    console.log('clicked switch');
+    // console.log('clicked switch');
     this.socket.emit('sendMoveToBack', { move: switchMove, player: player, gameId: this.gameId })
   }
 
