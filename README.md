@@ -1,7 +1,9 @@
 # Monster Mayhem
+Monster Mayhem is an online multiplayer battle arena game based on classic horror movie characters.  The goal of the player is to use strategies based on characters' moves and abilities to diminish opposing characters health to zero.  The player to eliminate their opponents entire team wins. 
 
-## Overview ##
-Monster Mayhem is an online multiplayer battle arena game based on class horror movie characters.  The goal of the player is to use strategies based on characters' moves and abilities to diminish opposing characters health to zero.  The player to eliminate their opponents entire team wins. 
+[Monster Mayhem Live](http://monstermayhem.herokuapp.com/)
+
+![home_page](splash.png)
 
 ## Technologies Used ##
 + Javascript
@@ -13,8 +15,11 @@ Monster Mayhem is an online multiplayer battle arena game based on class horror 
 ## Features ##
 Allow for users to create an account or login if user is already registered, but a demo login feature is implemented if user does not want to create an account for any reason
 
-Players can select two characters to add to their team with each character having their own sets of movies and abilities. Adding characters calls an update to the user's team in the backend using react methods and its local state changes to send information through axios calls until two team slots are filled. Hovering over characters displays character stats, movies, and abilities. 
-```
+Players can select two characters to add to their team with each character having their own sets of movies and abilities. Adding characters calls an update to the user's team in the backend using react methods and its local state changes to send information through axios calls until two team slots are filled. Hovering over characters displays character stats, moves, and abilities. 
+
+![Team Selection](char_hover.gif)
+
+``` javascript
   addToTeam(e) {
     e.preventDefault();
 
@@ -53,10 +58,13 @@ Players can select two characters to add to their team with each character havin
     this.removeFromTeam = this.removeFromTeam.bind(this);
   };
  ```
-![Team Selection](https://github.com/nguyendarryl/Monster-Mayhem/blob/master/frontend/public/images/start_fight.jpg?raw=true)
+ 
 
 The game implements websockets to provide a temporary server, allowing for multiplayer experience through joining two players online through matching websocket identification numbers.  Players can battle each other in real time. 
-```
+
+![game_socket](game_socket.gif)
+
+``` javascript
 const io = socketio(server);
 
 io.on("connection", function (socket, data) {

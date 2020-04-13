@@ -22,7 +22,7 @@ class GameMonsterItem extends React.Component {
         this.setState({
           userTeam: this.team,
         })
-        console.dir(e.target.alt)
+        // console.dir(e.target.alt)
         if (this.team.length === 2) {
           alert('click fight to begin');
           this.props.updateUserTeam(this.props.user.id, { team: this.team, user:this.props.user.id });

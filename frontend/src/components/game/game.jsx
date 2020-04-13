@@ -8,8 +8,6 @@ import GameMonsterItem from './game_monster_item';
 // import GamePlay from './play/play';
 // import EditTeamContainer from './menus/edit_team_container'
 
-const CURRENT_USER_ID = 0;
-
 export default class Game extends React.Component {
   constructor(props) {
     super(props);
@@ -91,6 +89,7 @@ export default class Game extends React.Component {
                 monster={monster}
                 addToTeam={this.addToTeam}
                 index={index}
+                key={`monster${index}`}
               />
             )
           }

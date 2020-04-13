@@ -180,31 +180,31 @@ class Play extends React.Component {
       for (let monster of data.monsters.data) {
         this.monsters[monster._id] = monster;
       }
-      console.dir(this.monsters);
+      // console.dir(this.monsters);
       p1load = this.props.fetchTeam(this.game.host).then(data => {
-        console.dir(data.team.data.team)
+        // console.dir(data.team.data.team)
         let p1Team = data.team.data.team.map(id => {
           let monster = Object.assign({}, this.monsters[id]);
           monster = this.fixMonster(monster);
-          console.log(monster);
+          // console.log(monster);
           return monster;
         })
         return p1Team;
       });
       p2load = (this.game.p2) ? this.props.fetchTeam(this.game.p2).then(data => {
-        console.log('p2 is' + this.game.p2);
-        console.dir(data.team.data.team)
+        if (this.game.p2 === 'cpu-player') return [this.fixMonster(Object.assign({}, Object.values(this.monsters)[Math.floor(Math.random() * 4)])), this.fixMonster(Object.assign({}, Object.values(this.monsters)[Math.floor(Math.random() * 4)]))];
+        // console.log('p2 is' + this.game.p2);
+        // console.dir(data.team.data.team)
         let p2Team = data.team.data.team.map(id => {
           let monster = Object.assign({}, this.monsters[id]);
           monster = this.fixMonster(monster);
-          console.log(monster);
-          return monster;
+          // console.log(monster);
         })
         return p2Team;
       }) : null;
 
       Promise.all([p1load, p2load]).then((data) => {
-        console.dir(data);
+        // console.dir(data);
         let state = Object.assign({}, this.state);
         state.p1Team = data[0];
         state.p2Team = data[1];
@@ -214,7 +214,7 @@ class Play extends React.Component {
     });
 
 
-    console.log(newState);
+    // console.log(newState);
     
     // console.dir(this.state);
   }
@@ -235,7 +235,7 @@ class Play extends React.Component {
 
   initializeSocketListeners() {
     this.socket.on("startGame", (data) => {
-      console.log('starting game');
+      // console.log('starting game');
       window.location.reload(false);
       // this.componentDidMount();
     });
@@ -247,13 +247,17 @@ class Play extends React.Component {
     this.socket.on("receivingState", (state) => (state.turn > this.state.turn) ? this.setState(state) : "");
 
     this.socket.on("makeMove", (data) => {
-      console.log('making move');
+      // console.log('making move');
       let newState = Object.assign({}, this.state);
       if (data.player === 1) {
         newState.p1Move = data.move;
         newState.p1Moved = true;
       } else if (data.player === 2) {
         newState.p2Move = data.move;
+        newState.p2Moved = true;
+      }
+      if (this.state.p2 === 'cpu-player') {
+        newState.p2Move = this.state.p2Team[this.state.p2Char].movespool[Math.floor(Math.random() * 4)];
         newState.p2Moved = true;
       }
       newState.refresh = true;
@@ -279,7 +283,7 @@ class Play extends React.Component {
           .then(() => {
             setTimeout(() => {
               newState = Object.assign({}, this.state);
-              console.log('turn is ending');
+              // console.log('turn is ending');
               this.turn = false;
               newState.p1Moved = false;
               newState.p2Moved = false;
@@ -308,14 +312,14 @@ class Play extends React.Component {
       if (data.p1Move) {
         newState.p1Move = data.p1Move;
       } else { 
-        console.log('ERROR IN P1MOVE');
+        // console.log('ERROR IN P1MOVE');
         newState.p1Move = uselessMove;
       }
       newState.p1Moved = true;
       if (data.p2Move) {
         newState.p2Move = data.p2Move;
       } else {
-        console.log('ERROR IN P2MOVE');
+        // console.log('ERROR IN P2MOVE');
         newState.p2Move = uselessMove;
       }
       newState.p2Moved = true;
@@ -511,7 +515,7 @@ class Play extends React.Component {
 
   animateP1(animation, frame) {
     setTimeout(() => {
-      console.log('animation for player 1 ' + 'change at' + Date(Date.now()).toString() + 'to' + frame.toString());
+      // console.log('animation for player 1 ' + 'change at' + Date(Date.now()).toString() + 'to' + frame.toString());
       let newState = Object.assign({}, this.state);
       let character = newState.p1Team[newState.p1Char];
       character.imgUrl = character.animations[animation].path + frame.toString() + character.animations.filetype;
@@ -521,7 +525,7 @@ class Play extends React.Component {
 
   resetP1(frame) {
     setTimeout(() => {
-      console.log('animation for player 1 ' + 'change at' + Date(Date.now()).toString() + 'to' + ' reset');
+      // console.log('animation for player 1 ' + 'change at' + Date(Date.now()).toString() + 'to' + ' reset');
       let newState = Object.assign({}, this.state);
       let character = newState.p1Team[newState.p1Char];
       character.imgUrl = character.animations.base + character.animations.filetype;
@@ -532,7 +536,7 @@ class Play extends React.Component {
 
   animateP2(animation, frame) {
     setTimeout(() => {
-      console.log('animation for player 2 ' + 'change at' + Date(Date.now()).toString() + 'to' + frame.toString());
+      // console.log('animation for player 2 ' + 'change at' + Date(Date.now()).toString() + 'to' + frame.toString());
       let newState = Object.assign({}, this.state);
       let character = newState.p2Team[newState.p2Char];
       character.imgUrl = character.animations[animation].path + frame.toString() + character.animations.filetype;
@@ -542,7 +546,7 @@ class Play extends React.Component {
 
   resetP2(frame) {
     setTimeout(() => {
-      console.log('animation for player 2 ' + 'change at' + Date(Date.now()).toString() + 'to' + ' reset');
+      // console.log('animation for player 2 ' + 'change at' + Date(Date.now()).toString() + 'to' + ' reset');
       let newState = Object.assign({}, this.state);
       let character = newState.p2Team[newState.p2Char];
       character.imgUrl = character.animations.base + character.animations.filetype;
@@ -581,7 +585,7 @@ class Play extends React.Component {
 
   animateEffectP1(effect, frame) {
     setTimeout(() => {
-      console.log('effect for player 1 ' + 'change at' + Date(Date.now()).toString() + 'to' + frame.toString());
+      // console.log('effect for player 1 ' + 'change at' + Date(Date.now()).toString() + 'to' + frame.toString());
       let newState = Object.assign({}, this.state);
       newState.p1Effect = effectsTable[effect].path + frame.toString() + effectsTable[effect].filetype;
       this.setState(newState);
@@ -590,7 +594,7 @@ class Play extends React.Component {
 
   resetEffectP1(frame) {
     setTimeout(() => {
-      console.log('effect for player 1 ' + 'change at' + Date(Date.now()).toString() + 'to' + ' reset');
+      // console.log('effect for player 1 ' + 'change at' + Date(Date.now()).toString() + 'to' + ' reset');
       let newState = Object.assign({}, this.state);
       newState.p1Effect = effectsTable.base;
       // $(document.getElementById('effect-img-left')).removeClass('moving');
@@ -600,7 +604,7 @@ class Play extends React.Component {
 
   animateEffectP2(effect, frame) {
     setTimeout(() => {
-      console.log('effect for player 2 ' + 'change at' + Date(Date.now()).toString() + 'to' + frame.toString());
+      // console.log('effect for player 2 ' + 'change at' + Date(Date.now()).toString() + 'to' + frame.toString());
       let newState = Object.assign({}, this.state);
       newState.p2Effect = effectsTable[effect].path + frame.toString() + effectsTable[effect].filetype;
       this.setState(newState);
@@ -609,7 +613,7 @@ class Play extends React.Component {
 
   resetEffectP2(frame) {
     setTimeout(() => {
-      console.log('effect for player 2 ' + 'change at' + Date(Date.now()).toString() + 'to' + ' reset');
+      // console.log('effect for player 2 ' + 'change at' + Date(Date.now()).toString() + 'to' + ' reset');
       let newState = Object.assign({}, this.state);
       newState.p2Effect = effectsTable.base;
       // $(document.getElementById('effect-img-right')).removeClass('moving');
@@ -641,10 +645,10 @@ class Play extends React.Component {
       p2Char.currentHp -= damage;
       state.log.push(`${p2Char.name} takes ${damage} damage from bleeding.`)
     }
-    p1Char.effects = p1Char.effects.map((n, i) => {
-      if (n > 0 && i !== 3) n -= 1;
-    })
-    //p1 effects go down by 1
+    // p1Char.effects = p1Char.effects.map((n, i) => {
+    //   if (n > 0 && i !== 3) return n -= 1;
+    //   else return n;
+    // })
     if (p1Char.effects[1] > 0) p1Char.effects[1] -= 1;
     if (p1Char.effects[2]) p1Char.effects[2] -= 1;
     if (p1Char.effects[4]) p1Char.effects[4] -= 1;
@@ -696,20 +700,20 @@ class Play extends React.Component {
       p2Character.imgUrl = p2Character.animations.idle.path + frame2.toString() + p2Character.animations.filetype;
       this.setState(newState);
       let nextFrame1, nextFrame2;
-      frame1 == p1Character.animations.idle.frames - 1 ? nextFrame1 = 0 : nextFrame1 = frame1 + 1;
-      frame2 == p2Character.animations.idle.frames - 1 ? nextFrame2 = 0 : nextFrame2 = frame2 + 1;
+      frame1 === p1Character.animations.idle.frames - 1 ? nextFrame1 = 0 : nextFrame1 = frame1 + 1;
+      frame2 === p2Character.animations.idle.frames - 1 ? nextFrame2 = 0 : nextFrame2 = frame2 + 1;
       setTimeout(() => this.idle(nextFrame1, nextFrame2), 120);
     }
   }
 
   makeMove(move, player) {
-    console.log('clicked makemove');
+    // console.log('clicked makemove');
     console.log(`${move} ${player}`);
     this.socket.emit('sendMoveToBack', { move: move, player: player, gameId: this.gameId });
   }
 
   sendSwitch(player) {
-    console.log('clicked switch');
+    // console.log('clicked switch');
     this.socket.emit('sendMoveToBack', { move: switchMove, player: player, gameId: this.gameId })
   }
 
