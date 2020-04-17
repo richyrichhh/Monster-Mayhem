@@ -1,6 +1,8 @@
 import React from 'react';
 import io from 'socket.io-client';
 
+const path = require('path');
+
 const $ = window.$;
 
 const damageFormula = (monsterOne, move, monsterTwo) => {
@@ -230,17 +232,17 @@ class Play extends React.Component {
       frames: 1
     }
     monster.effects = [0, 0, 0, 0, 0]
-    const loadAnimations = (path) => {
+    const loadAnimations = (p) => {
       return new Promise((resolve, reject) => {
         let img = new Image();
-        img.onload = () => resolve(path);
+        img.onload = () => resolve(p);
         img.src = path;
       })
     }
     for (let key of Object.keys(monster.animations)) {
-      if (key !== 'base') {
+      if (key !== 'base' || key !== 'filetype') {
         for (let i = 0; i < monster.animations[key].frames; i++) {
-          loadAnimations(`${monster.animations[key].path}${i}`);
+          loadAnimations(`${monster.animations[key].path}${i}${monster.animations.filetype}`);
         }
       }
     }
@@ -828,7 +830,7 @@ class Play extends React.Component {
       return (
         <div id="gameplay-div">
           <div id="gameplay-header">
-            Room ID: <span>{this.gameId}</span>
+            Room ID: <span>{roomId}</span>
           </div>
           <div id="play-background">
             <div>
