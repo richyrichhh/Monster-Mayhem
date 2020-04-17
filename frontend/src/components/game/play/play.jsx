@@ -495,7 +495,7 @@ class Play extends React.Component {
         default:
       }
       target.effects[effect] = turns;
-      if (turns > 0) newState.log.push(`${target.name} is ${debuffTable[effect]} for ${turns >= 2 ? turns - 1 : turns} ${turns > 2 ? 'turns' : 'turn'} by ${move.name}.`)
+      if (turns > 0) newState.log.push(`${target.name} is ${debuffTable[effect]} for ${turns >= 2 ? turns - 1 : turns} ${turns > 2 ? 'turns' : 'turn'} by ${attacker.name}'s ${move.name}.`)
     }
     this.setState(newState);
     return newState;
