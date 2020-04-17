@@ -789,12 +789,13 @@ class Play extends React.Component {
     if ((this.state.p1 === this.currentUserId && this.state.p1Moved === false) || (this.state.p2 === this.currentUserId && this.state.p2Moved === false)) {
       return (
         <div id="game-moves">
+          <h3>Pick your move:</h3>
           <div id="character-moves">
             <ul id="character-moves-list">
               {this.state[`p${this.state.p1 === this.currentUserId ? '1' : '2'}Team`][this.state.p1 === this.currentUserId ? this.state.p1Char : this.state.p2Char].movespool.map((move, i) => <li key={`move-${i}`}><button onClick={(e) => this.makeMove(move, this.state.p1 === this.currentUserId ? 1 : 2)}>{move.name}</button></li>)}
             </ul>
           </div>
-          {((this.state.p1 === this.currentUserId && this.state.p1CanSwitch === true) || (this.state.p2 === this.currentUserId && this.state.p2CanSwitch === true)) ? <span id="switch-character"><button className="switch-button" onClick={() => this.sendSwitch(playerNum)}>Switch</button></span> : <span id="switch-character"><button disabled>Switch</button></span>}
+          {((this.state.p1 === this.currentUserId && this.state.p1CanSwitch === true) || (this.state.p2 === this.currentUserId && this.state.p2CanSwitch === true)) ? <span id="switch-character"><button className="switch-button" onClick={() => this.sendSwitch(playerNum)}>Tag Out</button></span> : <span id="switch-character"><button disabled>Switch</button></span>}
         </div>
       )
     } else {
