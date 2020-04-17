@@ -177,6 +177,7 @@
     width: 50%;
     height: 100px;
     margin: 10px 0px;
+    box-sizing: border-box;
 }
 
 #game-logs {
@@ -184,8 +185,11 @@
     height: 100%;
     color: white;
     font: 'Tahoma';
-    overflow: scroll;
+    overflow: hidden;
     background: rgba(0, 0, 0, .5);
+    box-sizing: border-box;
+    padding: 5px;
+    
 }
 
 #gameplay-header {

@@ -6,7 +6,7 @@ import io from 'socket.io-client';
 const $ = window.$;
 
 const damageFormula = (monsterOne, move, monsterTwo) => {
-  return monsterOne.attack * (move.strength) / monsterTwo.defense;
+  return Math.round(monsterOne.attack * (move.strength) / monsterTwo.defense);
 };
 
 const switchMove = {
