@@ -230,6 +230,20 @@ class Play extends React.Component {
       frames: 1
     }
     monster.effects = [0, 0, 0, 0, 0]
+    const loadAnimations = (path) => {
+      return new Promise((resolve, reject) => {
+        let img = new Image();
+        img.onload = () => resolve(path);
+        img.src = path;
+      })
+    }
+    for (let key of Object.keys(monster.animations)) {
+      if (key !== 'base') {
+        for (let i = 0; i < monster.animations[key].frames; i++) {
+          loadAnimations(`${monster.animations[key].path}${i}`);
+        }
+      }
+    }
     return monster;
   }
 
