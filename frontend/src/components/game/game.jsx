@@ -87,7 +87,6 @@ export default class Game extends React.Component {
               <GameMonsterItem 
                 addToTeam = {this.addToTeam}
                 monster={monster}
-                addToTeam={this.addToTeam}
                 index={index}
                 key={`monster${index}`}
               />

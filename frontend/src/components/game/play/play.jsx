@@ -1,7 +1,7 @@
 import React from 'react';
 import io from 'socket.io-client';
 
-const path = require('path');
+// const path = require('path');
 
 const $ = window.$;
 
@@ -200,6 +200,7 @@ class Play extends React.Component {
         let p2Team = data.team.data.team.map(id => {
           let monster = Object.assign({}, this.monsters[id]);
           monster = this.fixMonster(monster);
+          return monster;
           // console.log(monster);
         })
         return p2Team;
@@ -398,6 +399,7 @@ class Play extends React.Component {
           state.p2Team[state.p2Char].effects[3] -= 1;
         }
         break;
+      default:
     }
     this.setState(state);
     return state;
@@ -490,6 +492,7 @@ class Play extends React.Component {
         case 4:
           turns = 4;
           break;
+        default:
       }
       target.effects[effect] = turns;
       if (turns > 0) newState.log.push(`${target.name} is ${debuffTable[effect]} for ${turns >= 2 ? turns - 1 : turns} ${turns > 2 ? 'turns' : 'turn'} by ${move.name}.`)
