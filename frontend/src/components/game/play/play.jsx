@@ -236,11 +236,12 @@ class Play extends React.Component {
       return new Promise((resolve, reject) => {
         let img = new Image();
         img.onload = () => resolve(p);
-        img.src = path;
+        img.src = p;
       })
     }
     for (let key of Object.keys(monster.animations)) {
-      if (key !== 'base' || key !== 'filetype') {
+      if (key !== 'base' && key !== 'filetype' && key !== 'none') {
+        // console.log(key);
         for (let i = 0; i < monster.animations[key].frames; i++) {
           loadAnimations(`${monster.animations[key].path}${i}${monster.animations.filetype}`);
         }
