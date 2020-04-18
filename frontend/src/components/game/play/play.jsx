@@ -416,7 +416,8 @@ class Play extends React.Component {
       let effSpd1 = state.p1Team[state.p1Char].speed;
       let effSpd2 = state.p2Team[state.p2Char].speed;
       if (effSpd1 === effSpd2) {
-        if (this.randInts[0] < 5) {
+        let rand = this.randInts.shift();
+        if (rand < 5) {
           effSpd1 += 1;
         } else {
           effSpd2 += 1;
