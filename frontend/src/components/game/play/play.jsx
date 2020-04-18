@@ -154,6 +154,10 @@ class Play extends React.Component {
         setTimeout(() => {
           this.setState({loaded: true});
           this.idle(0, 0);
+          setTimeout(() => {
+            let bgm = document.getElementById('bgm');
+            bgm.play();
+          }, 1000);
           this.socket.emit('checkStates', this.gameId);
         }, 2000)
       }
@@ -217,6 +221,7 @@ class Play extends React.Component {
         state.p1Team = data[0];
         state.p2Team = data[1];
         this.setState(state);
+        
         // teams && this.game ? this.setState({ loaded: true }) : "";
       })
     });
@@ -900,9 +905,14 @@ class Play extends React.Component {
             {this.renderLogs()}
           </div>
 
+
           <div id="preload-div" style={{display: 'none', width: '0px', height: '0px'}}>  
             {this.preloadImages()}
           </div>
+
+          <audio id="bgm">
+            <source src="./death_ballad.mp3"></source>
+          </audio>
         </div>
       );
     } else {
@@ -911,6 +921,9 @@ class Play extends React.Component {
         <div id="gameplay-header">
           Room ID: <span>{roomId}</span>
         </div>
+
+        
+
         <div id="preload-div" style={{ display: 'none', width: '0px', height: '0px' }}>
           {this.preloadImages()}
         </div>
