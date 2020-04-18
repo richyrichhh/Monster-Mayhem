@@ -154,10 +154,11 @@ class Play extends React.Component {
         setTimeout(() => {
           this.setState({loaded: true});
           this.idle(0, 0);
-          setTimeout(() => {
-            let bgm = document.getElementById('bgm');
-            bgm.play();
-          }, 1000);
+          // setTimeout(() => {
+          // }, 1000);
+          let bgm = document.getElementById('bgm');
+          bgm.volume = 0.4;
+          bgm.play();
           this.socket.emit('checkStates', this.gameId);
         }, 2000)
       }
