@@ -1,5 +1,6 @@
 import React from 'react';
 import io from 'socket.io-client';
+import { monsterAnimations } from './monster_animations';
 
 // const path = require('path');
 
@@ -180,11 +181,11 @@ class Play extends React.Component {
     this.setState(newState);
     this.monsters = {};
     let p1load, p2load;
-    this.loadEffects();
+    // this.loadEffects();
     this.props.fetchMonsters().then(data => {
       for (let monster of data.monsters.data) {
         this.monsters[monster._id] = monster;
-        this.loadAnim(monster);
+        // this.loadAnim(monster);
       }
       // console.dir(this.monsters);
       p1load = this.props.fetchTeam(this.game.host).then(data => {
@@ -224,6 +225,32 @@ class Play extends React.Component {
     // console.log(newState);
     
     // console.dir(this.state);
+  }
+
+  preloadImages() {
+    let paths = [];
+
+    for (let effect of Object.values(effectsTable)) {
+      for (let i = 0; i < effect.frames; i++) {
+        paths.push(`${effect.path}${i}${effect.filetype}`);
+      }
+    }
+
+    for (let animSet of Object.values(monsterAnimations)) {
+      for (let key of Object.keys(animSet)) {
+        if (key !== 'base' && key !== 'filetype' && key !== 'none') {
+          for (let i = 0; i < animSet[key].frames; i++) {
+            paths.push(`${animSet[key].path}${i}${animSet.filetype}`);
+          }
+        }
+      }
+    }
+
+    return (
+      <div style={{display: 'none'}}>
+        {paths.map((path, i) => <img width="1" height="1" src={path} alt={`preload${i}`} />)}
+      </div>
+    )
   }
 
   loadAnim(monster) {
@@ -865,15 +892,24 @@ class Play extends React.Component {
             {this.renderMoves()}
             {this.renderLogs()}
           </div>
+
+          <div id="preload-div" style={{display: 'none', width: '0px', height: '0px'}}>  
+            {this.preloadImages()}
+          </div>
         </div>
       );
     } else {
-      return (<div className="loading-page">
+      return (
+      <div className="loading-page">
         <div id="gameplay-header">
           Room ID: <span>{roomId}</span>
         </div>
+        <div id="preload-div" style={{ display: 'none', width: '0px', height: '0px' }}>
+          {this.preloadImages()}
+        </div>
         {/* <img src='./images/loading.jpg' alt="loading"/> */}
-      </div>)
+      </div>
+      );
     }
   }
 }
