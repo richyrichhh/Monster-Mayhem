@@ -178,6 +178,7 @@ class Play extends React.Component {
     this.setState(newState);
     this.monsters = {};
     let p1load, p2load;
+    this.loadEffects();
     this.props.fetchMonsters().then(data => {
       for (let monster of data.monsters.data) {
         this.monsters[monster._id] = monster;
@@ -229,6 +230,14 @@ class Play extends React.Component {
         for (let i = 0; i < monster.animations[key].frames; i++) {
           new Image().src = `${monster.animations[key].path}${i}${monster.animations.filetype}`;
         }
+      }
+    }
+  }
+
+  loadEffects() {
+    for (let effect of Object.values(effectsTable)) {
+      for (let i = 0; i < effect.frames; i++) {
+        new Image().src = `${effect.path}${i}${effect.filetype}`;
       }
     }
   }
@@ -792,7 +801,7 @@ class Play extends React.Component {
               {this.state[`p${this.state.p1 === this.currentUserId ? '1' : '2'}Team`][this.state.p1 === this.currentUserId ? this.state.p1Char : this.state.p2Char].movespool.map((move, i) => <li key={`move-${i}`}><button onClick={(e) => this.makeMove(move, this.state.p1 === this.currentUserId ? 1 : 2)}>{move.name}</button></li>)}
             </ul>
           </div>
-          {((this.state.p1 === this.currentUserId && this.state.p1CanSwitch === true) || (this.state.p2 === this.currentUserId && this.state.p2CanSwitch === true)) ? <span id="switch-character"><button className="switch-button" onClick={() => this.sendSwitch(playerNum)}>Tag Out</button></span> : <span id="switch-character"><button disabled>Switch</button></span>}
+          {((this.state.p1 === this.currentUserId && this.state.p1CanSwitch === true) || (this.state.p2 === this.currentUserId && this.state.p2CanSwitch === true)) ? <span id="switch-character"><button className="switch-button" onClick={() => this.sendSwitch(playerNum)}>Tag Out</button></span> : <span id="switch-character"><button disabled>Tag Out</button></span>}
         </div>
       )
     } else {
@@ -813,7 +822,7 @@ class Play extends React.Component {
     return (
       <div id="game-logs-div">
         <ul name="game-logs" id="game-logs" cols="100" rows="10">
-          {logs.map(line => <li>{line}</li>)}
+          {logs.map((line, i) => <li key={`l${i}`}>{line}</li>)}
         </ul>
 
       </div>
