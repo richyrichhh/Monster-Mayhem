@@ -181,6 +181,7 @@ class Play extends React.Component {
     this.props.fetchMonsters().then(data => {
       for (let monster of data.monsters.data) {
         this.monsters[monster._id] = monster;
+        this.loadAnim(monster);
       }
       // console.dir(this.monsters);
       p1load = this.props.fetchTeam(this.game.host).then(data => {
@@ -222,6 +223,16 @@ class Play extends React.Component {
     // console.dir(this.state);
   }
 
+  loadAnim(monster) {
+    for (let key of Object.keys(monster.animations)) {
+      if (key !== 'base' && key !== 'filetype' && key !== 'none') {
+        for (let i = 0; i < monster.animations[key].frames; i++) {
+          new Image().src = `${monster.animations[key].path}${i}${monster.animations.filetype}`;
+        }
+      }
+    }
+  }
+
   fixMonster(monster) {
     // monster.animations = monsterAnimations[monster.name]
     // console.log(monsterAnimations["Jason Voorhees"]);
@@ -233,18 +244,7 @@ class Play extends React.Component {
       frames: 1
     }
     monster.effects = [0, 0, 0, 0, 0]
-    const loadAnimations = (p) => {
-      const img = new Image();
-      img.src = p;
-    }
-    for (let key of Object.keys(monster.animations)) {
-      if (key !== 'base' && key !== 'filetype' && key !== 'none') {
-        // console.log(key);
-        for (let i = 0; i < monster.animations[key].frames; i++) {
-          loadAnimations(`${monster.animations[key].path}${i}${monster.animations.filetype}`);
-        }
-      }
-    }
+    
     return monster;
   }
 
