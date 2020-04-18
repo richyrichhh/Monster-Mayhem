@@ -234,11 +234,8 @@ class Play extends React.Component {
     }
     monster.effects = [0, 0, 0, 0, 0]
     const loadAnimations = (p) => {
-      return new Promise((resolve, reject) => {
-        let img = new Image();
-        img.onload = () => resolve(p);
-        img.src = p;
-      })
+      const img = new Image();
+      img.src = p;
     }
     for (let key of Object.keys(monster.animations)) {
       if (key !== 'base' && key !== 'filetype' && key !== 'none') {
