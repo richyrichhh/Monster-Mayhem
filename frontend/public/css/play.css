@@ -36,9 +36,9 @@
 
 .game-character-img {
     position: absolute;
-    scale: 3;
-    max-height: 500px;
-    min-height: 300px;
+    scale: 1;
+    max-height: 300px;
+    min-height: 250px;
 }
 
 .game-left {
