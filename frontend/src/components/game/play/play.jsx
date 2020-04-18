@@ -319,8 +319,8 @@ class Play extends React.Component {
                 newState = this.handleEffects(newState);
                 this.setState(newState)
                 this.idle(0, 0);
-              }, 1000);
-            }, 2000);
+              }, 500);
+            }, 1000);
           })));
         // newState = this.handleSwitch(newState);
         // newState = this.handleCombat(newState);
