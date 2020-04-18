@@ -228,19 +228,26 @@ class Play extends React.Component {
   }
 
   preloadImages() {
-    let paths = [];
+    if (this.paths) {
 
-    for (let effect of Object.values(effectsTable)) {
-      for (let i = 0; i < effect.frames; i++) {
-        paths.push(`${effect.path}${i}${effect.filetype}`);
+    } else {
+      this.paths = [];
+      for (let effect of Object.values(effectsTable)) {
+        for (let i = 0; i < effect.frames; i++) {
+          this.paths.push(`${effect.path}${i}${effect.filetype}`);
+          // c++;
+          // console.log(c);
+        }
       }
-    }
 
-    for (let animSet of Object.values(monsterAnimations)) {
-      for (let key of Object.keys(animSet)) {
-        if (key !== 'base' && key !== 'filetype' && key !== 'none') {
-          for (let i = 0; i < animSet[key].frames; i++) {
-            paths.push(`${animSet[key].path}${i}${animSet.filetype}`);
+      for (let animSet of Object.values(monsterAnimations)) {
+        for (let key of Object.keys(animSet)) {
+          if (key !== 'base' && key !== 'filetype' && key !== 'none') {
+            for (let i = 0; i < animSet[key].frames; i++) {
+              this.paths.push(`${animSet[key].path}${i}${animSet.filetype}`);
+              // c++;
+              // console.log(c);
+            }
           }
         }
       }
@@ -248,7 +255,7 @@ class Play extends React.Component {
 
     return (
       <div style={{display: 'none'}}>
-        {paths.map((path, i) => <img width="1" height="1" src={path} alt={`preload${i}`} />)}
+        {this.paths.map((path, i) => <img width="1" height="1" src={path} alt={`preload${i}`} />)}
       </div>
     )
   }
