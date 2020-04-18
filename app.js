@@ -94,7 +94,7 @@ io.on("connection", function (socket, data) {
 
   socket.on("sendMovesToBack", function(data) {
     console.dir(data);
-    data.randInts = [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)]
+    data.randInts = [Math.floor(Math.random() * 11), Math.floor(Math.random() * 11), Math.floor(Math.random() * 11), Math.floor(Math.random() * 11), Math.floor(Math.random() * 11), Math.floor(Math.random() * 11)]
     io.to(data.gameId).emit("handleTurn", data);
   })
 
