@@ -158,6 +158,7 @@ class Play extends React.Component {
           // }, 1000);
           let bgm = document.getElementById('bgm');
           bgm.volume = 0.4;
+          bgm.loop = true;
           bgm.play();
           this.socket.emit('checkStates', this.gameId);
         }, 2000)
