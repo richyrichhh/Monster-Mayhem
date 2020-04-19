@@ -777,7 +777,7 @@ class Play extends React.Component {
 
   makeMove(move, player) {
     // console.log('clicked makemove');
-    console.log(`${move} ${player}`);
+    // console.log(`${move} ${player}`);
     this.socket.emit('sendMoveToBack', { move: move, player: player, gameId: this.gameId });
   }
 

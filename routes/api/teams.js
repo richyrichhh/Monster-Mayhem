@@ -9,7 +9,7 @@ const Team = require('../../models/Team');
 router.get('/user/:userId', (req, res) => {
     // Team.findById(req.params.userId)
     //     .then(team => res.json(team))
-    console.log(req.params);
+    // console.log(req.params);
     Team.findOne({user: req.params.userId}).then(team => res.json(team));
 });
 
@@ -32,15 +32,15 @@ router.post('/',
 );
 
 router.patch('/user/:userId', (req, res, next) => {
-    console.dir(req.params);
-    console.dir(req.body);
+    // console.dir(req.params);
+    // console.dir(req.body);
     Team.findOneAndUpdate({ user: req.params.userId},
         req.body,
         // console.log(req.body),
         { new: true })
         .then((event) => {
             // console.log(event);
-            console.log('updating!!!');
+            // console.log('updating!!!');
             res.json(event);
         });
     }
