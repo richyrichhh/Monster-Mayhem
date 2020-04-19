@@ -912,7 +912,7 @@ class Play extends React.Component {
           </div>
 
           <audio id="bgm">
-            <source src="./death_ballad.mp3"></source>
+            <source src="./black_banquet.mp3"></source>
           </audio>
         </div>
       );
