@@ -2,10 +2,10 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 
 class FightMessage extends React.Component {
-  constructor(props) {
-    super(props)
-
-  }
+  // constructor(props) {
+  //   super(props)
+    
+  // }
 
   render() {
     return(

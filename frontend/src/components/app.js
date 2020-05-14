@@ -1,7 +1,7 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
-import { Switch, Redirect} from 'react-router-dom';
+// import { Switch, Redirect} from 'react-router-dom';
 import NavBarContainer from './nav/navbar_container';
 
 import Modal from './modal/modal';
@@ -21,6 +21,7 @@ const App = () => (
     <Modal />
     <NavBarContainer />
     <div id="page-main-div">
+      {/* <React.StrictMode> */}
       <Switch>
         <AuthRoute exact path="/" component={MainPage} />
         <Route exact path="/about" component={AboutContainer} />
@@ -30,6 +31,7 @@ const App = () => (
         <ProtectedRoute exact path="/game/play/:gameId" component={RealPlayContainer} />
         <Redirect to="/game" />
       </Switch>
+      {/* </React.StrictMode> */}
     </div>
        <FooterContainer />
   </div>

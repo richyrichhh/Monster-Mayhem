@@ -1,10 +1,13 @@
 import React from 'react';
 import io from 'socket.io-client';
+import { monsterAnimations } from './monster_animations';
+
+// const path = require('path');
 
 const $ = window.$;
 
 const damageFormula = (monsterOne, move, monsterTwo) => {
-  return monsterOne.attack * (move.strength) / monsterTwo.defense;
+  return Math.round(monsterOne.attack * (move.strength) / monsterTwo.defense);
 };
 
 const switchMove = {
@@ -148,9 +151,17 @@ class Play extends React.Component {
     
     Promise.all([game, sockets]).then(() => {
       if (this.state.p1 && this.state.p2) {
-        this.setState({loaded: true});
-        this.idle(0, 0);
-        this.socket.emit('checkStates', this.gameId);
+        setTimeout(() => {
+          this.setState({loaded: true});
+          this.idle(0, 0);
+          // setTimeout(() => {
+          // }, 1000);
+          let bgm = document.getElementById('bgm');
+          bgm.volume = 0.4;
+          bgm.loop = true;
+          bgm.play();
+          this.socket.emit('checkStates', this.gameId);
+        }, 2000)
       }
       // teams && this.game ? this.setState({ loaded: true }) : "";
     })
@@ -176,9 +187,11 @@ class Play extends React.Component {
     this.setState(newState);
     this.monsters = {};
     let p1load, p2load;
+    // this.loadEffects();
     this.props.fetchMonsters().then(data => {
       for (let monster of data.monsters.data) {
         this.monsters[monster._id] = monster;
+        // this.loadAnim(monster);
       }
       // console.dir(this.monsters);
       p1load = this.props.fetchTeam(this.game.host).then(data => {
@@ -198,6 +211,7 @@ class Play extends React.Component {
         let p2Team = data.team.data.team.map(id => {
           let monster = Object.assign({}, this.monsters[id]);
           monster = this.fixMonster(monster);
+          return monster;
           // console.log(monster);
         })
         return p2Team;
@@ -209,6 +223,7 @@ class Play extends React.Component {
         state.p1Team = data[0];
         state.p2Team = data[1];
         this.setState(state);
+        
         // teams && this.game ? this.setState({ loaded: true }) : "";
       })
     });
@@ -217,6 +232,57 @@ class Play extends React.Component {
     // console.log(newState);
     
     // console.dir(this.state);
+  }
+
+  preloadImages() {
+    if (this.paths) {
+
+    } else {
+      this.paths = [];
+      for (let effect of Object.values(effectsTable)) {
+        for (let i = 0; i < effect.frames; i++) {
+          this.paths.push(`${effect.path}${i}${effect.filetype}`);
+          // c++;
+          // console.log(c);
+        }
+      }
+
+      for (let animSet of Object.values(monsterAnimations)) {
+        for (let key of Object.keys(animSet)) {
+          if (key !== 'base' && key !== 'filetype' && key !== 'none') {
+            for (let i = 0; i < animSet[key].frames; i++) {
+              this.paths.push(`${animSet[key].path}${i}${animSet.filetype}`);
+              // c++;
+              // console.log(c);
+            }
+          }
+        }
+      }
+    }
+
+    return (
+      <div style={{display: 'none'}}>
+        {this.paths.map((path, i) => <img width="1" height="1" src={path} alt={`preload${i}`} />)}
+      </div>
+    )
+  }
+
+  loadAnim(monster) {
+    for (let key of Object.keys(monster.animations)) {
+      if (key !== 'base' && key !== 'filetype' && key !== 'none') {
+        for (let i = 0; i < monster.animations[key].frames; i++) {
+          new Image().src = `${monster.animations[key].path}${i}${monster.animations.filetype}`;
+        }
+      }
+    }
+  }
+
+  loadEffects() {
+    for (let effect of Object.values(effectsTable)) {
+      for (let i = 0; i < effect.frames; i++) {
+        new Image().src = `${effect.path}${i}${effect.filetype}`;
+      }
+    }
   }
 
   fixMonster(monster) {
@@ -230,6 +296,7 @@ class Play extends React.Component {
       frames: 1
     }
     monster.effects = [0, 0, 0, 0, 0]
+    
     return monster;
   }
 
@@ -295,8 +362,8 @@ class Play extends React.Component {
                 newState = this.handleEffects(newState);
                 this.setState(newState)
                 this.idle(0, 0);
-              }, 1000);
-            }, 2000);
+              }, 500);
+            }, 1000);
           })));
         // newState = this.handleSwitch(newState);
         // newState = this.handleCombat(newState);
@@ -381,6 +448,7 @@ class Play extends React.Component {
           state.p2Team[state.p2Char].effects[3] -= 1;
         }
         break;
+      default:
     }
     this.setState(state);
     return state;
@@ -391,7 +459,8 @@ class Play extends React.Component {
       let effSpd1 = state.p1Team[state.p1Char].speed;
       let effSpd2 = state.p2Team[state.p2Char].speed;
       if (effSpd1 === effSpd2) {
-        if (Math.random() < 0.5) {
+        let rand = this.randInts.shift();
+        if (rand < 5) {
           effSpd1 += 1;
         } else {
           effSpd2 += 1;
@@ -473,9 +542,10 @@ class Play extends React.Component {
         case 4:
           turns = 4;
           break;
+        default:
       }
       target.effects[effect] = turns;
-      if (turns > 0) newState.log.push(`${target.name} is ${debuffTable[effect]} for ${turns >= 2 ? turns - 1 : turns} ${turns > 2 ? 'turns' : 'turn'} by ${move.name}.`)
+      if (turns > 0) newState.log.push(`${target.name} is ${debuffTable[effect]} for ${turns >= 2 ? turns - 1 : turns} ${turns > 2 ? 'turns' : 'turn'} by ${attacker.name}'s ${move.name}.`)
     }
     this.setState(newState);
     return newState;
@@ -708,7 +778,7 @@ class Play extends React.Component {
 
   makeMove(move, player) {
     // console.log('clicked makemove');
-    console.log(`${move} ${player}`);
+    // console.log(`${move} ${player}`);
     this.socket.emit('sendMoveToBack', { move: move, player: player, gameId: this.gameId });
   }
 
@@ -769,12 +839,13 @@ class Play extends React.Component {
     if ((this.state.p1 === this.currentUserId && this.state.p1Moved === false) || (this.state.p2 === this.currentUserId && this.state.p2Moved === false)) {
       return (
         <div id="game-moves">
+          <h3>Pick your move:</h3>
           <div id="character-moves">
             <ul id="character-moves-list">
               {this.state[`p${this.state.p1 === this.currentUserId ? '1' : '2'}Team`][this.state.p1 === this.currentUserId ? this.state.p1Char : this.state.p2Char].movespool.map((move, i) => <li key={`move-${i}`}><button onClick={(e) => this.makeMove(move, this.state.p1 === this.currentUserId ? 1 : 2)}>{move.name}</button></li>)}
             </ul>
           </div>
-          {((this.state.p1 === this.currentUserId && this.state.p1CanSwitch === true) || (this.state.p2 === this.currentUserId && this.state.p2CanSwitch === true)) ? <span id="switch-character"><button className="switch-button" onClick={() => this.sendSwitch(playerNum)}>Switch</button></span> : <span id="switch-character"><button disabled>Switch</button></span>}
+          {((this.state.p1 === this.currentUserId && this.state.p1CanSwitch === true) || (this.state.p2 === this.currentUserId && this.state.p2CanSwitch === true)) ? <span id="switch-character"><button className="switch-button" onClick={() => this.sendSwitch(playerNum)}>Tag Out</button></span> : <span id="switch-character"><button disabled>Tag Out</button></span>}
         </div>
       )
     } else {
@@ -795,7 +866,7 @@ class Play extends React.Component {
     return (
       <div id="game-logs-div">
         <ul name="game-logs" id="game-logs" cols="100" rows="10">
-          {logs.map(line => <li>{line}</li>)}
+          {logs.map((line, i) => <li key={`l${i}`}>{line}</li>)}
         </ul>
 
       </div>
@@ -814,7 +885,7 @@ class Play extends React.Component {
       return (
         <div id="gameplay-div">
           <div id="gameplay-header">
-            Room ID: <span>{this.gameId}</span>
+            Room ID: <span>{roomId}</span>
           </div>
           <div id="play-background">
             <div>
@@ -835,15 +906,32 @@ class Play extends React.Component {
             {this.renderMoves()}
             {this.renderLogs()}
           </div>
+
+
+          <div id="preload-div" style={{display: 'none', width: '0px', height: '0px'}}>  
+            {this.preloadImages()}
+          </div>
+
+          <audio id="bgm">
+            <source src="./black_banquet.mp3"></source>
+          </audio>
         </div>
       );
     } else {
-      return (<div className="loading-page">
+      return (
+      <div className="loading-page">
         <div id="gameplay-header">
           Room ID: <span>{roomId}</span>
         </div>
+
+        
+
+        <div id="preload-div" style={{ display: 'none', width: '0px', height: '0px' }}>
+          {this.preloadImages()}
+        </div>
         {/* <img src='./images/loading.jpg' alt="loading"/> */}
-      </div>)
+      </div>
+      );
     }
   }
 }
