@@ -84,7 +84,7 @@ class Search extends React.Component {
           </div>
           <div id="game-lobby">
             <div id="game-search-create">
-              <button onClick={() => this.createGame()} className="create-game">Create Game</button>
+              <button onClick={() => this.createGame()} className="create-game">Play vs Friend</button>
               <button onClick={() => this.createAIGame()} className="create-game">Play vs AI</button>
             </div>
 

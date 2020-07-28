@@ -7,7 +7,7 @@ import { monsterAnimations } from './monster_animations';
 const $ = window.$;
 
 const damageFormula = (monsterOne, move, monsterTwo) => {
-  return Math.round(monsterOne.attack * (move.strength) / monsterTwo.defense);
+  return Math.round(1.5 * monsterOne.attack * (move.strength) / monsterTwo.defense);
 };
 
 const switchMove = {
@@ -415,7 +415,7 @@ class Play extends React.Component {
     if (state.p1Team[state.p1Char].effects[1] > 0) {
       randInt = this.randInts.shift();
       if (randInt >= 7) {
-        state.p1Team[state.p1Char].currentHp -= 20;
+        state.p1Team[state.p1Char].currentHp -= 25;
         state.p1Move = uselessMove;
         state.log.push(`${state.p1Team[state.p1Char].name} is confused and hurt himself in his confusion!`);
       }
@@ -423,7 +423,7 @@ class Play extends React.Component {
     if (state.p2Team[state.p2Char].effects[1] > 0) {
       randInt = this.randInts.shift();
       if (randInt >= 7) {
-        state.p2Team[state.p2Char].currentHp -= 20;
+        state.p2Team[state.p2Char].currentHp -= 25;
         state.p2Move = uselessMove;
         state.log.push(`${state.p2Team[state.p2Char].name} is confused and hurt himself in his confusion!`);
       }
@@ -696,22 +696,22 @@ class Play extends React.Component {
     let p2Char = state.p2Team[state.p2Char];
     let damage;
     if (p1Char.effects[2] > 0) {
-      damage = Math.floor(p1Char.maxHp / 20);
+      damage = Math.floor(p1Char.maxHp / 10);
       p1Char.currentHp -= damage;
       state.log.push(`${p1Char.name} takes ${damage} damage from poison.`)
     }
     if (p2Char.effects[2] > 0) {
-      damage = Math.floor(p2Char.maxHp / 20);
+      damage = Math.floor(p2Char.maxHp / 10);
       p2Char.currentHp -= damage;
       state.log.push(`${p2Char.name} takes ${damage} damage from poison.`)
     }
     if (p1Char.effects[4] > 0) {
-      damage = Math.floor(p1Char.currentHp / 10);
+      damage = Math.floor(p1Char.currentHp / 5);
       p1Char.currentHp -= damage;
       state.log.push(`${p1Char.name} takes ${damage} damage from bleeding.`)
     }
     if (p2Char.effects[4] > 0) {
-      damage = Math.floor(p2Char.currentHp / 10);
+      damage = Math.floor(p2Char.currentHp / 5);
       p2Char.currentHp -= damage;
       state.log.push(`${p2Char.name} takes ${damage} damage from bleeding.`)
     }
