@@ -872,6 +872,7 @@ class Play extends React.Component {
       </div>
     )
   }
+  
 
   render() {
     let roomId;
@@ -923,9 +924,6 @@ class Play extends React.Component {
         <div id="gameplay-header">
           Room ID: <span>{roomId}</span>
         </div>
-
-        
-
         <div id="preload-div" style={{ display: 'none', width: '0px', height: '0px' }}>
           {this.preloadImages()}
         </div>

@@ -136,6 +136,7 @@
     border: 1px solid black;
     background-color: black;
     cursor: default;
+    width: 100px;
     /* background-color: yellow; */
 }
 
@@ -226,6 +227,16 @@
 
 .loading-page {
     background: url(../images/loading.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.loading-page2 {
+    background: url(../images/loading.gif);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
