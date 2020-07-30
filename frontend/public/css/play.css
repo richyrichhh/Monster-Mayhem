@@ -205,10 +205,19 @@
     color: white;
     font: 'Tahoma';
     overflow: hidden;
-    background: rgba(0, 0, 0, .5);
+    background: rgba(0, 0, 0, 0.75);
+    text-shadow: 1px 1px black;
     box-sizing: border-box;
     padding: 5px;
-    
+    cursor: default;
+}
+
+#game-logs > li::selection {
+    background: transparent;
+}
+
+#game-logs > li::-moz-selection {
+    background: transparent;
 }
 
 #gameplay-header {
@@ -235,7 +244,7 @@
     justify-content: center;
 }
 
-.loading-page2 {
+.loading-page .type2 {
     background: url(../images/loading.gif);
     background-repeat: no-repeat;
     background-position: center;

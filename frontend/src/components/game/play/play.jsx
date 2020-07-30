@@ -171,7 +171,7 @@ class Play extends React.Component {
     if (this.state.refresh) {
       this.refresh();
     }
-    if (this.state.log.length > 0) {
+    if (this.state.log.length > 0 && this.state.turn > 0) {
       let gameLogs = document.getElementById('game-logs'); 
       let xH = gameLogs.scrollHeight;
       gameLogs.scrollTo(0, xH);
@@ -223,7 +223,9 @@ class Play extends React.Component {
         state.p1Team = data[0];
         state.p2Team = data[1];
         this.setState(state);
-        
+        state.log.push(`----------------------`)
+        state.log.push(`Turn 1!`);
+        state.log.push(`----------------------`)
         // teams && this.game ? this.setState({ loaded: true }) : "";
       })
     });
@@ -359,6 +361,9 @@ class Play extends React.Component {
               newState.charStates = 'idle';
               newState.refresh = true;
               setTimeout(() => {
+                newState.log.push(`----------------------`)
+                newState.log.push(`Turn ${newState.turn}!`);
+                newState.log.push(`----------------------`)
                 newState = this.handleEffects(newState);
                 this.setState(newState)
                 this.idle(0, 0);
