@@ -235,7 +235,7 @@
 }
 
 .loading-page {
-    background: url(../images/loading.jpg);
+    background: url(../images/loading.gif);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -244,8 +244,8 @@
     justify-content: center;
 }
 
-.loading-page .type2 {
-    background: url(../images/loading.gif);
+.loading-page.type2 {
+    background: url(../images/loading.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;

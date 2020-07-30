@@ -180,6 +180,10 @@ class Play extends React.Component {
 
   initializeGame(data) {
     this.game = data.game.data;
+    if (!this.game.p2 && !this.state.loaded) {
+      let page = document.getElementsByClassName('loading-page');
+      page[0].className += ' type2';
+    }
     let newState = Object.assign({}, this.state);
     newState.p1 = this.game.host;
     newState.p2 = this.game.p2;
@@ -264,6 +268,7 @@ class Play extends React.Component {
 
     return (
       <div style={{display: 'none'}}>
+        <img width="1" height="1" src="./images/loading.jpg" alt="preload-loading" />
         {this.paths.map((path, i) => <img width="1" height="1" src={path} alt={`preload${i}`} />)}
       </div>
     )
