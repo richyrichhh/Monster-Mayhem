@@ -9,6 +9,10 @@
   /* background-color: rgb(49, 49, 49); */
 }
 
+.learn-div::-webkit-scrollbar { 
+  width: 0 !important 
+}
+
 .learn-background {
   z-index: -20;
   width: 100%;
