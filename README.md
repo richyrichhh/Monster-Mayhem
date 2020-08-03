@@ -94,14 +94,6 @@ io.on("connection", function (socket, data) {
     console.dir(data);
     io.to(data.gameId).emit("handleTurn", data);
   })
-
-  socket.on("leaveRoom", function (data) {
-    // Campaign.findById(data.campId).then(camp => {
-    //         io.to(camp.campKey).emit("renderChars", camp.campKey)
-    // })
-    // io.to(data.campKey).emit("renderChars")
-  })
-
 });
 ```
 
