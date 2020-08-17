@@ -1,6 +1,7 @@
 import React from 'react';
 import io from 'socket.io-client';
 import { monsterAnimations } from './monster_animations';
+import { monsters } from './monsters';
 
 // const path = require('path');
 
@@ -192,11 +193,12 @@ class Play extends React.Component {
     this.monsters = {};
     let p1load, p2load;
     // this.loadEffects();
-    this.props.fetchMonsters().then(data => {
-      for (let monster of data.monsters.data) {
-        this.monsters[monster._id] = monster;
-        // this.loadAnim(monster);
-      }
+    // this.props.fetchMonsters().then(data => {
+      // for (let monster of data.monsters.data) {
+      //   this.monsters[monster._id] = monster;
+      //   // this.loadAnim(monster);
+      // }
+      this.monsters = monsters;
       // console.dir(this.monsters);
       p1load = this.props.fetchTeam(this.game.host).then(data => {
         // console.dir(data.team.data.team)
@@ -232,7 +234,7 @@ class Play extends React.Component {
         state.log.push(`----------------------`)
         // teams && this.game ? this.setState({ loaded: true }) : "";
       })
-    });
+    // });
 
 
     // console.log(newState);
