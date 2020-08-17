@@ -92,6 +92,10 @@
   font-family: Metal Mania;
 }
 
+.dev-description::-webkit-scrollbar { 
+  width: 0 !important 
+}
+
 .dev-image {
   height: 100%;
   width: 30%;

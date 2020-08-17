@@ -3,7 +3,7 @@ Monster Mayhem is an online multiplayer battle arena game based on classic horro
 
 [Monster Mayhem Live](http://monstermayhem.herokuapp.com/)
 
-![home_page](splash.png)
+![home_page](https://github.com/nguyendarryl/Monster-Mayhem/blob/master/frontend/public/splash.png?raw=true)
 
 ## Technologies Used ##
 + Javascript
@@ -94,14 +94,6 @@ io.on("connection", function (socket, data) {
     console.dir(data);
     io.to(data.gameId).emit("handleTurn", data);
   })
-
-  socket.on("leaveRoom", function (data) {
-    // Campaign.findById(data.campId).then(camp => {
-    //         io.to(camp.campKey).emit("renderChars", camp.campKey)
-    // })
-    // io.to(data.campKey).emit("renderChars")
-  })
-
 });
 ```
 
