@@ -58,25 +58,6 @@ const footerBar = () => {
         </div>
       </div>
 
-      <div className="dev-1">
-        <div className="dev-name">
-          <h2> Darryl Nguyen</h2>
-        </div>
-        <div className="icons">
-          <a href="https://www.linkedin.com/in/nguyendarryl/" target="_blank" rel="noopener noreferrer">
-            <i className="fa fa-linkedin-square"></i>
-          </a>
-          <a href="https://github.com/nguyendarryl" target="_blank" rel="noopener noreferrer">
-            <i className="fa fa-github"></i>
-          </a>
-          <a href="https://github.com/nguyendarryl" target="_blank" rel="noopener noreferrer">
-            <i className="fa fa-angellist"></i>
-          </a>
-        </div>
-      </div>
-
-
-
     </div>
   );
 }

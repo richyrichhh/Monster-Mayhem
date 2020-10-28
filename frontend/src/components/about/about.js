@@ -13,27 +13,27 @@ class About extends React.Component {
         <div className="dev-info">
           <div className="left-dev">
             <div className="dev-container">
-              <img className="dev-image" src="./images/darryl_nguyen.jpg" alt=""/>
+              <img className="dev-image" src="./images/justin_fernandez.jpg" alt="" />
               <div className="dev-description">
-                <h2>Darryl Nguyen</h2>
+                <h2>Justin Fernandez</h2>
                 <br />
                 <h3>Fullstack Developer</h3>
                 <br />
-                {/* oahfgaongouanoiuaznj */}
+                {/* oahfgaongouanoiuaznjoznvje */}
                 <br />
                 <br />
                 <div className="icons">
                   <a
-                    href="https://www.linkedin.com/in/nguyendarryl/"
+                    href="https://www.linkedin.com/in/justin-fernandez-7a4727122/"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <i className="fa fa-linkedin-square"></i>
                   </a>
-                  <a href="https://github.com/nguyendarryl" target="_blank" rel="noopener noreferrer">
+                  <a href="https://github.com/Justinlf55" target="_blank" rel="noopener noreferrer">
                     <i className="fa fa-github"></i>
                   </a>
-                  <a href="https://github.com/nguyendarryl" target="_blank" rel="noopener noreferrer">
+                  <a href="https://angel.co/justin-fernandez-3" target="_blank" rel="noopener noreferrer">
                     <i className="fa fa-angellist"></i>
                   </a>
                 </div>
@@ -98,34 +98,7 @@ class About extends React.Component {
                 </div>
               </div>
             </div>
-
-            <div className="dev-container">
-              <img className="dev-image" src="./images/justin_fernandez.jpg" alt=""/>
-              <div className="dev-description">
-                <h2>Justin Fernandez</h2>
-                <br />
-                <h3>Fullstack Developer</h3>
-                <br />
-                {/* oahfgaongouanoiuaznjoznvje */}
-                <br />
-                <br />
-                <div className="icons">
-                  <a
-                    href="https://www.linkedin.com/in/justin-fernandez-7a4727122/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <i className="fa fa-linkedin-square"></i>
-                  </a>
-                  <a href="https://github.com/Justinlf55" target="_blank" rel="noopener noreferrer">
-                    <i className="fa fa-github"></i>
-                  </a>
-                  <a href="https://angel.co/justin-fernandez-3" target="_blank" rel="noopener noreferrer">
-                    <i className="fa fa-angellist"></i>
-                  </a>
-                </div>
-              </div>
-            </div>
+            
           </div>
         </div>
       </div>
